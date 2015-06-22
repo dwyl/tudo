@@ -1,0 +1,26 @@
+{
+  "name": "tudo",
+  "version": "1.0.0",
+  "description": "A single version of the truth with integrated task tracking, delegation and accountability.",
+  "main": "index.js",
+  "scripts": {
+    "test": "qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwyl/tudo.git"
+  },
+  "keywords": [
+    "task",
+    "tracking",
+    "github",
+    "issues",
+    "real-time"
+  ],
+  "author": "nelsonic <nodecoder@gmail.com> (https://github.com/nelsonic)",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/dwyl/tudo/issues"
+  },
+  "homepage": "https://github.com/dwyl/tudo"
+}
