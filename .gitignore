@@ -28,3 +28,5 @@ node_modules
 
 #holds the github api key very secret!
 issuesAPI/config.json 
+
+config.json
