@@ -22,7 +22,7 @@ transparent and real-time.
 
 ## Github API - issues
 
-You will temporarily need a config.json file (like below) to run this code.
+You will temporarily need a env.json file (like below) to run this code.
 ```
 {
     "GHAPIKEY": "your personal acccess token"
