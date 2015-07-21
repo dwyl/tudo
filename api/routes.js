@@ -1,7 +1,6 @@
 var riot    = require('riot');
 var Path    = require('path');
 var auth_handler = require('./handlers/github_auth');
-console.log(auth_handler)
 
 var routes = [
     {
@@ -15,12 +14,12 @@ var routes = [
     },
     {
         method: 'GET',
-        path:'/issues', 
+        path:'/issues',
         handler: require("./handlers/get-issues.js")
     },
     {
         method: 'GET',
-        path:'/login', 
+        path:'/login',
         handler: auth_handler
     }
 ];
