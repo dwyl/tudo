@@ -10,23 +10,23 @@ function hello_handler (request, reply) {
 }
 
 var routes = [
-    { 
-        method: 'GET', 
+    {
+        method: 'GET',
         path: '/hello/{name*}',
-        handler: hello_handler 
+        handler: hello_handler
     },
-    { 
-        method: 'GET', 
+    {
+        method: 'GET',
         path: '/{param*}',
-        handler: { 
-            directory: { 
+        handler: {
+            directory: {
                 path: Path.normalize(__dirname + '/')
             }
         }
     },
-    { 
-        method: 'GET', 
-        path:'/issues/{username}', 
+    {
+        method: 'GET',
+        path:'/issues', 
         handler: require("./handlers/get-issues.js")
     }
 ];

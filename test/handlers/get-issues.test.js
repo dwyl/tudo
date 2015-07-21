@@ -1,10 +1,9 @@
 var test = require("tape");
-var config = require("../../config.json");
 var server = require("../../server.js");
 
 var opts = {
     method: "GET",
-    url: "/issues/" + config.githubUsername
+    url: "/issues"
 };
 
 
