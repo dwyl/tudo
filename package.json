@@ -4,7 +4,13 @@
   "description": "A single version of the truth with integrated task tracking, delegation and accountability.",
   "main": "index.js",
   "scripts": {
-    "test": "qunit"
+    "quick": "./node_modules/tape/bin/tape ./test/*.js | node_modules/tap-spec/bin/cmd.js",
+    "test": "istanbul cover ./node_modules/tape/bin/tape ./test/*.js  | node_modules/tap-spec/bin/cmd.js",
+    "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.js && istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
+    "jshint": "./node_modules/jshint/bin/jshint -c .jshintrc --exclude-path .gitignore .",
+    "codeclimate": "CODECLIMATE_REPO_TOKEN=b0c99bdd9056513f9aa4f32f03d99f3c7d0bf72fcde0071d51a32ea7980b8ecb ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info",
+    "start": "./node_modules/.bin/nodemon server.js",
+    "report": "open coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",
@@ -34,8 +40,9 @@
   },
   "devDependencies": {
     "aguid": "^1.0.3",
-    "hapi": "^8.8.0",
     "codeclimate-test-reporter": "^0.1.0",
+    "decache": "^3.0.3",
+    "hapi": "^8.8.0",
     "istanbul": "^0.3.17",
     "jshint": "^2.8.0",
     "pre-commit": "^1.0.10",
@@ -45,15 +52,6 @@
   },
   "engines": {
     "node": ">=0.10"
-  },
-  "scripts": {
-    "quick": "./node_modules/tape/bin/tape ./test/*.js | node_modules/tap-spec/bin/cmd.js",
-    "test": "istanbul cover ./node_modules/tape/bin/tape ./test/*.js  | node_modules/tap-spec/bin/cmd.js",
-    "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.js && istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
-    "jshint": "./node_modules/jshint/bin/jshint -c .jshintrc --exclude-path .gitignore .",
-    "codeclimate": "CODECLIMATE_REPO_TOKEN=b0c99bdd9056513f9aa4f32f03d99f3c7d0bf72fcde0071d51a32ea7980b8ecb ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info",
-    "start": "./node_modules/.bin/nodemon server.js",
-    "report":"open coverage/lcov-report/index.html"
   },
   "pre-commit": [
     "jshint",
