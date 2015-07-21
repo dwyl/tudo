@@ -31,7 +31,38 @@ test("Deleting an issue by id", function (t) {
     DBHandlers.addIssue(redisClient, testIssue, function (errors, replies) {
         DBHandlers.deleteIssueById(redisClient, testIssue.id, function (errors, replies) {
             t.equal(errors, null, "delete errors null");
-            t.deepEqual(replies, [1,1], "1 deleteed from list and database respectively");
+            t.deepEqual(replies, [1,1], "1 deleted from set of issues and database respectively");
+            redisClient.end()
+            t.end();
+        });
+    });
+});
+
+test("Adding a user to DB", function (t) {
+    var redisClient = redisConfig(connection);
+    var testUser = {
+        id: 12345678,
+    };
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        t.equal(errors, null, "add errors null");
+        t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
+        DBHandlers.deleteUserById(redisClient, testUser.id, function (errors, replies) {
+            redisClient.end()
+            t.end();
+        });
+    });
+});
+
+test("Deleting a user by id", function (t) {
+    var redisClient = redisConfig(connection);
+    var testUser = {
+        id: 23456789,
+    };
+
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.deleteUserById(redisClient, testUser.id, function (errors, replies) {
+            t.equal(errors, null, "delete errors null");
+            t.deepEqual(replies, [1,1], "1 deleted from set of users and database respectively");
             redisClient.end()
             t.end();
         });
