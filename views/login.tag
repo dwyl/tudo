@@ -1,6 +1,6 @@
 <login>
   <h1>Welcome to <strong>Tudo</strong>  <i class="large material-icons">done_all</i> </h1>
-  <h5>The tool that helps you <strong><i>organise</i> your GitHub issues</strong>!</h5>
+  <h5>The tool that helps you <strong><i>organise, prioritise &amp; visualise</i> GitHub issues</strong>!</h5>
   <div>
     <img src='http://i.imgur.com/OpgVViO.jpg' />
     <br />

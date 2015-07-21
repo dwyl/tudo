@@ -33,7 +33,7 @@ And then change the values as required.
 
 ### GitHub Authentication
 
-+ We are using Bell for our authentication: https://github.com/hapijs/bell
+~~ We are using Bell for our authentication: https://github.com/hapijs/bell ~~
 + https://developer.github.com/guides/basics-of-authentication/
 
 

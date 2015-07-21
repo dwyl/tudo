@@ -13,30 +13,33 @@ var views = require('./views');
 
 function hello_handler (request, reply) {
 	var html = riot.render(views.hello, {name: request.params.name})
-	console.log(html);
 	return reply(html);
 }
 
 function auth_handler (request, reply) {
+	if(request.auth.credentials) {
+		console.log(' - - - - - - - - - - - - - - - - - - - -')
+		console.log(request.auth.credentials)
+		console.log(' - - - - - - - - - - - - - - - - - - - -')
+	}
 	var body = riot.render(views.login, {GITHUB_CLIENT_ID : process.env.GITHUB_CLIENT_ID })
-	console.log(body);
 	reply(views.header + body + views.footer);
 }
-
-server.register(require('bell'), function(err){
-    server.auth.strategy('github', 'bell', {
-        provider: 'github',
-        password: 'password',
-        clientId: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        isSecure: false, // please confirm which of these permissions we need ...
-        // scope: ['write', 'read:org', 'user', 'admin:org', 'write:org', 'repo', 'read:repo_hook', 'write:repo_hook'],
-				scope: ['repo'],
-        providerParams: {
-            redirect_uri: server.info.uri + '/login'
-        }
-    });
-});
+//
+// server.register(require('bell'), function(err){
+//     server.auth.strategy('github', 'bell', {
+//         provider: 'github',
+//         password: 'password',
+//         clientId: process.env.GITHUB_CLIENT_ID,
+//         clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//         isSecure: false, // please confirm which of these permissions we need ...
+//         // scope: ['write', 'read:org', 'user', 'admin:org', 'write:org', 'repo', 'read:repo_hook', 'write:repo_hook'],
+// 				scope: ['repo'],
+//         providerParams: {
+//             redirect_uri: server.info.uri + '/login'
+//         }
+//     });
+// });
 
 server.route([
 	{ method: 'GET', path: '/login',          handler: auth_handler },
