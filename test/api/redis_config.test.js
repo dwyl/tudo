@@ -13,5 +13,6 @@ test("Connecting to local database", function (t) {
     redisClient.get('TEST', function(err, reply){
         t.equal(reply, 'LOCAL', 'Database sets and gets correctly');
     })
+    redisClient.end();
     t.end();
 });
