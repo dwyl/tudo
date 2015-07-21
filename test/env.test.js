@@ -5,6 +5,7 @@ var envfile = path.resolve(__dirname + '/../env.json');
 var sample  = path.resolve(__dirname + '/../env.json_sample');
 var tempenv = './tempenv.json';
 var decache = require('decache');
+var ENVCOPY = {};
 
 test("TEMPORARILY RENAME env.json file to force the try/catch error in lib/env.js", function(t) {
   require('../lib/env');
@@ -12,10 +13,6 @@ test("TEMPORARILY RENAME env.json file to force the try/catch error in lib/env.j
   try {
     if(require(envfile)) { // check if the file exists!
       var env = require(envfile);
-      var keys = Object.keys(env)
-      keys.map(function(k){
-        delete process.env[k];
-      });
       fs.renameSync(envfile, tempenv);
       decache(envfile);
     }
@@ -24,6 +21,13 @@ test("TEMPORARILY RENAME env.json file to force the try/catch error in lib/env.j
     console.log(envfile + ' NOT exist!')
     // do nothing!. if it failed that's fine!
   }
+  // make a copy of all the environment variables so we can restore them below
+  var keys = Object.keys(process.env)
+  keys.map(function(k) {
+    ENVCOPY[k] = process.env[k];
+    delete process.env[k];
+  });
+
   decache('../lib/env');
   require('../lib/env'); // this should spit out an error message now!
   // console.log(" - - - - - > " +process.env.GITHUB_CLIENT_ID);
@@ -48,6 +52,11 @@ test("CREATE the env.json file from env.json_sample if it does not exist", funct
     }
     // require the ./lib/env.js and expect it to work!
     require('../lib/env');
+    // restore environment variables from ENVCOPY for travis-ci ...
+    var keys = Object.keys(ENVCOPY);
+    keys.map(function(k){
+      process.env[k] = ENVCOPY[k];
+    });
     t.ok(process.env.GITHUB_CLIENT_ID, "GITHUB_CLIENT_ID environment variable is set!");
     t.end();
   },100);
