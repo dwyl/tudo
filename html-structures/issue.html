@@ -1,0 +1,54 @@
+<html lang=”en-GB”>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <link rel="stylesheet" href="../main.css" type='text/css'>
+
+    <!--FontAwesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <title>Tudo</title>
+  </head>
+  <body>
+    <!--main page-->
+    <nav>
+      <div class="heading">
+        <!--Issue "number" in {00}-->
+        <h1>Issue #{00}</h1>
+        <p><!--From repository.full_name-->{org/repo}</p>
+      </div>
+    </nav>
+
+    <section class="main-info">
+      <div class="issue-title">
+        <h2>{title}</h2>
+        <div class="created-info">
+          <p>created by {user.login}, {created_at}</p>
+        </div>
+      </div>
+      <div class="labels">
+        {labels.name} <!--colour added via JS-->
+      </div>
+    </section>
+
+    <section class="comments">
+      <div class="toggle">
+        <label for="latest-comment">Latest comment</label>
+        <input type="checkbox" id="latest-comment"/>
+        <label for="all-comments">Latest comment</label>
+        <input type="checkbox" id="all-comments"/>
+      </div>
+
+      <div class="show-latest-comment">
+        Latest comment
+      </div>
+
+      <div class="show-all-comments">
+        ALL THE COMMENTS
+      </div>
+
+    </section>
+
+  </body>
+</html>
