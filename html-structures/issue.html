@@ -15,7 +15,7 @@
     <nav>
       <div class="heading">
         <!--Issue "number" in {00}-->
-        <h1>Issue #{00}</h1>
+        <h2>Issue #{00}</h2>
         <p><!--From repository.full_name-->{org/repo}</p>
       </div>
     </nav>
@@ -24,20 +24,25 @@
       <div class="issue-title">
         <h2>{title}</h2>
         <div class="created-info">
-          <p>created by {user.login}, {created_at}</p>
+          <p>created by <span class="username">{user.login}</span>, {created_at}</p>
         </div>
       </div>
       <div class="labels">
-        {labels.name} <!--colour added via JS-->
+        <p>{labels.name}</p> <!--colour added via JS-->
+        <p>{labels.name}</p> <!--colour added via JS-->
+        <p>{labels.name}</p> <!--colour added via JS-->
+      </div>
+      <div class="issue-description">
+        {body}
       </div>
     </section>
 
     <section class="comments">
       <div class="toggle">
         <label for="latest-comment">Latest comment</label>
-        <input type="checkbox" id="latest-comment"/>
-        <label for="all-comments">Latest comment</label>
-        <input type="checkbox" id="all-comments"/>
+        <input type="radio" id="latest-comment" name="toggle" checked="checked"/>
+        <label for="all-comments">All comment</label>
+        <input type="radio" id="all-comments" name="toggle"/>
       </div>
 
       <div class="show-latest-comment">

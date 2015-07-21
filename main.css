@@ -31,13 +31,13 @@ h1, h2, h3, h4, p {
 
 nav {
   background-color: #00BCD4;
+  padding: 0.5em;
   width: 100%;
 }
 
 h1 {
   color: #ffffff;
   font-size: 1.5em;
-  padding: 0.5em;
   text-align: center;
 }
 
@@ -91,6 +91,55 @@ h1 {
       height: 2em;
       padding: 0.4em;
     }
+
+/*==============================
+  Issue Display
+================================*/
+
+.heading > h2 {
+  color: #ffffff;
+  text-align: center;
+}
+
+.heading > p {
+  color: #ffffff;
+  text-align: center;
+}
+
+.issue-title > h2 {
+  background: #ffffff;
+  border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
+  margin: 0.5em 0 0.2em 0;
+  padding: 0.6em 0.8em;
+}
+
+.created-info {
+  font-size: 0.8em;
+}
+
+  .username { /* use of span to be revisited */
+    font-weight: bold;
+  }
+
+.labels {
+  margin: 0.4em 0;
+  padding: 0.2em;
+}
+
+  .labels > p {
+    background-color: grey;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0.2em;
+  }
+
+.issue-description {
+  border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
+}
 
 /*==============================
   Colours
