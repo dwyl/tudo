@@ -26,7 +26,5 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-#holds the github api key very secret!
-issuesAPI/config.json 
-
+#temporary store the github api token
 config.json

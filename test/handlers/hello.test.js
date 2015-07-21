@@ -12,5 +12,6 @@ test("Hello World Test!", function(t) {
     t.equal(response.statusCode, 200, "Everything Works as expected!");
     t.equal(response.result, '<hello>Hello Benji!</hello>', "Response is Hello Benji!")
     t.end();
+    server.stop();
   });
 });
