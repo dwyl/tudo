@@ -18,7 +18,6 @@ delegation and follow-through were *sub-optimal*.
 which is *always* consistent, version-controlled (*full audit/history*),
 transparent and real-time.
 
-## Run the APP
 
 ### Required Environment Variables
 
@@ -49,16 +48,21 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 ![heroku-config-variables](https://cloud.githubusercontent.com/assets/194400/8795158/59ca2e06-2f82-11e5-81f4-07dee9bb3d4b.png)
 
 
-## Background Reading
-
-### GitHub Authentication
-
-~~ We are using Bell for our authentication: https://github.com/hapijs/bell ~~
-+ https://developer.github.com/guides/basics-of-authentication/
-
-
-## tl;dr
-
-### name ?
+### name
 
 > see: https://translate.google.com/#pt/en/tudo
+
+
+## Github API - issues
+
+You will temporarily need a env.json file (like below) to run this code.
+```
+{
+    "GHAPIKEY": "your personal acccess token"
+}
+```
+The only issues you will be able to get (for now) are issues assigned to you by visiting localhost:8000/issues
+
+This begins our exploration into the Github API - Issues.
+
+Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleIssue.json provided.

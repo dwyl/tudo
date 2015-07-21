@@ -1,11 +1,10 @@
-require('./lib/env'); // initialise environment variables
 var Hapi = require('hapi');
-var Path = require('path');
 var server = new Hapi.Server();
+
 
 server.connection({
 	host: '0.0.0.0',
-	port: Number(process.env.PORT)
+	port: Number(process.env.PORT || 8000)
 });
 
 var riot = require('riot');
@@ -27,18 +26,10 @@ function auth_handler (request, reply) {
 	reply(views.header + body + views.footer);
 }
 
-server.route([
-	{ method: 'GET', path: '/login',          handler: auth_handler },
-  { method: 'GET', path: '/hello/{name*}',  handler: hello_handler },
-	{ method: 'GET', path: '/',               handler: auth_handler },
-  { method: 'GET', path: '/{param*}', handler: { directory: { path: Path.normalize(__dirname + '/') } } }
-]);
+server.route(require('./api/routes.js'));
 
 server.start(function () {
-	// require('./lib/chat').init(server.listener, function(){
-	// 	console.log(process.env.REDISCLOUD_URL);
-		console.log('Got issues...?', 'listening on: http://127.0.0.1:'+process.env.PORT);
-	// });
+	console.log('Have you got issues...?' + server.info.uri);
 });
 
 module.exports = server;
