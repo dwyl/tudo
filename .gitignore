@@ -28,3 +28,4 @@ node_modules
 
 #store our secret stuff!
 env.json
+tempenv.json
