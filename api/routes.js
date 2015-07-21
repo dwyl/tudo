@@ -1,20 +1,9 @@
 var riot    = require('riot');
 var Path    = require('path');
-
-// Temp code
-function hello_handler (request, reply) {
-    var views   = require('../views');
-    var html = riot.render(views.hello, {name: request.params.name})
-
-    return reply(html);
-}
+var auth_handler = require('./handlers/github_auth');
+console.log(auth_handler)
 
 var routes = [
-    {
-        method: 'GET',
-        path: '/hello/{name*}',
-        handler: hello_handler
-    },
     {
         method: 'GET',
         path: '/{param*}',
@@ -28,6 +17,11 @@ var routes = [
         method: 'GET',
         path:'/issues', 
         handler: require("./handlers/get-issues.js")
+    },
+    {
+        method: 'GET',
+        path:'/login', 
+        handler: auth_handler
     }
 ];
 

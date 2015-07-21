@@ -27,6 +27,7 @@ To run this app you will need to set the following
 + PORT
 + GITHUB_CLIENT_ID
 + GITHUB_CLIENT_SECRET
++ GITHUB_KEY  (this is only temporary)
 
 #### Local Machine (_use an `env.json` file_)
 
