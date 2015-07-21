@@ -1,12 +1,9 @@
-var test = require("tape");
+require('../lib/env.js');
+var test        = require("tape");
+var url         = require('url');
 var redisConfig = require("../lib/redis_config");
-var DBHandlers = require("../api/DBHandlers.js");
-
-var connection = {
-    port: 6379,
-    host: '127.0.0.1'
-};
-
+var DBHandlers  = require("../api/DBHandlers.js");
+var connection  = url.parse(process.env.REDISCLOUD_URL);
 
 test("Adding an issue to DB", function (t) {
     var redisClient = redisConfig(connection);
