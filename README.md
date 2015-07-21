@@ -71,7 +71,7 @@ _Features such as search, prioritisation, creation of issues and creation of lab
 #####Cards vs rows
 Many conversations were had on this visual difference between items as 'cards' or items as 'rows'.
 
-<img width="876" alt="cards-vs-rows" src="https://cloud.githubusercontent.com/assets/4185328/8796177/99547308-2f8a-11e5-96c8-d9bf5fc1c863.png">
+<img width="899" alt="screen shot 2015-07-21 at 19 43 34" src="https://cloud.githubusercontent.com/assets/4185328/8809534/2effbd4e-2fe1-11e5-91d8-46adf0210549.png">
 
 _Cards_ encourage people to move them around and provide a greater visual differentiation between the various items. This will only become relevant if issues can be picked up and moved around to redetermine prioritisation.
 
