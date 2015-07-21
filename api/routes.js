@@ -15,7 +15,7 @@ var routes = [
     },
     {
         method: 'GET',
-        path:'/issues', 
+        path:'/issues/{filter*}', 
         handler: require("./handlers/get-issues.js")
     },
     {

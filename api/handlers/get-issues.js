@@ -1,19 +1,26 @@
-var getIssues = {
+var Wreck = require('wreck');
+var Boom = require('boom');
 
-    proxy: {
+function getIssues (request, reply) {
 
-        mapUri: function (request, callback) {
-            var url = "https://api.github.com/issues";
-            // both the header values are temporary until we have github auth
-            var headers = {
-                'Authorization': 'token ' + process.env.GITHUB_KEY ,
-                'User-Agent': "" //makes no sense at all
-            }
-
-            callback(null, url, headers);
-        },
+    var filter = request.params.filter;
+    var url = "https://api.github.com/issues?filter=" + filter;
+    var options = {
+        json: true,
+        headers: {
+            'Authorization': 'token ' + process.env.GITHUB_KEY,
+            'User-Agent': ""
+        }
     }
+
+    Wreck.get(url, options, function (err, res, payload) {
+
+        if (err || payload.hasOwnProperty('errors')) {
+            return reply(Boom.badRequest("Sorry, that option does not exist."));
+        }
+
+        reply(payload);
+    });
 }
-console.log(process.env.GITHUB_KEY)
 
 module.exports = getIssues;
