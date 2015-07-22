@@ -88,3 +88,34 @@ The only issues you will be able to get (for now) are issues assigned to you by 
 This begins our exploration into the Github API - Issues.
 
 Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleOfBasicIssue.json provided. This is only basic does not have comments on and therefore a further request to the github API is needed to decorate further.
+
+###**Glossary**
+
+####Labels
+
+Labels are used to organise issues into logical groups. An issue can have multiple labels. GitHub provide us with the following examples:
+ 
+
+ - **bug:** *a software defect (incorrect step, process or data definition) that causes a failure.*
+ - **duplicate**: *when the same GitHub issue has been created twice.*
+ - **enhancement**: *is an improvement to a repository( this can be a new feature or a refinement of the code and file structure)*
+ - **help wanted**: *a request for external contribution to an issue with defined objectives from someone within your organization or the GitHub community.*
+ - **invalid**: *issue is not relevant.*
+ - **question**: *A question relating to a repository.*
+ - **wontfix**: *a refusal from another person to fix an issue.*
+
+We think issue categorisation through the use of labels can really improve organisation. Here are a few of the dwyl provided labels that we find useful:
+
+####Time
+- **time-estimate:{time in minutes}**:  *the estimated time that you think is needed to complete an issues objectives.*
+- **time-actual:{time in minutes}**: *the actual time that it took for an issues objectives to be completed.*
+- **time-unestimated**: *when the an issue has no time-estimate.*
+####Priority
+- **priority-1**: * the contents of an issue are of highest priority and if it contains tasks they must be completed asap (an example would be a bug which has crashed a live application) .*
+- **priority-2**: *not as high a priority as priority-1 but still pretty important.*
+- **priority-3**: *issues labeled with this are not very important this could include a minor amendment to a sites contents.*
+
+####Other
+
+ - **ice-box**: *issues that do not have to be acted upon until a later date. *
+ - **dependency**: *when an something external is preventing an issue from being completed.*
