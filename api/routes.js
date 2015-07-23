@@ -12,9 +12,30 @@ var routes = [
             }
         }
     },
+
     {
         method: 'GET',
-        path:'/login',
+        path:'/labels',
+        handler: require("./handlers/LabelsCtrl.js").get
+    },
+    {
+        method: 'POST',
+        path:'/labels',
+        handler: require("./handlers/LabelsCtrl.js").create
+    },
+    {
+        method: 'PUT',
+        path:'/labels',
+        handler: require("./handlers/LabelsCtrl.js").update
+    },
+    {
+        method: 'DELETE',
+        path:'/labels/{name}',
+        handler: require("./handlers/LabelsCtrl.js").remove
+    },
+    {
+        method: 'GET',
+        path:'/login', 
         handler: auth_handler
     }
 ];

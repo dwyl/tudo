@@ -1,0 +1,56 @@
+<html lang=”en-GB”>
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <link rel="stylesheet" href="../main.css" type='text/css'>
+
+    <!--FontAwesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <title>Tudo</title>
+  </head>
+  <body>
+    <!--main page-->
+    <nav>
+      <a href="/"><i class="fa fa-home fa-2x"></i></a>
+      <div class="heading">
+        <!--Issue "number" in {00}-->
+        <h2>Issue #{00}</h2>
+        <p><!--From repository.full_name-->{org/repo}</p>
+      </div>
+    </nav>
+
+    <section class="main-info">
+      <div class="issue-title">
+        <h2>{title}</h2>
+        <div class="created-info">
+          <p>created by <span class="username">{user.login}</span>, {created_at}</p>
+        </div>
+      </div>
+      <div class="labels">
+        <p>{labels.name}</p> <!--colour added via JS-->
+        <p>{labels.name}</p> <!--colour added via JS-->
+        <p>{labels.name}</p> <!--colour added via JS-->
+      </div>
+      <div class="issue-description">
+        {body}
+      </div>
+    </section>
+
+    <section class="comments">
+      <!--The 'latest comment/show all comments' toggle will appear here later, but for now does not make sense until we have the option of displaying both-->
+
+      <div class="show-latest-comment">
+         <p><span class="username">{username-of-comment-author-goes-here}</p>
+        <p>Latest comment goes here</p>
+      </div>
+
+      <div class="show-all-comments">
+        ALL THE COMMENTS - THESE ARE CURRENTLY HIDDEN USING CSS AS NOT PART OF THE MVP!
+      </div>
+
+    </section>
+
+  </body>
+</html>

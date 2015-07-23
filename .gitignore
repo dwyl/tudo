@@ -1,3 +1,6 @@
+# .DS_Store
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -28,3 +31,7 @@ node_modules
 
 #store our secret stuff!
 env.json
+tempenv.json
+
+#redis dump
+dump.rdb
