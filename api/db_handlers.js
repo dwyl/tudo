@@ -19,7 +19,7 @@ function addIssue (client, obj, callback) {
 function addIssueToUserList (client, username, issueId, lastUpdateTime, callback) {
     var timeMS = Date.parse(lastUpdateTime);
 
-    client.zadd(username + ":issues", timeMS, issueId, callback)
+    client.zadd(username + ":issues", timeMS, issueId, callback);
 }
 
 function addIssuesByUsername (client, username, issuesArray, callback) {
@@ -41,7 +41,7 @@ function getIssueListByUsername (client, username, callback) {
 function getIssuesByList (client, issueList, callback) {
     var multi = client.multi();
     issueList.forEach(function (issueId) {
-      multi.hgetall("issue:" + issueId)
+      multi.hgetall("issue:" + issueId);
     });
     multi.exec(function (err, replies) {
       return callback(err, replies);
