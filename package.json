@@ -12,6 +12,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "report": "open coverage/lcov-report/index.html"
+
   },
   "repository": {
     "type": "git",

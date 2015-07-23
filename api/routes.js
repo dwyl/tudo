@@ -42,6 +42,13 @@ var routes = [
         path:'/login', 
         handler: auth_handler
     }
+    // {
+    //     method: 'POST',
+    //     path:'/main', 
+    //     handler: function (request, reply) {
+    //         console.log(request.payload);
+    //     }
+    // }
 ];
 
 module.exports = routes;
