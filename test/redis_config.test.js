@@ -11,6 +11,7 @@ test("Connecting to local database", function (t) {
     redisClient.set('TEST', 'REMOTE');
     redisClient.get('TEST', function (err, reply) {
         t.equal(reply, 'REMOTE', 'Database sets and gets correctly');
+        redisClient.del('TEST');
         redisClient.end();
         t.end();
     })
