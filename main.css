@@ -31,15 +31,26 @@ h1, h2, h3, h4, p {
 
 nav {
   background-color: #00BCD4;
+  padding: 0.5em;
   width: 100%;
 }
 
 h1 {
   color: #ffffff;
   font-size: 1.5em;
-  padding: 0.5em;
   text-align: center;
 }
+
+  nav i{
+    align: left;
+    color: #ffffff;
+    display: inline-block;
+    }
+  
+  .heading{
+    display: inline-block;
+    padding-left: 4em; /*TEMPORARY CSS - need to figure out horizontal alignment*/
+  }
 
 /*==============================
   Categories
@@ -91,6 +102,81 @@ h1 {
       height: 2em;
       padding: 0.4em;
     }
+
+/*==============================
+  Issue View
+================================*/
+
+.heading > h2 {
+  color: #ffffff;
+  text-align: center;
+}
+
+.heading > p {
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Issue main-info */
+
+.issue-title > h2 {
+  background: #ffffff;
+  border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
+  margin: 0.5em 0 0.2em 0;
+  padding: 0.6em 0.5em;
+}
+
+.created-info {
+  font-size: 0.8em;
+  padding: 0 0.4em;
+}
+
+  .username { /* use of span to be revisited */
+    font-weight: bold;
+  }
+
+.labels {
+  margin: 0.4em 0;
+  padding: 0.2em 0.4em;
+}
+
+  .labels > p {
+    background-color: grey;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0.2em;
+  }
+
+.issue-description {
+  background-color: #ffffff;
+  border-bottom: 1px solid #bdbdbd;
+  border-top: 1px solid #bdbdbd;
+  padding: 0.6em 0.4em;
+}
+
+/*Issue comments*/
+.comments{
+  padding: 0.6em 0.4em;
+  background-color: #ffffff;
+  border-bottom: 1px solid #bdbdbd;
+  border-top: 1px solid #bdbdbd;
+  /*TEMPORARY CSS until we have a latest comment/show all comments toggle*/
+  margin-top: 0.5em;
+}
+
+  .show-latest-comment > p {
+    margin-bottom:0.4em;
+  }
+
+  
+
+  /*TEMPORARY CSS*/
+  .show-all-comments{
+    display: none;
+  }
 
 /*==============================
   Colours
