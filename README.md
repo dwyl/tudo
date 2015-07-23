@@ -96,7 +96,7 @@ Issues will be returned in an array. If you would like to see  an example of an 
 ####Labels
 
 Labels are used to organise issues into logical groups. An issue can have multiple labels. GitHub provide us with the following examples:
- 
+
 
  - **bug:** *a software defect (incorrect step, process or data definition) that causes a failure.*
  - **duplicate**: *when the same GitHub issue has been created twice.*
@@ -121,3 +121,7 @@ We think issue categorisation through the use of labels can really improve organ
 
  - **ice-box**: *issues that do not have to be acted upon until a later date. *
  - **dependency**: *when an something external is preventing an issue from being completed.*
+
+##Components
+
+Components for the login, home and issue page are located in the views/tags folder. All tags are rendered on the server side by using the render function from Riot.js.
