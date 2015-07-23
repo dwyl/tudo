@@ -13,6 +13,7 @@
   <body>
     <!--main page-->
     <nav>
+      <a href="/"><i class="fa fa-home fa-2x"></i></a>
       <div class="heading">
         <!--Issue "number" in {00}-->
         <h2>Issue #{00}</h2>
@@ -38,19 +39,15 @@
     </section>
 
     <section class="comments">
-      <div class="toggle">
-        <label for="latest-comment">Latest comment</label>
-        <input type="radio" id="latest-comment" name="toggle" checked="checked"/>
-        <label for="all-comments">All comment</label>
-        <input type="radio" id="all-comments" name="toggle"/>
-      </div>
+      <!--The 'latest comment/show all comments' toggle will appear here later, but for now does not make sense until we have the option of displaying both-->
 
       <div class="show-latest-comment">
-        Latest comment
+         <p><span class="username">{username-of-comment-author-goes-here}</p>
+        <p>Latest comment goes here</p>
       </div>
 
       <div class="show-all-comments">
-        ALL THE COMMENTS
+        ALL THE COMMENTS - THESE ARE CURRENTLY HIDDEN USING CSS AS NOT PART OF THE MVP!
       </div>
 
     </section>
