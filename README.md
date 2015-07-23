@@ -91,12 +91,40 @@ This begins our exploration into the Github API - Issues.
 
 Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleOfBasicIssue.json provided. This is only basic does not have comments on and therefore a further request to the github API is needed to decorate further.
 
+## Database Structure
+
+Issues and Users are stored as hashes in Redis.  
+A user's list of issues is stored as a sorted (by date of update) set.  
+All users are also stored in an unsorted set.
+
+An issue hash has the following properties:
++ id  
++ created_by
++ owner_name
++ repo_name
++ title
++ first_line
++ labels
+ + name
+ + color
++ updated_at
++ created_at
++ last_comment
++ number_of_comments
++ issue_number
++ assignee
+
+A user hash has the following properties:
++ username
+
+To get a users issues, we have the function in _fetch_issues_by_user.js_, which adds the user to the database if they don't already exist, and gets their issues, from the database if they are there, otherwise from the github api.
+
 ###**Glossary**
 
 ####Labels
 
 Labels are used to organise issues into logical groups. An issue can have multiple labels. GitHub provide us with the following examples:
- 
+
 
  - **bug:** *a software defect (incorrect step, process or data definition) that causes a failure.*
  - **duplicate**: *when the same GitHub issue has been created twice.*
