@@ -1,5 +1,3 @@
-
-
 function addUser (client, obj, callback) {
     var multi  = client.multi();
 
@@ -13,7 +11,6 @@ function addUser (client, obj, callback) {
 function getUserByUsername (client, username, callback) {
     client.hgetall("user:" + username, callback);
 }
-
 
 function addIssue (client, obj, callback) {
     client.hmset("issue:" + obj.id, obj, callback);
@@ -30,7 +27,7 @@ function addIssuesByUsername (client, username, issuesArray, callback) {
 
     issuesArray.forEach(function (issue) {
         addIssue(multi, issue);
-        addIssueToUserList(multi, username, issue.id, issue.updated_at, function(err, reply){console.log(err, reply)});
+        addIssueToUserList(multi, username, issue.id, issue.updated_at);
     })
     multi.exec(function (errors, replies) {
         return callback(errors, replies);
@@ -53,7 +50,7 @@ function getIssuesByList (client, issueList, callback) {
 
 function getIssuesByUsername (client, username, callback) {
     getIssueListByUsername(client, username, function(err, data) {
-        getIssuesByList (client, data, callback);
+        getIssuesByList(client, data, callback);
     })
 }
 
