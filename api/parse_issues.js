@@ -9,7 +9,7 @@ function parseIssues (issues) {
 
     var issuesArray = issues.map(function(element) {
         return {
-            id: element.id,
+            id: element.id.toString(),
             created_by: element.user.login,
             owner_name: element.repository.full_name.split('/')[0],
             repo_name: element.repository.full_name.split('/')[1],
@@ -24,8 +24,8 @@ function parseIssues (issues) {
             updated_at: element.updated_at,
             created_at: element.created_at,
             last_comment: element.comment_items.length > 0 ? element.comment_items[element.comment_items.length - 1].body : "",
-            number_of_comments: element.comments,
-            issue_number: element.number,
+            number_of_comments: element.comments.toString(),
+            issue_number: element.number.toString(),
             assignee: element.assignee.login
         }
     });
