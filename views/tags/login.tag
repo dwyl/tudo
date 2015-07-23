@@ -1,12 +1,15 @@
 <login>
-  <div>
-    <h1>Welcome to <strong>Tudo</strong>  <i class="large material-icons">done_all</i> </h1>
-    <h5>The tool that helps you <strong><i>organise, prioritise &amp; visualise</i> GitHub issues</strong>!</h5>
-    <div>
-      <img src='http://i.imgur.com/OpgVViO.jpg'/>
-      <form action ='/main' method= 'post'>
-        <input name='input' placeholder="Github username"/>
-        <button type='submit'>get issues</button>
+  <div class="landing-page">
+    <header>
+      <i class="fa fa-check"></i>
+      <h1>Tudo</h1>
+      <h5>The tool that helps you <span>organise, prioritise &amp; visualise</span> GitHub issues!</h5>
+    </header>
+    <div class="signin">
+      <form action ="/main" method= "post">
+        <label for="username-input">Please enter your GitHub username here to begin:</label>
+        <input class="username-input" name="username-input" placeholder="Github username"/>
+        <button type="submit">Show me my issues</button>
       </form>
     </div>
   </div>

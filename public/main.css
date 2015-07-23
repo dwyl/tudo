@@ -21,9 +21,70 @@ body{
   font-size:1em;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p, form {
+  font-weight: lighter;
   margin: 0;
 }
+
+/*==============================
+  Landing Page
+================================*/
+
+.landing-page {
+  background: #00BCD4;
+  color: #FFFFFF;
+  height: 100%;
+}
+
+header{
+  padding: 3em 2em;
+  text-align: center;
+}
+
+  header > h1 {
+    display: inline-block;
+    font-size: 4em;
+    font-weight: normal;
+    padding: 0 0.3em;
+  }
+
+  header > h5 {
+    font-size: 1em;
+  }
+
+.signin {
+  background: #4DD0E1;
+  border: solid 1px #E0F7FA;
+  margin: 0 auto;
+  padding: 1em;
+  width: 80%;
+}
+
+  .signin > form {
+    text-align: center;
+  }
+
+  .signin label {
+    display: block;
+    font-size: 1.2em;
+  }
+
+  .signin input {
+    border: solid 1px #E0F7FA;
+    font-size: 1em;
+    margin: 0.8em 0;
+    padding: 0.5em;
+  }
+
+  .signin button {
+    background-color: #4CAF50;
+    border: solid 1px #4CAF50;
+    /*border: 0;*/
+    border-radius:0;
+    color: #FFFFFF;
+    font-size: 1em;
+    padding: 0.5em 0.8em;
+  }
 
 /*==============================
   Nav
