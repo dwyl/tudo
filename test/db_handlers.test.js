@@ -31,6 +31,7 @@ test("Adding a user to DB", function (t) {
         t.equal(errors, null, "add errors null");
         t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
         redisClient.del("user:" + testUser.username);
+        redisClient.srem("users", testUser.username);
         t.end();
     });
 });
@@ -39,6 +40,17 @@ test("Get user by username", function (t) {
     DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
         DBHandlers.getUserByUsername(redisClient, testUser.username, function(errors, replies) {
             t.deepEqual(replies, testUser);
+            redisClient.del("user:" + testUser.username);
+            redisClient.srem("users", testUser.username);
+            t.end();
+        });
+    });
+});
+
+test("check user exists after adding" , function(t) {
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.checkUserExists(redisClient, testUser.username, function(err, reply) {
+            t.equal(reply,1);
             redisClient.del("user:" + testUser.username);
             redisClient.srem("users", testUser.username);
             t.end();
@@ -98,21 +110,6 @@ test("Get issues by username", function (t) {
         });
     });
 });
-
-// test("Adding an issue to DB", function (t) {
-//     var testIssue = {
-//         id: 12345678,
-//         updated_at: "2015-06-22T09:22:51Z",
-//     };
-//
-//     DBHandlers.addIssue(redisClient, testIssue, function (errors, replies) {
-//         t.equal(errors, null, "add errors null");
-//         t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of issues");
-//         DBHandlers.deleteIssueById(redisClient, testIssue.id, function (errors, replies) {
-//             t.end();
-//         });
-//     });
-// });
 
 test("Close clients after tests completed", function (t) {
     redisClient.end()
