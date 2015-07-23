@@ -30,7 +30,7 @@ function addIssuesByUsername (client, username, issuesArray, callback) {
 
     issuesArray.forEach(function (issue) {
         addIssue(multi, issue);
-        addIssueToUserList(multi, username, issue.id, issue.updated_at);
+        addIssueToUserList(multi, username, issue.id, issue.updated_at, function(err, reply){console.log(err, reply)});
     })
     multi.exec(function (errors, replies) {
         return callback(errors, replies);
@@ -62,5 +62,5 @@ module.exports = {
     addUser: addUser,
     getUserByUsername: getUserByUsername,
     addIssuesByUsername: addIssuesByUsername,
-    getIssueListByUsername: getIssueListByUsername
+    getIssuesByUsername: getIssuesByUsername
 };

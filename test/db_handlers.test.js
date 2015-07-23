@@ -6,6 +6,99 @@ var DBHandlers  = require("../api/db_handlers.js");
 var connection  = url.parse(process.env.TEST_REDISCLOUD_URL);
 var redisClient = redisConfig(connection);
 
+var testUser    = {
+    username: 'testUser'
+};
+var testIssue1  = {
+    id: "98765432",
+    updated_at: "2015-06-22T09:22:50Z",
+    assignee: 'testUser'
+};
+var testIssue2  = {
+    id: "87654321",
+    updated_at: "2015-06-22T09:56:51Z",
+    assignee: 'testUser'
+};
+var testIssue3  = {
+    id: "76543210",
+    updated_at: "2015-06-22T07:36:43Z",
+    assignee: 'testUser'
+};
+
+
+test("Adding a user to DB", function (t) {
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        t.equal(errors, null, "add errors null");
+        t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
+        redisClient.del("user:" + testUser.username);
+        t.end();
+    });
+});
+
+test("Get user by username", function (t) {
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.getUserByUsername(redisClient, testUser.username, function(errors, replies) {
+            t.deepEqual(replies, testUser);
+            redisClient.del("user:" + testUser.username);
+            redisClient.srem("users", testUser.username);
+            t.end();
+        });
+    });
+});
+
+test("When an issue is created it's assigned to a user", function (t) {
+    var testIssues = [testIssue1, testIssue2];
+
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.addIssuesByUsername(redisClient, testUser.username, testIssues, function (errors, replies) {
+            t.equal(errors, null);
+            t.deepEqual(replies, ['OK', 1, 'OK', 1]);
+
+            var multi = redisClient.multi();
+
+            multi.del(testUser.username + ":issues");
+
+            multi.del("issue:" + testIssues[0].id);
+            multi.del("issue:" + testIssues[1].id);
+
+            multi.del("user:" + testUser.username);
+            multi.srem("users", testUser.username);
+
+            multi.exec(function (err, replies) {
+                t.end();
+            })
+        });
+    });
+});
+
+test("Get issues by username", function (t) {
+    var unsortedTestIssues= [testIssue1, testIssue2, testIssue3];
+
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.addIssuesByUsername(redisClient, testUser.username, unsortedTestIssues, function (errors, replies) {
+            DBHandlers.getIssuesByUsername(redisClient, testUser.username, function (errors, replies) {
+                var sortedTestIssues = [testIssue3, testIssue1, testIssue2];
+                t.deepEqual(replies, sortedTestIssues);
+
+                var multi = redisClient.multi();
+
+                multi.del(testUser.username + ":issues");
+
+                multi.del("issue:" + sortedTestIssues[0].id);
+                multi.del("issue:" + sortedTestIssues[1].id);
+                multi.del("issue:" + sortedTestIssues[2].id);
+
+                multi.del("user:" + testUser.username);
+                multi.srem("users", testUser.username);
+
+                multi.exec(function (err, replies) {
+                    t.end();
+                })
+            });
+        });
+    });
+});
+
 // test("Adding an issue to DB", function (t) {
 //     var testIssue = {
 //         id: 12345678,
@@ -20,73 +113,6 @@ var redisClient = redisConfig(connection);
 //         });
 //     });
 // });
-
-// test("Deleting an issue by id", function (t) {
-//     var testIssue = {
-//         id: 23456789,
-//         created_at: "2015-06-22T09:22:51Z",
-//     };
-//
-//     DBHandlers.addIssue(redisClient, testIssue, function (errors, replies) {
-//         DBHandlers.deleteIssueById(redisClient, testIssue.id, function (errors, replies) {
-//             t.equal(errors, null, "delete errors null");
-//             t.deepEqual(replies, [1,1], "1 deleted from set of issues and database respectively");
-//             t.end();
-//         });
-//     });
-// });
-
-test("Adding a user to DB", function (t) {
-    var testUser = {
-        id: 12345678,
-    };
-
-    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
-        t.equal(errors, null, "add errors null");
-        t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
-        t.end();
-    });
-});
-
-test("Get user by username", function (t) {
-    var testUser = {
-        userName: 'testUser'
-    };
-    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
-        DBHandlers.getUserByUsername(redisClient, testUser, function(errors, replies) {
-            t.deepEqual(replies, testUser);
-            DBHandlers.deleteUserByUsername(redisClient, testUser.id);
-            t.end();
-        });
-    });
-});
-
-test("When an issue is created it's assigned to a user", function (t) {
-    var testUser = {
-        id: 88889999,
-        userName: 'testUser'
-    };
-    var testIssue = {
-        id: 23456789,
-        created_at: "2015-06-22T09:22:51Z",
-        assignee: {
-            id: 88889999
-        }
-    };
-
-    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
-        DBHandlers.addIssue(redisClient, testIssue, function (errors, replies) {
-            DBHandlers.getIssuesByList(redisClient, function (errors, replies) {
-                t.deepEqual(replies, redisClient.zrange(testUser.userName + ":issues", 0, -1));
-                t.end();
-                DBHandlers.deleteIssueById(redisClient, testIssue.id);
-                DBHandlers.deleteUserByUsername(redisClient, testUser.id);
-            });
-        });
-    });
-});
-
-
 
 test("Close clients after tests completed", function (t) {
     redisClient.end()
