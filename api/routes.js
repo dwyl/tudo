@@ -14,11 +14,6 @@ var routes = [
     },
     {
         method: 'GET',
-        path:'/issues/{filter*}', 
-        handler: require("./handlers/get-issues.js")
-    },
-    {
-        method: 'GET',
         path:'/login',
         handler: auth_handler
     }

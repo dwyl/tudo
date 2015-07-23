@@ -1,71 +1,69 @@
-var test    = require("tape");
-var wreck   = require("wreck");
-var server  = require("../server.js");
-var user    = "dwyl-dummy";
+var test        = require("tape");
+var wreck       = require("wreck");
+var getIssues   = require("../lib/get_issues.js");
 
-function getOptions (filter) {
-    var opts = {
-        method: "GET",
-        url: "/issues/" + filter
-    }
+var user        = "dwyl-dummy";
 
-    return opts;
-}
+test("testing we get the comments in the issue object", function (t) {
+
+    var filter = "assigned";
+
+    getIssues(filter, function (err, issues) {
+
+        t.ok(issues[0].hasOwnProperty("comment_items"), "payload contains comments content");
+        t.end();
+    });
+});
+
 
 test("testing getting all issues", function (t) {
 
-    server.inject( getOptions("all"), function (res) {
+    var filter = "all";
 
-        var issues = JSON.parse(res.payload);
+    getIssues(filter, function (err, issues) {
 
-        t.equal(res.statusCode, 200, "status code is OK");
         t.ok(issues.length > 0, "payload contains one or more issues");
         t.end();
-
-        server.stop();
     });
 });
 
 
 test("testing getting issues assigned to user", function (t) {
 
-    server.inject(getOptions("assigned"), function (res) {
+    var filter = "assigned";
 
-        var issues = JSON.parse(res.payload);
+    getIssues(filter, function (err, issues) {
+
         var assignedUser = issues[0].assignee.login;
 
-        t.equal(res.statusCode, 200, "status code is OK");
         t.ok(issues.length > 0, "payload contains one or more issues");
         t.equal(assignedUser, user, "issues are correctly assigned to the user");
         t.end();
-
-        server.stop();
     });
 });
 
 
 test("testing getting issues created by the user", function (t) {
 
-    server.inject( getOptions("created"), function (res) {
+    var filter = "created";
 
-        var issues = JSON.parse(res.payload);
+    getIssues(filter, function (err, issues) {
+
         var creator = issues[0].user.login;
 
-        t.equal(res.statusCode, 200, "status code is OK");
         t.ok(issues.length > 0, "payload contains one or more issues");
         t.equal(creator, user, "issues are correctly assigned to the user");
         t.end();
-
-        server.stop();
     });
 });
 
 
 test("testing getting subscribed issues", function (t) {
 
-    server.inject( getOptions("subscribed"), function (res) {
+    var filter = "subscribed";
 
-        var issues = JSON.parse(res.payload);
+    getIssues(filter, function (err, issues) {
+
         var subscribersUrl = issues[0].repository.subscribers_url;
         var wreckOptions = {
             json: true,
@@ -75,11 +73,11 @@ test("testing getting subscribed issues", function (t) {
             }
         }
 
-        t.equal(res.statusCode, 200, "status code is OK");
         t.ok(issues.length > 0, "payload contains one or more issues");
 
         // Fetching data from the subscription endpoint
         wreck.get(subscribersUrl, wreckOptions, function (err, res, payload) {
+
             var i;
             var length = payload.length;
             var testUser;
@@ -93,8 +91,6 @@ test("testing getting subscribed issues", function (t) {
 
             t.equal(testUser, user, "user exists on the list of subscribers");
             t.end();
-
-            server.stop();
         });
     });
 });
@@ -102,29 +98,26 @@ test("testing getting subscribed issues", function (t) {
 
 test("testing getting issues mentioning user", function (t) {
 
-    server.inject( getOptions("mentioned"), function (res) {
-        var issues = JSON.parse(res.payload);
+    var filter = "mentioned";
 
-        t.equal(res.statusCode, 200, "status code is OK");
+    getIssues(filter, function (err, issues) {
+
         t.ok(issues.length > 0, "payload contains one or more issues");
         t.ok(issues[0].body.indexOf(user), "user was mentioned in the body");
-
         t.end();
-
-        server.stop();
     });
 });
 
 
 test("testing we get an error when non-existent filter applied", function (t) {
-    var errorMessage = "Sorry, that option does not exist.";
 
-    server.inject( getOptions("sdfakjals"), function (res) {
-        var error = res.result.message;
+    var filter = "dfakjals";
 
-        t.equal(error, errorMessage, "error message displayed correctly");
+    getIssues(filter, function (err, issues) {
+
+        var errorMessage = "Sorry, that option does not exist.";
+
+        t.equal(err.message, "Validation Failed", "error message displayed correctly");
         t.end();
-
-        server.stop();
     });
 });
