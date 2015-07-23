@@ -3,34 +3,20 @@ var test        = require("tape");
 var url         = require('url');
 var redisConfig = require("../lib/redis_config");
 var DBHandlers  = require("../api/db_handlers.js");
+var fixtures    = require('./fixtures/db_handlers_fixtures.js');
+var testUser = fixtures.testUser;
+var testIssue1 = fixtures.testIssue1;
+var testIssue2 = fixtures.testIssue2;
+var testIssue3 = fixtures.testIssue3;
 var connection  = url.parse(process.env.TEST_REDISCLOUD_URL);
 var redisClient = redisConfig(connection);
-
-var testUser    = {
-    username: 'testUser'
-};
-var testIssue1  = {
-    id: "98765432",
-    updated_at: "2015-06-22T09:22:50Z",
-    assignee: 'testUser'
-};
-var testIssue2  = {
-    id: "87654321",
-    updated_at: "2015-06-22T09:56:51Z",
-    assignee: 'testUser'
-};
-var testIssue3  = {
-    id: "76543210",
-    updated_at: "2015-06-22T07:36:43Z",
-    assignee: 'testUser'
-};
-
 
 test("Adding a user to DB", function (t) {
     DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
         t.equal(errors, null, "add errors null");
         t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
         redisClient.del("user:" + testUser.username);
+        redisClient.srem("users", testUser.username);
         t.end();
     });
 });
@@ -39,6 +25,17 @@ test("Get user by username", function (t) {
     DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
         DBHandlers.getUserByUsername(redisClient, testUser.username, function(errors, replies) {
             t.deepEqual(replies, testUser);
+            redisClient.del("user:" + testUser.username);
+            redisClient.srem("users", testUser.username);
+            t.end();
+        });
+    });
+});
+
+test("check user exists after adding" , function(t) {
+    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+        DBHandlers.checkUserExists(redisClient, testUser.username, function(err, reply) {
+            t.equal(reply,1);
             redisClient.del("user:" + testUser.username);
             redisClient.srem("users", testUser.username);
             t.end();

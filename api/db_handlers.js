@@ -28,7 +28,8 @@ function addIssuesByUsername (client, username, issuesArray, callback) {
     issuesArray.forEach(function (issue) {
         addIssue(multi, issue);
         addIssueToUserList(multi, username, issue.id, issue.updated_at);
-    })
+    });
+
     multi.exec(function (errors, replies) {
         return callback(errors, replies);
     });
@@ -54,10 +55,15 @@ function getIssuesByUsername (client, username, callback) {
     })
 }
 
+function checkUserExists (client, username, callback) {
+    client.sismember("users", username, callback);
+}
+
 
 module.exports = {
     addUser: addUser,
     getUserByUsername: getUserByUsername,
     addIssuesByUsername: addIssuesByUsername,
-    getIssuesByUsername: getIssuesByUsername
+    getIssuesByUsername: getIssuesByUsername,
+    checkUserExists: checkUserExists
 };

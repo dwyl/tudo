@@ -81,6 +81,34 @@ Issues are returned in an array of objects; an example of issues, including the 
 This should be a transferrable function - easily implemented in a handler or incorporated into the existing database functions.
 
 
+## Database Structure
+
+Issues and Users are stored as hashes in Redis.  
+A user's list of issues is stored as a sorted (by date of update) set.  
+All users are also stored in an unsorted set.
+
+An issue hash has the following properties:
++ id  
++ created_by
++ owner_name
++ repo_name
++ title
++ first_line
++ labels
+ + name
+ + color
++ updated_at
++ created_at
++ last_comment
++ number_of_comments
++ issue_number
++ assignee
+
+A user hash has the following properties:
++ username
+
+To get a users issues, we have the function in _fetch_issues_by_user.js_, which adds the user to the database if they don't already exist, and gets their issues, from the database if they are there, otherwise from the github api.
+
 ###**Glossary**
 
 ####Labels
