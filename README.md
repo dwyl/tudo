@@ -57,6 +57,8 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 **20150720:** @msmichellegar, @iteles and Anneka S brainstormed on some front-end visuals and created some simple wireframes:
 https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p
 
+<img width="918" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/4185328/8803847/24905988-2fc1-11e5-8a10-754ab36236ad.png">
+
 #####Challenges:
 + What is the ideal user flow throughout the app? How do typical people (technical and non-technical) find the issues they're looking for?  
 + How do we ensure that issues are _not_ buried **more than 1 click deep**?
