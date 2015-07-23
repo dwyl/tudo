@@ -1,5 +1,4 @@
 var riot    = require('riot');
-var Path    = require('path');
 
 
 var routes = [
