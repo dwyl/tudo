@@ -1,14 +1,6 @@
-var test       = require("tape");
-var parser     = require("../api/gh_to_db_parser.js");
-var sampleIssueArray = require("../example_issues.json");
-var issueArray = [sampleIssueArray[0], sampleIssueArray[1]];
-var user       = require("../example_user.json");
-
-var parsedUser = {
-    username: "testuser",
-    fullName: "Test User",
-    userId: "12345678"
-};
+var test             = require("tape");
+var parseIssues      = require("../api/parse_issues.js");
+var issueArray       = require("../example_issues.json");
 
 var parsedIssue1 = {
     id: "96781159",
@@ -56,12 +48,7 @@ var parsedIssue2 = {
 
 var parsedIssueArray = [parsedIssue1, parsedIssue2];
 
-test("User is correctly parsed", function (t) {
-    t.deepEqual(parser.parseUser(user), parsedUser);
-    t.end();
-});
-
 test("Array of issues correctly parsed", function (t) {
-    t.deepEqual(parser.parseIssues(issueArray), parsedIssueArray);
+    t.deepEqual(parseIssues(issueArray), parsedIssueArray);
     t.end();
 });

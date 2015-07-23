@@ -14,7 +14,6 @@ function getUserByUsername (client, username, callback) {
     client.hgetall("user:" + username, callback);
 }
 
-
 function addIssue (client, obj, callback) {
     client.hmset("issue:" + obj.id, obj, callback);
 }
@@ -22,7 +21,7 @@ function addIssue (client, obj, callback) {
 function addIssueToUserList (client, username, issueId, lastUpdateTime, callback) {
     var timeMS = Date.parse(lastUpdateTime);
 
-    client.zadd(username + ":issues", timeMS, issueId, callback)
+    client.zadd(username + ":issues", timeMS, issueId, callback);
 }
 
 function addIssuesByUsername (client, username, issuesArray, callback) {
@@ -30,8 +29,8 @@ function addIssuesByUsername (client, username, issuesArray, callback) {
 
     issuesArray.forEach(function (issue) {
         addIssue(multi, issue);
-        addIssueToUserList(multi, username, issue.id, issue.updated_at, function(err, reply){console.log(err, reply)});
-    })
+        addIssueToUserList(multi, username, issue.id, issue.updated_at);
+    });
     multi.exec(function (errors, replies) {
         return callback(errors, replies);
     });
