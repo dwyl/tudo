@@ -8,8 +8,8 @@ test('Testing categories tag', function (t) {
     category: 'assigned'
   };
 
-  var cattegory = riot.render(tag.categories,mockHeader);
-  var $ = cheerio.load(cattegory);
+  var category = riot.render(tag.categories,mockHeader);
+  var $ = cheerio.load(category);
   t.equal('assigned', $('h2').text(), 'category tag works');
 
   t.end();
@@ -67,14 +67,14 @@ test('Testing issues_list tag', function (t) {
 
   var issueList = riot.render(tag.issueList, mockIssues);
   var $ = cheerio.load(issueList);
-  t.equal(2, $('issue').nextAll().length, 'issue list tag works');
+  t.equal(3, $('issue').length, 'issue list tag works');
   t.end();
 });
 
 test('Testing home_container tag', function (t) {
   var mock = {
     header: 'simon',
-    cattegory: 'assigned',
+    category: 'assigned',
     issues: [
       {
         title: "1",
@@ -96,8 +96,9 @@ test('Testing home_container tag', function (t) {
 
   var container = riot.render(tag.homeContainer, mock);
   var $ = cheerio.load(container);
-  t.equal(1, $('nav').length, 'issue list tag works');
-  t.equal(1, $('categories').length, 'issue list tag works');
-  t.equal(1, $('issue-list').length, 'issue list tag works');
+  t.equal(1, $('nav').length, 'nav tag works in homeContainer ');
+  t.equal(1, $('categories').length, 'categories tag works in homeContainer');
+  t.equal(1, $('issue-list').length, 'issue-list tag works in homeContainer');
+  t.equal(3, $('issue).length, 'issue tag works in homeContainer');
   t.end();
 });
