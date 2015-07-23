@@ -1,5 +1,5 @@
 <nav>
   <div class="heading">
-    <h1>{opts.header}</h1>
+    <h1>{opts.assignee}</h1>
   </div>
 </nav>

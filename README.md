@@ -65,17 +65,49 @@ We have worked to a very stripped-down design for the MVP, and will be adding mo
 
 ## Github API - issues
 
-You will temporarily need a env.json file (like below) to run this code.
-```
-{
-    "GITHUB_KEY": "your personal acccess token"
-}
-```
-The only issues you will be able to get (for now) are issues assigned to you by visiting localhost:8000/issues
+Please make sure you have an env.json file based upon env.json_sample.
 
-This begins our exploration into the Github API - Issues.
+The only issues you will be able to get (for now, until authentication is integrated) are issues that only you can see (or whoever's GitHub access token you're using). These issues can be filtered using the following filters:
+- **all:** to get all the issues a user can see
+- **assigned:** to get all the issues assigned to a user
+- **created:** to get all the issues created by a user
+- **subscribed:** to get all the issues to which a user is subscribed
+- **mentioned:** to get all the issues that mention a user
 
-Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleOfBasicIssue.json provided. This is only basic does not have comments on and therefore a further request to the github API is needed to decorate further.
+The default issue object returned by a query to the GitHub API contains a 'comments_url' that links to all the issue's comments. We push the comment information to each issue in the newly created 'comment_items' property.
+
+Issues are returned in an array of objects; an example of issues, including the 'comment_items' property, can be viewed in example_issues.json.
+
+This should be a transferrable function - easily implemented in a handler or incorporated into the existing database functions.
+
+
+## Database Structure
+
+Issues and Users are stored as hashes in Redis.  
+A user's list of issues is stored as a sorted (by date of update) set.  
+All users are also stored in an unsorted set.
+
+An issue hash has the following properties:
++ id  
++ created_by
++ owner_name
++ repo_name
++ title
++ first_line
++ labels
+ + name
+ + color
++ updated_at
++ created_at
++ last_comment
++ number_of_comments
++ issue_number
++ assignee
+
+A user hash has the following properties:
++ username
+
+To get a users issues, we have the function in _fetch_issues_by_user.js_, which adds the user to the database if they don't already exist, and gets their issues, from the database if they are there, otherwise from the github api.
 
 ###**Glossary**
 
