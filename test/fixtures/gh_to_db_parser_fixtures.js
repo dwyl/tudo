@@ -5,6 +5,7 @@ parsedIssues.parsedIssue1 = {
     created_by: "nelsonic",
     owner_name: "dwyl",
     repo_name: "tudo",
+    avatar_url: "https://avatars.githubusercontent.com/u/12045918?v=3",
     title: "example issue JSON format",
     first_line: "when adding example files to repos always format them so they are as readable as possible (_for the next person_).  ",
     labels: [
@@ -26,6 +27,7 @@ parsedIssues.parsedIssue2 = {
     created_by: "msmichellegar",
     owner_name: "dwyl",
     repo_name: "tudo",
+    avatar_url: "https://avatars.githubusercontent.com/u/4185328?v=3",
     title: "Time labels in minutes or hours?",
     first_line: "Should \"time-estimate\" and \"time-actual\" labels display in the UI as hours or minutes?",
     labels: [
