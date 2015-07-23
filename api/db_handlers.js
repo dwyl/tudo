@@ -54,10 +54,15 @@ function getIssuesByUsername (client, username, callback) {
     })
 }
 
+function checkUserExists (client, username, callback) {
+    client.sismember("users", username, callback);
+}
+
 
 module.exports = {
     addUser: addUser,
     getUserByUsername: getUserByUsername,
     addIssuesByUsername: addIssuesByUsername,
-    getIssuesByUsername: getIssuesByUsername
+    getIssuesByUsername: getIssuesByUsername,
+    checkUserExists: checkUserExists
 };
