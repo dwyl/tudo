@@ -1,10 +1,10 @@
 <issue>
   <div class="issue-row">
-    <h4>{Issue title}</h4>
+    <h4>{ opts.issue.title }</h4>
     <img src="{repo-logo-goes-here}"/>
     <!-- <div class="issue-info"> -->
-      <p>{org/repo}</p>
-      <p>{first line of issue} <!--cuts off when it reaches end of single line--></p>
+      <p>{ opts.issue.org_repo}</p>
+      <p>{ opts.issue.first_line }</p>
     <!-- </div> -->
   </div>
 </issue>
