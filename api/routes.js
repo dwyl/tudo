@@ -8,7 +8,7 @@ var routes = [
         path: '/{param*}',
         handler: {
             directory: {
-                path: Path.normalize(__dirname + '/')
+                path: './public'
             }
         }
     },
@@ -39,12 +39,17 @@ var routes = [
     },
     {
         method: 'GET',
-        path:'/login', 
+        path:'/login',
         handler: auth_handler
+    },
+    {
+        method: 'GET',
+        path:'/home',
+        handler: require("./handlers/home.js")
     }
     // {
     //     method: 'POST',
-    //     path:'/main', 
+    //     path:'/main',
     //     handler: function (request, reply) {
     //         console.log(request.payload);
     //     }
