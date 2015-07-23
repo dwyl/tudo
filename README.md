@@ -57,7 +57,7 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 
 @msmichellegar and @iteles have styled three screens for the project: the "login"/landing page, the home feed, and an issue view. Original wireframes for these screens (and an archive of discussed designs) can be found [here](https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p).
 
-We have worked to a very stripped-down design for the MVP, and will be adding more functionality as agreed on by the DWYL community (customisation, organisation and repo views, toggle views).
+We have worked to a very stripped-down design for the MVP, and will be adding more functionality as agreed on by the dwyl community (customisation, organisation and repo views, toggle views).
 
 <img width="600" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/4185328/8803847/24905988-2fc1-11e5-8a10-754ab36236ad.png">
 
