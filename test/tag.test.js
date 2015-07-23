@@ -31,6 +31,7 @@ test('Testing issue tag', function (t) {
   var mockIssue = {
     issue: {
       title: "Issue",
+      src_logo: "",
       org_repo: "Dwyl/tudo",
       first_line: "First line of the issue"
     }
@@ -49,16 +50,19 @@ test('Testing issues_list tag', function (t) {
     issues: [
       {
         title: "1",
+        src_logo: "",
         org_repo: "Dwyl/1",
         first_line: "First line of issue 1"
       },
       {
         title: "2",
+        src_logo: "",
         org_repo: "Dwyl/2",
         first_line: "First line of issue 2"
       },
       {
         title: "3",
+        src_logo: "",
         org_repo: "Dwyl/3",
         first_line: "First line of issue 3"
       }
@@ -78,16 +82,19 @@ test('Testing home_container tag', function (t) {
     issues: [
       {
         title: "1",
+        src_logo: "",
         org_repo: "Dwyl/1",
         first_line: "First line of issue 1"
       },
       {
         title: "2",
+        src_logo: "",
         org_repo: "Dwyl/2",
         first_line: "First line of issue 2"
       },
       {
         title: "3",
+        src_logo: "",
         org_repo: "Dwyl/3",
         first_line: "First line of issue 3"
       }
