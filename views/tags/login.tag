@@ -1,7 +1,7 @@
 <login>
   <div class="landing-page">
     <header>
-      <i class="fa fa-check"></i>
+      <i class="fa fa-check fa-2x"></i>
       <h1>Tudo</h1>
       <h5>The tool that helps you <span>organise, prioritise &amp; visualise</span> GitHub issues!</h5>
     </header>
