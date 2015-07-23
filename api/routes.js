@@ -1,6 +1,6 @@
 var riot    = require('riot');
 var Path    = require('path');
-var auth_handler = require('./handlers/github_auth');
+
 
 var routes = [
     {
@@ -16,27 +16,27 @@ var routes = [
     {
         method: 'GET',
         path:'/labels',
-        handler: require("./handlers/LabelsCtrl.js").get
+        handler: require("./handlers/labels_handler.js").get
     },
     {
         method: 'POST',
         path:'/labels',
-        handler: require("./handlers/LabelsCtrl.js").create
+        handler: require("./handlers/labels_handler.js").create
     },
     {
         method: 'PUT',
         path:'/labels',
-        handler: require("./handlers/LabelsCtrl.js").update
+        handler: require("./handlers/labels_handler.js").update
     },
     {
         method: 'DELETE',
         path:'/labels/{name}',
-        handler: require("./handlers/LabelsCtrl.js").remove
+        handler: require("./handlers/labels_handler.js").remove
     },
     {
         method: 'GET',
         path:'/login', 
-        handler: auth_handler
+        handler: require('./handlers/authentication_handler.js')
     }
 ];
 

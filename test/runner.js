@@ -1,6 +1,6 @@
 'use strict';
 
 require('./env.test.js');
-require('./github_auth.test.js');
+require('./authentication_handler.test.js');
 require('./get_issues.test.js');
-require('./LabelsCtrl.test.js');
+require('./labels_handler.test.js');
