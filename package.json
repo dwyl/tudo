@@ -37,7 +37,8 @@
     "joi": "^6.6.0",
     "jsonwebtoken": "^5.0.4",
     "redis": "^0.12.1",
-    "riot": "^2.2.2"
+    "riot": "^2.2.2",
+    "wreck": "^6.0.0"
   },
   "peerDependencies": {
     "hapi": ">=8.x.x"
