@@ -12,11 +12,7 @@ var routes = [
             }
         }
     },
-    {
-        method: 'GET',
-        path:'/issues',
-        handler: require("./handlers/get-issues.js")
-    },
+
     {
         method: 'GET',
         path:'/labels',

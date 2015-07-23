@@ -99,21 +99,6 @@ test("Get issues by username", function (t) {
     });
 });
 
-// test("Adding an issue to DB", function (t) {
-//     var testIssue = {
-//         id: 12345678,
-//         updated_at: "2015-06-22T09:22:51Z",
-//     };
-//
-//     DBHandlers.addIssue(redisClient, testIssue, function (errors, replies) {
-//         t.equal(errors, null, "add errors null");
-//         t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of issues");
-//         DBHandlers.deleteIssueById(redisClient, testIssue.id, function (errors, replies) {
-//             t.end();
-//         });
-//     });
-// });
-
 test("Close clients after tests completed", function (t) {
     redisClient.end()
     t.end();
