@@ -1,7 +1,7 @@
 var riot = require('riot');
 var views = require('../../views');
 
-function auth_handler (request, reply) {
+function authentication_handler (request, reply) {
 	// if the credentials are set don't force people to re-login!
 	// if(request.auth.credentials) {
 	// 	console.log(' - - - - - - - - - - - - - - - - - - - -')
@@ -12,4 +12,4 @@ function auth_handler (request, reply) {
 	reply(views.header + body + views.footer);
 }
 
-module.exports = auth_handler;
+module.exports = authentication_handler;
