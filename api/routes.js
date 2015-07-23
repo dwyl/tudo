@@ -42,11 +42,11 @@ var routes = [
         path:'/login',
         handler: auth_handler
     },
-    {
-        method: 'GET',
-        path:'/home',
-        handler: require("./handlers/home.js")
-    }
+    // {
+    //     method: 'GET',
+    //     path:'/home',
+    //     handler: require("./handlers/home.js")
+    // }
     // {
     //     method: 'POST',
     //     path:'/main',

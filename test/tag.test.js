@@ -99,6 +99,6 @@ test('Testing home_container tag', function (t) {
   t.equal(1, $('nav').length, 'nav tag works in homeContainer ');
   t.equal(1, $('categories').length, 'categories tag works in homeContainer');
   t.equal(1, $('issue-list').length, 'issue-list tag works in homeContainer');
-  t.equal(3, $('issue).length, 'issue tag works in homeContainer');
+  t.equal(3, $('issue').length, 'issue tag works in homeContainer');
   t.end();
 });
