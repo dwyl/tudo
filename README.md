@@ -57,6 +57,8 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 **20150720:** @msmichellegar, @iteles and Anneka S brainstormed on some front-end visuals and created some simple wireframes:
 https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p
 
+<img width="918" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/4185328/8803847/24905988-2fc1-11e5-8a10-754ab36236ad.png">
+
 #####Challenges:
 + What is the ideal user flow throughout the app? How do typical people (technical and non-technical) find the issues they're looking for?  
 + How do we ensure that issues are _not_ buried **more than 1 click deep**?
@@ -71,7 +73,7 @@ _Features such as search, prioritisation, creation of issues and creation of lab
 #####Cards vs rows
 Many conversations were had on this visual difference between items as 'cards' or items as 'rows'.
 
-<img width="876" alt="cards-vs-rows" src="https://cloud.githubusercontent.com/assets/4185328/8796177/99547308-2f8a-11e5-96c8-d9bf5fc1c863.png">
+<img width="899" alt="screen shot 2015-07-21 at 19 43 34" src="https://cloud.githubusercontent.com/assets/4185328/8809534/2effbd4e-2fe1-11e5-91d8-46adf0210549.png">
 
 _Cards_ encourage people to move them around and provide a greater visual differentiation between the various items. This will only become relevant if issues can be picked up and moved around to redetermine prioritisation.
 
@@ -80,11 +82,42 @@ _Cards_ encourage people to move them around and provide a greater visual differ
 You will temporarily need a env.json file (like below) to run this code.
 ```
 {
-    "GHAPIKEY": "your personal acccess token"
+    "GITHUB_KEY": "your personal acccess token"
 }
 ```
 The only issues you will be able to get (for now) are issues assigned to you by visiting localhost:8000/issues
 
 This begins our exploration into the Github API - Issues.
 
-Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleIssue.json provided.
+Issues will be returned in an array. If you would like to see  an example of an issue then checkout the exampleOfBasicIssue.json provided. This is only basic does not have comments on and therefore a further request to the github API is needed to decorate further.
+
+###**Glossary**
+
+####Labels
+
+Labels are used to organise issues into logical groups. An issue can have multiple labels. GitHub provide us with the following examples:
+ 
+
+ - **bug:** *a software defect (incorrect step, process or data definition) that causes a failure.*
+ - **duplicate**: *when the same GitHub issue has been created twice.*
+ - **enhancement**: *is an improvement to a repository( this can be a new feature or a refinement of the code and file structure)*
+ - **help wanted**: *a request for external contribution to an issue with defined objectives from someone within your organization or the GitHub community.*
+ - **invalid**: *issue is not relevant.*
+ - **question**: *A question relating to a repository.*
+ - **wontfix**: *a refusal from another person to fix an issue.*
+
+We think issue categorisation through the use of labels can really improve organisation. Here are a few of the dwyl provided labels that we find useful:
+
+####Time
+- **time-estimate:{time in minutes}**:  *the estimated time that you think is needed to complete an issues objectives.*
+- **time-actual:{time in minutes}**: *the actual time that it took for an issues objectives to be completed.*
+- **time-unestimated**: *when the an issue has no time-estimate.*
+####Priority
+- **priority-1**: * the contents of an issue are of highest priority and if it contains tasks they must be completed asap (an example would be a bug which has crashed a live application) .*
+- **priority-2**: *not as high a priority as priority-1 but still pretty important.*
+- **priority-3**: *issues labeled with this are not very important this could include a minor amendment to a sites contents.*
+
+####Other
+
+ - **ice-box**: *issues that do not have to be acted upon until a later date. *
+ - **dependency**: *when an something external is preventing an issue from being completed.*
