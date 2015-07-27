@@ -139,3 +139,7 @@ We think issue categorisation through the use of labels can really improve organ
 
  - **ice-box**: *issues that do not have to be acted upon until a later date. *
  - **dependency**: *when an something external is preventing an issue from being completed.*
+
+##Components
+
+Components for the login, home and issue page are located in the views/tags folder. All tags are rendered on the server side by using the render function from Riot.js.

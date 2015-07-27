@@ -26,7 +26,8 @@ function parseIssues (issues) {
             last_comment: element.comment_items.length > 0 ? element.comment_items[element.comment_items.length - 1].body : "",
             number_of_comments: element.comments.toString(),
             issue_number: element.number.toString(),
-            assignee: element.assignee.login
+            assignee: element.assignee.login,
+            avatar_url: element.assignee.avatar_url
         }
     });
 
