@@ -7,7 +7,7 @@ var routes = [
       path: '/',
       handler: function(req, reply){
         var tags = require('./views/');
-        reply(tags.header + riot.render(tags.login, {"hello":"Will!"}) + tags.footer)
+        reply(tags.header + riot.render(tags.login, {GITHUB_CLIENT_ID:process.env.GITHUB_CLIENT_ID}) + tags.footer)
       }
   },
   {

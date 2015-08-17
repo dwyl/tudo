@@ -9,7 +9,7 @@
     "coverage": "istanbul cover ./node_modules/tape/bin/tape ./test/*.test.js && istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
     "jshint": "./node_modules/jshint/bin/jshint -c .jshintrc --exclude-path .gitignore .",
     "codeclimate": "CODECLIMATE_REPO_TOKEN=6c47340a2888b54541779bd8bffcaad5577095a7ae888b72b4736fc68eb094f8 ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info",
-    "start": "node_modules/.bin/nodemon server.js",
+    "start": "node server.js",
     "dev": "nodemon server.js",
     "report": "open coverage/lcov-report/index.html"
   },
