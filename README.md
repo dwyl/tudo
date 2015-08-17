@@ -22,25 +22,25 @@ transparent and real-time.
 ### Required Environment Variables
 
 To run this app you will need to set the following
-[environment variables](https://en.wikipedia.org/wiki/Environment_variable):
+[*environment variables*](https://en.wikipedia.org/wiki/Environment_variable):
 
 + PORT
 + GITHUB_CLIENT_ID
 + GITHUB_CLIENT_SECRET
 + GITHUB_KEY  (this is only temporary)
 
-#### Local Machine (_use an `env.json` file_)
+#### Local Machine (_use a `config.env` file_)
 
 On your personal development machine
-you can use an `env.json` file to store these environment variables,
-create a file called env.json and put it at the root of the project.
+you can use an `config.env` file to store these environment variables,
+create a file called config.env and put it at the root of the project.
 
 This repo contains a sample file: `env.json_sample` which you can copy:
 ```sh
-cp env.json_sample env.json
+cp config.env_sample config.env
 ```
 And then change the values as required.
-(aksk @iteles for access to the Google Doc with our env.json )
+(aksk @iteles for access to the Google Doc with our config.env )
 
 #### Deploying on Heroku
 
@@ -109,9 +109,9 @@ A user hash has the following properties:
 
 To get a users issues, we have the function in _fetch_issues_by_user.js_, which adds the user to the database if they don't already exist, and gets their issues, from the database if they are there, otherwise from the github api.
 
-###**Glossary**
+### *Glossary*
 
-####Labels
+#### Labels
 
 Labels are used to organise issues into logical groups. An issue can have multiple labels. GitHub provide us with the following examples:
 
@@ -126,16 +126,16 @@ Labels are used to organise issues into logical groups. An issue can have multip
 
 We think issue categorisation through the use of labels can really improve organisation. Here are a few of the dwyl provided labels that we find useful:
 
-####Time
+#### Time
 - **time-estimate:{time in minutes}**:  *the estimated time that you think is needed to complete an issues objectives.*
 - **time-actual:{time in minutes}**: *the actual time that it took for an issues objectives to be completed.*
 - **time-unestimated**: *when the an issue has no time-estimate.*
-####Priority
+#### Priority
 - **priority-1**: * the contents of an issue are of highest priority and if it contains tasks they must be completed asap (an example would be a bug which has crashed a live application) .*
 - **priority-2**: *not as high a priority as priority-1 but still pretty important.*
 - **priority-3**: *issues labeled with this are not very important this could include a minor amendment to a sites contents.*
 
-####Other
+#### Other
 
  - **ice-box**: *issues that do not have to be acted upon until a later date. *
  - **dependency**: *when an something external is preventing an issue from being completed.*
