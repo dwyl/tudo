@@ -8,7 +8,7 @@ server.register(require('inert'), function(){
 		port: Number(process.env.PORT)
 	});
 
-	server.route(require('./api/routes.js'));
+	server.route(require('./routes.js'));
 
 	server.start(function () {
 		console.log('Got issues...? ' + server.info.uri);

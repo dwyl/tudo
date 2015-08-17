@@ -1,5 +1,5 @@
 var riot = require('riot');
-var views = require('../../views');
+var views = require('../views');
 
 function authentication_handler (request, reply) {
 	// if the credentials are set don't force people to re-login!

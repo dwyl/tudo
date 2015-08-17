@@ -2,7 +2,7 @@ require('env2')('config.env');
 var test        = require("tape");
 var url         = require('url');
 var redisConfig = require("../lib/redis_config");
-var DBHandlers  = require("../api/db_handlers.js");
+var DBHandlers  = require("../lib/db_handlers.js");
 var fixtures    = require('./fixtures/db_handlers_fixtures.js');
 var testUser = fixtures.testUser;
 var testIssue1 = fixtures.testIssue1;

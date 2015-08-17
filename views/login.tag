@@ -15,7 +15,9 @@
       <p class='font-size:2em;'>No account yet?
         <a  class="waves-effect waves-light btn-large blue darken-2" style='margin-left: 2em;'
           href='https://github.com/join'>Create GitHub Account</a>
+
       </p>
     </div>
   </div>
+
 </login>
