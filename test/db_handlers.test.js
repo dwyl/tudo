@@ -1,15 +1,15 @@
-require('../lib/env.js');
 var test        = require("tape");
 var url         = require('url');
-var redisConfig = require("../lib/redis_config");
 var DBHandlers  = require("../api/db_handlers.js");
+var redisClient = require("./redis_test_client.js")();
 var fixtures    = require('./fixtures/db_handlers_fixtures.js');
 var testUser = fixtures.testUser;
 var testIssue1 = fixtures.testIssue1;
 var testIssue2 = fixtures.testIssue2;
 var testIssue3 = fixtures.testIssue3;
 var connection  = url.parse(process.env.TEST_REDISCLOUD_URL);
-var redisClient = redisConfig(connection);
+
+
 
 test("Adding a user to DB", function (t) {
     DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
