@@ -1,7 +1,6 @@
 var test        = require("tape");
 var wreck       = require("wreck");
 var getIssues   = require("../lib/get_issues.js");
-
 var user        = "dwyl-dummy";
 
 test("testing we get the comments in the issue object", function (t) {

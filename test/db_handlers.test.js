@@ -1,4 +1,4 @@
-require('../lib/env.js');
+require('env2')('config.env');
 var test        = require("tape");
 var url         = require('url');
 var redisConfig = require("../lib/redis_config");

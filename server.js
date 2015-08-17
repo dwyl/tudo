@@ -1,4 +1,4 @@
-require('./lib/env.js')
+require('env2')('config.env');
 var Hapi = require('hapi');
 var server = new Hapi.Server();
 
