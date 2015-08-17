@@ -10,7 +10,7 @@ test("GitHub Authentication Test [WiP!]", function(t) {
   server.inject(options, function(response) {
     t.equal(response.statusCode, 200, "Login Page Rendered");
     // t.equal(response.result, '<hello>Hello Benji!</hello>', "Response is Hello Benji!")
-    server.stop()
+    server.stop(function(){}); // stop requires callback!
     t.end();
   });
 });

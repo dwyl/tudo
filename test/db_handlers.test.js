@@ -12,13 +12,13 @@ var connection  = url.parse(process.env.TEST_REDISCLOUD_URL);
 var redisClient = redisConfig(connection);
 
 test("Adding a user to DB", function (t) {
-    DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
-        t.equal(errors, null, "add errors null");
-        t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
-        redisClient.del("user:" + testUser.username);
-        redisClient.srem("users", testUser.username);
-        t.end();
-    });
+  DBHandlers.addUser(redisClient, testUser, function (errors, replies) {
+    t.equal(errors, null, "add errors null");
+    t.deepEqual(replies, ["OK",1], "should get an OK from setting hash, and 1 for addition to set of users");
+    redisClient.del("user:" + testUser.username);
+    redisClient.srem("users", testUser.username);
+    t.end();
+  });
 });
 
 test("Get user by username", function (t) {
