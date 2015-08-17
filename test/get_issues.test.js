@@ -1,3 +1,4 @@
+require('env2')('config.env');
 var test        = require("tape");
 var wreck       = require("wreck");
 var getIssues   = require("../lib/get_issues.js");
