@@ -40,7 +40,8 @@ This repo contains a sample file: `env.json_sample` which you can copy:
 cp config.env_sample config.env
 ```
 And then change the values as required.
-(aksk @iteles for access to the Google Doc with our config.env )
+(aksk [@iteles] for access to the Google Doc with our env.json )
+
 
 #### Deploying on Heroku
 
@@ -55,7 +56,7 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 
 ###Front-end
 
-@msmichellegar and @iteles have styled three screens for the project: the "login"/landing page, the home feed, and an issue view. Original wireframes for these screens (and an archive of discussed designs) can be found [here](https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p).
+[@msmichellegar] and [@iteles] have styled three screens for the project: the "login"/landing page, the home feed, and an issue view. Original wireframes for these screens (and an archive of discussed designs) can be found [here](https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p).
 
 We have worked to a very stripped-down design for the MVP, and will be adding more functionality as agreed on by the dwyl community (customisation, organisation and repo views, toggle views).
 
@@ -139,3 +140,10 @@ We think issue categorisation through the use of labels can really improve organ
 
  - **ice-box**: *issues that do not have to be acted upon until a later date. *
  - **dependency**: *when an something external is preventing an issue from being completed.*
+
+##Components
+
+Components for the login, home and issue page are located in the views/tags folder. All tags are rendered on the server side by using the render function from Riot.js.
+
+[@iteles]: https://github.com/iteles
+[@msmichellegar]: https://github.com/msmichellegar

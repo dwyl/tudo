@@ -21,9 +21,70 @@ body{
   font-size:1em;
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p, form {
+  font-weight: lighter;
   margin: 0;
 }
+
+/*==============================
+  Landing Page
+================================*/
+
+.landing-page {
+  background: #00BCD4;
+  color: #FFFFFF;
+  height: 100%;
+}
+
+header{
+  padding: 3em 2em;
+  text-align: center;
+}
+
+header > h1 {
+  display: inline-block;
+  font-size: 4em;
+  font-weight: normal;
+  padding: 0 0.3em;
+}
+
+header > h5 {
+  font-size: 1em;
+}
+
+.signin {
+  background: #4DD0E1;
+  border: solid 1px #E0F7FA;
+  margin: 0 auto;
+  padding: 1em;
+  width: 80%;
+}
+
+  .signin > form {
+    text-align: center;
+  }
+
+  .signin label {
+    display: block;
+    font-size: 1.2em;
+  }
+
+  .signin input {
+    border: solid 1px #E0F7FA;
+    font-size: 1em;
+    margin: 0.8em 0;
+    padding: 0.5em;
+  }
+
+  .signin button {
+    background-color: #4CAF50;
+    border: solid 1px #4CAF50;
+    /*border: 0;*/
+    border-radius:0;
+    color: #FFFFFF;
+    font-size: 1em;
+    padding: 0.5em 0.8em;
+  }
 
 /*==============================
   Nav
@@ -46,7 +107,7 @@ h1 {
     color: #ffffff;
     display: inline-block;
     }
-  
+
   .heading{
     display: inline-block;
     padding-left: 4em; /*TEMPORARY CSS - need to figure out horizontal alignment*/
@@ -132,23 +193,23 @@ h1 {
   padding: 0 0.4em;
 }
 
-  .username { /* use of span to be revisited */
-    font-weight: bold;
-  }
+.username { /* use of span to be revisited */
+  font-weight: bold;
+}
 
 .labels {
   margin: 0.4em 0;
   padding: 0.2em 0.4em;
 }
 
-  .labels > p {
-    background-color: grey;
-    color: #ffffff;
-    display: inline-block;
-    font-size: 0.9em;
-    margin: 0;
-    padding: 0.2em;
-  }
+.labels > p {
+  background-color: grey;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0.2em;
+}
 
 .issue-description {
   background-color: #ffffff;
@@ -171,7 +232,7 @@ h1 {
     margin-bottom:0.4em;
   }
 
-  
+
 
   /*TEMPORARY CSS*/
   .show-all-comments{
