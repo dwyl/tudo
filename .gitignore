@@ -35,3 +35,4 @@ tempenv.json
 
 #redis dump
 dump.rdb
+config.env

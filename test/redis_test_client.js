@@ -1,4 +1,4 @@
-require('../lib/env.js');
+require('env2');
 var url = require('url');
 var redisConfig = require('../lib/redis_config.js');
 var redisURL = url.parse(process.env.TEST_REDISCLOUD_URL);

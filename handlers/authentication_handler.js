@@ -1,9 +1,7 @@
 var riot = require('riot');
-var views = require('../../views');
+var views = require('../views');
 
-function auth_handler (request, reply) {
+module.exports = function authentication_handler (request, reply) {
 	var body = riot.render(views.login);
 	reply(views.header + body + views.footer);
 }
-
-module.exports = auth_handler;
