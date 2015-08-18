@@ -1,0 +1,67 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+  margin: inherit;
+  padding: inherit;
+}
+
+body {
+  font-size: 1em;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*==============================
+  Nav Bar
+================================*/
+
+nav {
+
+  background-color: pink;
+}
+
+.priority-nav {
+  list-style-type: none;
+  display: inline-block;
+  width: 75%;
+}
+
+  .priority-tab {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin: 0.1em;
+    width: 30%;
+    height: 50%;
+    overflow: hidden;
+  }
+
+.filter-icon {
+  display: inline-block;
+  float: right;
+  border: 1px solid black;
+  width: 25%;
+}
+
+
+/*==============================
+  Issues
+================================*/
+
+.priority-level {
+  border: 1px solid black;
+}
+
+  .issue-priority {
+    display: inline-block;
+    background-color: red;
+    width: 1em;
+    height: 3em;
+  }
+
+  .issue-info {
+    display: inline-block;
+  }
