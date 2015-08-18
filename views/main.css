@@ -1,3 +1,7 @@
+/*==============================
+  #GENERAL
+================================*/
+
 html {
   box-sizing: border-box;
 }
@@ -8,47 +12,48 @@ html {
 }
 
 body {
-  font-size: 1em;
   font-family: sans-serif;
+  font-size: 1em;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 /*==============================
-  Nav Bar
+  #NAV
 ================================*/
 
 nav {
-
   background-color: pink;
 }
 
-.priority-nav {
-  list-style-type: none;
-  display: inline-block;
-  width: 75%;
-}
-
-  .priority-tab {
+  .priority-nav {
     display: inline-block;
-    border: 1px solid black;
-    padding: 0.5em;
-    margin: 0.1em;
-    width: 30%;
-    height: 50%;
-    overflow: hidden;
+    list-style-type: none;
+    width: 85%;
   }
 
-.filter-icon {
-  display: inline-block;
-  float: right;
-  border: 1px solid black;
-  width: 25%;
-}
+    .priority-tab {
+      border: 1px solid black;
+      display: inline-block;
+      margin: 0.1em;
+      padding: 0.5em;
+      height:50%;
+      width: 30%;
+      overflow: hidden;
+    }
+
+  .filter-icon {
+    border: 1px solid black;
+    display: inline-block;
+    float: right;
+    margin: 0.1em;
+    width: 12%;
+  }
 
 
 /*==============================
-  Issues
+  #ISSUES
 ================================*/
 
 .priority-level {
@@ -56,10 +61,10 @@ nav {
 }
 
   .issue-priority {
-    display: inline-block;
     background-color: red;
-    width: 1em;
+    display: inline-block;
     height: 3em;
+    width: 1em;
   }
 
   .issue-info {
