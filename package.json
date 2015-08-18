@@ -32,7 +32,7 @@
   "homepage": "https://github.com/dwyl/tudo",
   "dependencies": {
     "boom": "^2.8.0",
-    "env2": "^1.0.6",
+    "env2": "^2.0.1",
     "find": "^0.2.3",
     "hapi": "^9.0.2",
     "hoek": "^2.14.0",
