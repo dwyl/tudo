@@ -7,5 +7,5 @@ module.exports = {
   nav  : require(__dirname +'/tags/home/nav.tag'),
   issue  : require(__dirname +'/tags/home/issue.tag'),
   issues: require(__dirname + '/tags/home/issues.tag'),
-  issueList  : require(__dirname +'/tags/home/issues_list.tag')
+  issues_page: require(__dirname + '/tags/home/issues_page.tag')
 }

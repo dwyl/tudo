@@ -34,15 +34,13 @@ var routes = [
     path:'/labels',
     handler: require("./handlers/labels_handler.js").update
   },
-/*
   {
     method: 'GET',
     path: '/issues',
     handler: function (req, reply) {
-      reply(riot.render(tags.issue));
+      reply(riot.render(tags.issues_page));
     }
   },
-*/
   {
     method: 'DELETE',
     path:'/labels/{name}',
