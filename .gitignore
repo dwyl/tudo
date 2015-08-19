@@ -35,4 +35,6 @@ tempenv.json
 
 #redis dump
 dump.rdb
+
+#environment variables for env2
 config.env

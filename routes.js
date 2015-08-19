@@ -15,7 +15,7 @@ var routes = [
     path: '/{param*}',
     handler: {
       directory: {
-        path: Path.normalize(__dirname + '/')
+        path: Path.normalize(__dirname + '/public')
       }
     }
   },
