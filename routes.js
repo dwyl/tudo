@@ -7,7 +7,7 @@ var routes = [
       method: 'GET',
       path: '/',
       handler: function(req, reply){
-        reply(tags.header + riot.render(tags.login, {GITHUB_CLIENT_ID:process.env.GITHUB_CLIENT_ID}) + tags.footer)
+        reply(tags.prefix + riot.render(tags.login, {GITHUB_CLIENT_ID:process.env.GITHUB_CLIENT_ID}) + tags.suffix)
       }
   },
   {
