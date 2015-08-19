@@ -1,8 +1,10 @@
 <issue>
-  <div class="issue-row">
-    <h4>{ opts.title }</h4>
-    <img src={opts.avatar_url}/>
-      <p>{ opts.repo_name}</p>
-      <p>{ opts.first_line }</p>
-  </div>
+  <li>
+    <div class='issue-priority'></div>
+    <div class='issue-info'>
+      <p>[org/repo] Issue Title Para</p>
+      <p>Latest activity: 2 hours ago</p>
+    </div>
+    <a> &gt;</a>
+  </li>
 </issue>
