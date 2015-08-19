@@ -38,7 +38,7 @@ var routes = [
     method: 'GET',
     path: '/issues',
     handler: function (req, reply) {
-      reply(riot.render(tags.issues_page));
+      reply(tags.prefix + riot.render(tags.issues_page) + tags.suffix);
     }
   },
   {
