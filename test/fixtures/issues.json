@@ -299,5 +299,6 @@
   "url": "https://github.com/dwyl/tudo/issues",
   "open": 60,
   "closed": 36,
-  "next_page": "/dwyl/tudo/issues?page=2&q=is%3Aissue+is%3Aopen"
+  "next_page": "/dwyl/tudo/issues?page=2&q=is%3Aissue+is%3Aopen",
+  "jack": true
 }

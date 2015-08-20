@@ -1,3 +1,4 @@
+var riot = require('riot');
 var tags = require('../views/');
 
 module.exports = function (req, reply) {
