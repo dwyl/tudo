@@ -37,9 +37,7 @@ var routes = [
   {
     method: 'GET',
     path: '/issues',
-    handler: function (req, reply) {
-      reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: require("test/fixtures/issues.json")}) + tags.suffix);
-    }
+    handler: require("./handlers/issues_handler.js")
   },
   {
     method: 'DELETE',
