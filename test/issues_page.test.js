@@ -12,6 +12,13 @@ test('Visit issues page', function(t){
     t.end();
   });
 });
+// 'pundefined' is the concatenation of p and an undefined variable
+test('"pundefined" does not appear anywhere on the page', function(t) {
+  server.inject({url: '/issues', method:'GET'}, function(res) {
+    t.ok(res.payload.indexOf('pundefined') === -1, 'pundefined is not present');
+    t.end();
+  });
+});
 
 // test('The 5 priority levels appear on the page', function(t){
 //   server.inject({url:'/issues', method:'GET'}, function(res){
@@ -43,12 +50,15 @@ test('Visit issues page', function(t){
 //   });
 // });
 
-test('TEMP TEST: A priority ordered JSON of issues is rendered onto the page', function (t){
-  server.inject({url: '/issues', method: 'GET'}, function (res) {
-    var priorities_in_order = [1, 2, 3, 4].every(function(level) {
-      var this_level_index = res.payload.indexOf('p'+ level);
-      var next_level_index = res.payload.indexOf('p' + (level + 1));
-      return this_level_index < next_level_index || next_level_index === -1;
-    });
-  });
-});
+
+// test('TEMP TEST: A priority ordered JSON of issues is rendered onto the page', function (t){
+//   server.inject({url: '/issues', method: 'GET'}, function (res) {
+//     var priorities_in_order = [1, 2, 3, 4].every(function(level) {
+//       var this_level_index = res.payload.indexOf('p'+ level);
+//       var next_level_index = res.payload.indexOf('p' + (level + 1));
+//       return this_level_index < next_level_index || next_level_index === -1;
+//     });
+//     t.ok(priorities_in_order, 'the priorities are in order');
+//     t.end();
+//   });
+// });
