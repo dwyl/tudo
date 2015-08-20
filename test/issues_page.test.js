@@ -12,6 +12,7 @@ test('Visit issues page', function(t){
     t.end();
   });
 });
+
 // 'pundefined' is the concatenation of p and an undefined variable
 test('"pundefined" does not appear anywhere on the page', function(t) {
   server.inject({url: '/issues', method:'GET'}, function(res) {

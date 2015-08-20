@@ -37,7 +37,7 @@ var routes = [
   {
     method: 'GET',
     path: '/issues',
-    handler: require("./handlers/issues_handler.js")
+    handler: require("./handlers/issues_handler.js").handler
   },
   {
     method: 'DELETE',
