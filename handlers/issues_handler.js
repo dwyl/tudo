@@ -6,6 +6,8 @@ exports.handler = function (req, reply) {
 }
 
 exports.parse = function (entries) {
-
-  return [{issues: true, priority: true}, {issues: true, priority: true}, {issues: true, priority: true}]
+  if (typeof entries === 'string') {
+    entries = JSON.parse(entries);
+  }
+  return [{issues: [], priority: NaN}, {issues: [], priority: NaN}, {issues: [], priority: NaN}]
 }
