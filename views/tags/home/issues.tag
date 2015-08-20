@@ -1,16 +1,14 @@
 <issues>
 
-  <div each={i in priority_levels} class={'priority-level p' + i}>
-    <h4>Priority {i}</h4>
+  <div each={opts.prioritised_issues} class={'priority-level p' + priority}>
+    <h4>Priority {priority}</h4>
     <ul class='issues-list'>
-    	<issue />
+      <!-- passes title to issue tag in opts object -->
+    	<issue each={issues} title={title}/>
     </ul>
   </div>
   
   <script>
-  this.priority_levels = [
-    1,2,3,4,5
-  ]
   </script>
   
 

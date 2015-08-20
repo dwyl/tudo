@@ -1,4 +1,4 @@
 <issues-page>
   <nav></nav>
-  <issues></issues>
+  <issues prioritised_issues={opts.prioritised_issues}></issues>
 </issues-page>
