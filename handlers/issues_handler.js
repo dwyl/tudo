@@ -7,5 +7,5 @@ exports.handler = function (req, reply) {
 
 exports.parse = function (entries) {
 
-  return [{}, {}, {}]
+  return [{issues: true, priority: true}, {issues: true, priority: true}, {issues: true, priority: true}]
 }
