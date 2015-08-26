@@ -21,7 +21,7 @@ test('I am not sure how to write sensible tests for auth', function (t) {
     rep.continue();
   });
   server.inject({method: 'GET', url: '/login'}, function (res) {
-		server.stop(function(){});
-  	t.end();
+    server.stop(function(){});
+    t.end();
   });
 });
