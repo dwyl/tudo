@@ -14,3 +14,14 @@ test("GitHub Authentication Test [WiP!]", function(t) {
     t.end();
   });
 });
+
+test('I am not sure how to write sensible tests for auth', function (t) {
+  server.ext('onPreAuth', function (req, rep) {
+    req.query = {code: 1};
+    rep.continue();
+  });
+  server.inject({method: 'GET', url: '/login'}, function (res) {
+		server.stop(function(){});
+  	t.end();
+  });
+});
