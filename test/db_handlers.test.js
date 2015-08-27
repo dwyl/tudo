@@ -8,7 +8,7 @@ var testUser    = fixtures.testUser;
 var testIssue1  = fixtures.testIssue1;
 var testIssue2  = fixtures.testIssue2;
 var testIssue3  = fixtures.testIssue3;
-var connection  = url.parse(process.env.TEST_REDISCLOUD_URL);
+var connection  = url.parse(process.env.REDISCLOUD_URL);
 
 test("Adding a user to DB", function (t) {
   DBHandlers.addUser(redisClient, testUser, function (errors, replies) {

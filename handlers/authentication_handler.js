@@ -1,7 +1,8 @@
-var riot        = require('riot');
-var views       = require('../views');
-var https       = require('https');
-var querystring = require('querystring');
+var riot          = require('riot');
+var views         = require('../views');
+var https         = require('https');
+var querystring   = require('querystring');
+var redis_client  = require('../lib/redis_config')();
 
 function make_post_data (request) {
   return querystring.stringify({
@@ -24,8 +25,32 @@ function make_options (post_data) {
   };
 }
 
-function redis_login_handler (string) {
-  console.log(string);
+/* redis_login_handler stores access_token for later use
+ * @param {String} access_json - the string returned by github auth
+ * @param {Function} callback - call this when redis replies
+ */
+
+function redis_login_handler (access_json, callback) {
+  var access_token = 'token ' + JSON.parse(access_json).access_token;
+  https.get({
+    hostname: 'api.github.com',
+    path: '/user',
+    method: 'GET',
+    headers: {
+      authorization: access_token,
+      'User-Agent': 'Tudo'
+    }
+  }, function (res){
+    access_token = access_token.split(' ')[1];
+    var user_name = '';
+    res.setEncoding('utf-8');
+    res.on('data', function (chunk){
+      user_name += chunk;
+    }).on('end', function(){
+      user_name = JSON.parse(user_name).login;
+      redis_client.hset('tokens', user_name, access_token, callback);
+    })
+  });
 }
 
 function token_response_handler (response) {
@@ -52,3 +77,5 @@ function authentication_handler (request, reply) {
 }
 
 module.exports = authentication_handler;
+module.exports.redis_login_handler = redis_login_handler;
+module.exports.redis_client = redis_client;

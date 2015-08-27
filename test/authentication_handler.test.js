@@ -1,5 +1,8 @@
-var test   = require('tape');
-var server = require('../server'); // test server which in turn loads our module
+require('env2')('config.env');
+var test         = require('tape');
+var server       = require('../server'); // test server which in turn loads our module
+var redis_client  = require('../lib/redis_config')();
+var authentication_handler = require('../handlers/authentication_handler');
 
 test("GitHub Authentication Test [WiP!]", function(t) {
   var options = {
@@ -25,3 +28,16 @@ test('I am not sure how to write sensible tests for auth', function (t) {
     t.end();
   });
 });
+
+test('Checks that redis_login_handler correctly inserts authentication token', function (t) {
+  // console.log(process.env.ACCESS_JSON);
+  authentication_handler.redis_login_handler(process.env.ACCESS_JSON, function(err, data){
+    var access_token = JSON.parse(process.env.ACCESS_JSON).access_token;
+    var dummy_auth_token = redis_client.hget('tokens', 'dwyl-dummy', function (err, data) {
+      t.equal(data, access_token);
+      redis_client.end();
+      authentication_handler.redis_client.end();
+      t.end();
+    });
+  });
+})
