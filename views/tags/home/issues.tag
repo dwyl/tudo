@@ -1,15 +1,15 @@
 <issues>
 
-  <div each={opts.prioritised_issues.entries} class={'priority-level p' + url}>
-    <h4>Priority {title}</h4>
+  <div each={opts.prioritised_issues} class={'priority-level p' + priority}>
+    <h4>Priority {priority}</h4>
     <ul class='issues-list'>
       <!-- passes title to issue tag in opts object -->
-    	<issue/>
+    	<issue each={issues} title={title} priority={parent.priority} url={url}/>
     </ul>
   </div>
-  
+
   <script>
   </script>
-  
+
 
 </issues>
