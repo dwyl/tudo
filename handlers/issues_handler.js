@@ -45,10 +45,8 @@ function parse (entries) {
   return prioritised_array;
 }
 
-var returnIssues = parse(issues_fixture.entries);
-
 exports.handler = function (req, reply) {
-  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: returnIssues}) + tags.suffix);
+  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: parse(issues_fixture.entries)}) + tags.suffix);
 }
 
 exports.parse = parse;
