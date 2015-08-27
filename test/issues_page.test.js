@@ -7,7 +7,7 @@ test('Visit issues page', function(t){
     console.log(' - - - - - - - - - - - - - - - - - - - - -');
     console.log(res.payload);
     console.log(' - - - - - - - - - - - - - - - - - - - - -');
-    t.ok(res.payload.indexOf('Priority') > -1, 'Issues page has the word "Priority"');
+    t.ok(res.payload.indexOf('priority') > -1, 'Issues page has the word "priority"');
     server.stop(function(){});
     t.end();
   });

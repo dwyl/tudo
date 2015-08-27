@@ -1,8 +1,9 @@
 var riot = require('riot');
 var tags = require('../views/');
+var issues_fixture = require("../test/fixtures/issues.json");
 
 exports.handler = function (req, reply) {
-  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: require("../test/fixtures/issues.json")}) + tags.suffix);
+  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: issues_fixture}) + tags.suffix);
 }
 
 exports.parse = function (entries) {
