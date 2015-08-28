@@ -19,6 +19,24 @@ which is *always* consistent, version-controlled (*full audit/history*),
 transparent and real-time.
 
 
+
+
+### GitHub OAuth
+
+See: https://developer.github.com/guides/basics-of-authentication/
+
+Sample OAuth access token:
+```sh
+{
+  "access_token":"86a6ffa3456b4d7c9020d221a04c66d6f057f007",
+  "token_type":"bearer",
+  "scope":"repo,user:email"
+}
+```
+
+
+
+
 ### Required Environment Variables
 
 To run this app you will need to set the following

@@ -4,9 +4,6 @@ var mock_issues = require('./fixtures/issues.json');
 
 test('Visit issues page', function(t){
   server.inject({url:'/issues', method:'GET'}, function(res){
-    console.log(' - - - - - - - - - - - - - - - - - - - - -');
-    console.log(res.payload);
-    console.log(' - - - - - - - - - - - - - - - - - - - - -');
     t.ok(res.payload.indexOf('priority') > -1, 'Issues page has the word "priority"');
     server.stop(function(){});
     t.end();
