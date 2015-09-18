@@ -74,13 +74,14 @@ To deploy to Heroku you will need to add the environment variables _manually_ (_
 
 ###Front-end
 
-[@msmichellegar] and [@iteles] have styled three screens for the project: the "login"/landing page, the home feed, and an issue view. Original wireframes for these screens (and an archive of discussed designs) can be found [here](https://docs.google.com/presentation/d/11JJjfQ-MtnfnRGQT9KREmqUHQj4wkgB7tjSxXhXyNJg/edit#slide=id.p).
+Throughout [#dwylsummer](https://github.com/dwyl/summer-2015) we worked to pull together the best ideas from everyone into a proposed [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product).
 
-We have worked to a very stripped-down design for the MVP, and will be adding more functionality as agreed on by the dwyl community (customisation, organisation and repo views, toggle views).
+We decided the most valuable thing we could do to improve on the [existing github issues](https://github.com/issues) page was to add prioritisation.
 
-<img width="600" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/4185328/8803847/24905988-2fc1-11e5-8a10-754ab36236ad.png">
+Our [initial whiteboard sketch](https://github.com/dwyl/tudo/issues/91#issuecomment-132346200):
+![tudo-UI-whiteboard](https://cloud.githubusercontent.com/assets/4185328/9342150/1ba89a50-45f2-11e5-8bcb-0945e396075e.jpg) 
 
-<img width="280" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/10683087/8856303/ed930078-3161-11e5-9f84-edadadaa885a.png">
+<!--<img width="280" alt="proposed-initial-stripped-down-design" src="https://cloud.githubusercontent.com/assets/10683087/8856303/ed930078-3161-11e5-9f84-edadadaa885a.png">-->
 
 ## Github API - issues
 
@@ -162,6 +163,3 @@ We think issue categorisation through the use of labels can really improve organ
 ##Components
 
 Components for the login, home and issue page are located in the views/tags folder. All tags are rendered on the server side by using the render function from Riot.js.
-
-[@iteles]: https://github.com/iteles
-[@msmichellegar]: https://github.com/msmichellegar
