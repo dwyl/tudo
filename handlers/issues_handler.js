@@ -2,11 +2,7 @@ var riot = require('riot');
 var tags = require('../views/');
 var issues_fixture = require("../test/fixtures/issues.json");
 
-exports.handler = function (req, reply) {
-  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: issues_fixture}) + tags.suffix);
-}
-
-exports.parse = function (entries) {
+function parse (entries) {
 
   //extract priorities from issue
   function find_priorities(issue) {
@@ -48,3 +44,9 @@ exports.parse = function (entries) {
 
   return prioritised_array;
 }
+
+exports.handler = function (req, reply) {
+  reply(tags.prefix + riot.render(tags.issues_page, {prioritised_issues: parse(issues_fixture.entries)}) + tags.suffix);
+}
+
+exports.parse = parse;

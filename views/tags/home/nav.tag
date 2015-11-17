@@ -1,11 +1,15 @@
 <nav>
   <ul class='priority-nav'>
-    <li class='priority-tab'>P1 [1]</li>
-    <li class='priority-tab'>P2 [10]</li>
-    <li class='priority-tab'>P3 [10]</li>
-    <li class='priority-tab'>P4 [101]</li>
-    <li class='priority-tab'>P5 [100]</li>
-    <li class='priority-tab'>P? [2878789730]</li>
+    <li class='priority-tab' each={num, index in opts.issue_amounts}>
+      <a href=#{indexTranslate(index)}>
+        P{indexTranslate(index)} [{num}]
+      </a>
+    </li>
   </ul>
   <p class='filter-icon'>Filter</p>
+  <script>
+    this.indexTranslate = function (index) {
+      return index < 5 ? index + 1 : 'U'
+    }
+  </script>
 </nav>
