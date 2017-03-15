@@ -36,7 +36,7 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :tudo, Tudo.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "justenbarget",
+  username: "postgres",
   password: "postgres",
   database: "tudo_dev",
   hostname: "localhost",
