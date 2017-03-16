@@ -7,6 +7,9 @@ defmodule Tudo.Mixfile do
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test,
+                         "coveralls.post": :test, "coveralls.html": :test],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
@@ -37,7 +40,8 @@ defmodule Tudo.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:excoveralls, "~> 0.6", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
