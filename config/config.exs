@@ -12,7 +12,7 @@ config :tudo,
 # Configures the endpoint
 config :tudo, Tudo.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "sQevW4xtgHvQW8GRGvC+xpHqTHz6fHU7y6WujMJuFy0qipl3a2tysAbXmpwdMfCF",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Tudo.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Tudo.PubSub,
            adapter: Phoenix.PubSub.PG2]

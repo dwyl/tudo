@@ -13,8 +13,9 @@ use Mix.Config
 # which you typically run after static files are built.
 config :tudo, Tudo.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [scheme: "https", host: "dwyl-tudo.herokuapp.com", port: 443],
+  cache_static_manifest: "priv/static/manifest.json",
+  force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 # Do not print debug messages in production
 config :logger, level: :info
