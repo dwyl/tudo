@@ -3,7 +3,11 @@ defmodule Tudo.AuthControllerTest do
 
   test "GET /auth/github/callback", %{conn: conn} do
     # transform conn to have conn.assigns have %{ueberauth_auth} property
+    conn = put_in(conn.assigns, %{ueberauth_auth: %{}})
     conn = get conn, "/auth/github/callback"
+
+    assert get_flash(conn, :info) =~ "sucessfully authenticated"
+
     # assert here
   end
 
