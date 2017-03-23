@@ -1,5 +1,11 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Tudo" %></h2>
-  <p class="lead">v0</p>
-  <%= link "Login", to: "/auth/github" %>
-</div>
+<%= if @current_user do %>
+  <div class="jumbotron">
+    <h2>Welcome <%= @current_user.name %>!</h2>
+    <%= link "Logout", to: "/auth/logout", method: :delete %>
+  </div>
+<% else %>
+  <a class="btn btn-primary btn-lg" href="/auth/github">
+    <i class="fa fa-github"></i>
+    Sign in with GitHub
+  </a>
+<% end %>
