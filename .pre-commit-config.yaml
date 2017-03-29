@@ -1,0 +1,14 @@
+-   repo: local
+    hooks:
+    -   id: mix-test
+        name: 'elixir: mixing tests'
+        entry: mix test
+        language: system
+        files: /.ex$
+        always_run: true
+    -   id: mix-test
+        name: 'elixir: mixing compile'
+        entry: mix compile
+        language: system
+        files: /.ex$
+        always_run: true
