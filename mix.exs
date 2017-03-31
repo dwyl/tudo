@@ -43,6 +43,7 @@ defmodule Tudo.Mixfile do
      {:credo, "~> 0.7.2", only: [:dev, :test]},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:httpoison, "~> 0.11.1"},
      {:excoveralls, "~> 0.6", only: :test},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_github, "~> 0.4.1"},
