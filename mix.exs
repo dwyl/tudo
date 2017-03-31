@@ -23,7 +23,7 @@ defmodule Tudo.Mixfile do
     [mod: {Tudo, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger,
                     :gettext, :phoenix_ecto, :postgrex, :ueberauth,
-                    :ueberauth_github]]
+                    :ueberauth_github, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -45,7 +45,9 @@ defmodule Tudo.Mixfile do
      {:cowboy, "~> 1.0"},
      {:excoveralls, "~> 0.6", only: :test},
      {:ueberauth, "~> 0.4"},
-     {:ueberauth_github, "~> 0.4.1"}]
+     {:ueberauth_github, "~> 0.4.1"},
+     {:httpoison, "~> 0.11.1"},
+     {:poison, "~> 2.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
