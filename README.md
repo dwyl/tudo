@@ -1,8 +1,7 @@
 # Tudo
 
 To start the app:
-  * Install [`pre-commit`](http://pre-commit.com/#install)
-  * Run `pre-commit install` within the directory of the project
+
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `npm install`
