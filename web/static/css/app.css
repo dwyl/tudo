@@ -1,1 +1,58 @@
 /* This file is for your main application css. */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* COLORS */
+
+.dwyl-dark-gray {
+  color: #45535B;
+}
+
+.dwyl-bg-dark-gray {
+  background-color: #45535B;
+}
+
+.dwyl-b--dark-gray {
+  border-color: #45535B;
+}
+
+.dwyl-gray {
+  color: #42575B;
+}
+
+.dwyl-bg-gray {
+  background-color: #42575B;
+}
+
+.dwyl-b--gray {
+  border-color: #42575B;
+}
+
+.dwyl-mint {
+  color: #4BC0A9;
+}
+
+.dwyl-bg-mint {
+  background-color: #4BC0A9;
+}
+
+.dwyl-b--mint {
+  border-color: #4BC0A9;
+}
+
+.dwyl-bg-gold {
+  background-color: #C6AC5C;
+}
+
+.dwyl-light-gray {
+  color: #717E84;
+}
+
+.dwyl-bg-orange {
+  background-color: #fc865b;
+}

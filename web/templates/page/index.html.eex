@@ -1,10 +1,10 @@
 <%= if @current_user do %>
-  <div class="jumbotron">
+  <div>
     <h2>Welcome <%= @current_user.name %>!</h2>
     <%= link "Logout", to: "/auth/logout", method: :delete %>
   </div>
 <% else %>
-  <a class="btn btn-primary btn-lg" href="/auth/github">
+  <a class="dib link mv2 pa3 pa3-ns dwyl-bg-mint white br2 f4 shadow-4" href="/auth/github">
     <i class="fa fa-github"></i>
     Sign in with GitHub
   </a>
