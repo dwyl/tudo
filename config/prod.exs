@@ -14,6 +14,7 @@ use Mix.Config
 config :tudo, Tudo.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "tudo-app.herokuapp.com/", port: 443],
+  cache_static_manifest: "priv/static/cache_static_manifest.json",
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 
