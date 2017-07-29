@@ -10,7 +10,7 @@ You will need the following environment variables in your path:
 export SECRET_KEY_BASE=<secret_key_base>
 export GITHUB_CLIENT_ID=<github_client_id>
 export GITHUB_CLIENT_SECRET=<github_client_secret>
-export GITHUB_ACCESS_TOKEN=<github_access_token>
+export GITHUB_API_KEY=<github_api_key>
 ```
 
 To start the app:
