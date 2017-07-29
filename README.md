@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dwyl/tudo.svg?branch=master)](https://travis-ci.org/dwyl/tudo)
+
 # Tudo
 
 To start the app:
