@@ -4,10 +4,10 @@ defmodule Tudo.GithubController do
 
   alias Tudo.GithubController
 
-  @endpoint "https://api.github.com"
+  @access_token System.get_env "GITHUB_ACCESS_TOKEN"
 
   def process_url(url) do
-    @endpoint <> url <> "?access_token=f39b939ad9af6a984c0cba760e91bfa8143582a3"
+    "https://api.github.com" <> url <> "?access_token=" <> @access_token
   end
 
   def index(conn, %{"org" => org}) do
