@@ -5,7 +5,8 @@
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin",
     "test": "mix test",
-    "cover": "mix coveralls"
+    "cover": "mix coveralls",
+    "lint": "mix credo --strict"
   },
   "dependencies": {
     "phoenix": "file:deps/phoenix",
@@ -21,6 +22,7 @@
     "uglify-js-brunch": "~2.0.1"
   },
   "pre-commit": [
-    "cover"
+    "cover",
+    "lint"
   ]
 }
