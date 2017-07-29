@@ -5,7 +5,6 @@ defmodule Tudo.AuthController do
 
   plug Ueberauth
 
-
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "You have been logged out!")

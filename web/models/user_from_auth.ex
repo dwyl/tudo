@@ -1,5 +1,7 @@
 defmodule Tudo.UserFromAuth do
 
+  @moduledoc false
+
   def basic_info(auth) do
     id = Map.get auth, :uid
     info = Map.get auth, :info, %{}
@@ -16,9 +18,9 @@ defmodule Tudo.UserFromAuth do
       name = [info.first_name, info.last_name]
       |> Enum.filter(&(&1 != nil and &1 != ""))
 
-      cond do
-        length(name) == 0 -> Map.get info, :nickname
-        true -> Enum.join(name, " ")
+      case length(name) do
+        0 -> Map.get info, :nickname
+        _ -> Enum.join(name, " ")
       end
     end
   end
