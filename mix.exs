@@ -46,7 +46,7 @@ defmodule Tudo.Mixfile do
      {:excoveralls, "~> 0.6", only: :test},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_github, "~> 0.4.1"},
-     {:httpoison, "~> 0.11.1"},
+     {:httpoison, "~> 0.12.0"},
      {:poison, "~> 2.0"}]
   end
 
