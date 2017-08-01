@@ -18,7 +18,7 @@ defmodule Tudo.AuthController do
     conn
     |> put_flash(:info, "sucessfully authenticated.")
     |> put_session(:current_user, user)
-    |> redirect(to: "/issues")
+    |> redirect(to: "/")
   end
 
   def callback(%{assigns: %{ueberauth_failure: _errors}} = conn, _params) do
