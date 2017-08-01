@@ -15,9 +15,6 @@
     <th>Title</th>
     <th>Labels</th>
     <th>Assignees</th>
-    <th>Date Created</th>
-    <th>Date Updated</th>
-    <th>Comments</th>
   </tr>
   <%= for issue <- @issues do %>
   <tr class="issue_wrapper">
@@ -26,13 +23,17 @@
     <td><%= issue."labels"%></td>
     <td>
       <%= for assignee <- generate_avatar(issue) do %>
-        <img src="<%= assignee %>" alt="" class="w2">
+        <img src="<%= assignee %>" alt="" class="w2 br2">
       <% end %>
     </td>
-
-    <td><%= issue."gh_created_at"%></td>
-    <td><%= issue."gh_updated_at"%></td>
-    <td><%= issue."comments_number"%></td>
+    <td class="w2">
+      <i class="fa fa-comment-o black" aria-hidden="true"></i>
+      <%= issue."comments_number"%>
+    </td>
+  </tr>
+  <tr>
+    <td>Created <%= issue."gh_created_at"%></td>
+    <td>Updated <%= issue."gh_updated_at"%></td>
   </tr>
   <% end %>
 </table>
