@@ -14,7 +14,7 @@ defmodule Tudo.GetGithubData do
   use HTTPoison.Base
 
   alias Poison.Parser
-  alias Tudo.{Repo, Repository, Issue}
+  alias Tudo.{Repo, Issue}
 
   @access_token System.get_env "GITHUB_ACCESS_TOKEN"
 
@@ -48,7 +48,6 @@ defmodule Tudo.GetGithubData do
 
   defp get_issues(repos) do
     repos
-    |> Enum.take(2)
     |> generate_tasks
     |> Task.yield_many
     |> get_issue_data
@@ -57,10 +56,9 @@ defmodule Tudo.GetGithubData do
 
   end
 
-  defp get_issue_data(repo_issues) do
+  def get_issue_data(repo_issues) do
     repo_issues
     |> Enum.map(fn({_, {:ok, issue_res }}) -> issue_res end)
-
   end
 
   defp generate_tasks(repos) do
@@ -109,14 +107,37 @@ defmodule Tudo.GetGithubData do
   end
 
   def add_repo_name(issue) do
-    repo_name = issue["url"]
-      |> String.split(["https://api.github.com/repos/dwyl/", "/issues"])
-      |> Enum.at(1)
-      |> fn(repo_name) -> Map.put(issue, "repo_name", repo_name) end.()
+    issue["url"]
+    |> String.split(["https://api.github.com/repos/dwyl/", "/issues"])
+    |> Enum.at(1)
+    |> fn(repo_name) -> Map.put(issue, "repo_name", repo_name) end.()
   end
 
   def insert_data(issues) do
-
+    Enum.each(issues, fn %{"assignees" => assignees,
+                          "comments" => comments,
+                          "gh_created_at" => gh_created_at,
+                          "gh_updated_at" => gh_updated_at,
+                          "labels" => labels,
+                          "repo_name" => repo_name,
+                          "state" => state,
+                          "title" => title,
+                          "url" => url
+                          } ->
+      attributes = %{
+        assignees: assignees,
+        comments_number: comments,
+        gh_created_at:  gh_created_at,
+        gh_updated_at: gh_updated_at,
+        labels: labels,
+        repo_name: repo_name,
+        state: state,
+        title: title,
+        url: url
+      }
+      changeset = Issue.changeset(%Issue{}, attributes)
+      Repo.insert!(changeset)
+    end)
   end
 end
 
