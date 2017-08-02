@@ -1,5 +1,6 @@
 defmodule Tudo.Issue do
   use Tudo.Web, :model
+
   @moduledoc false
 
   schema "issues" do
@@ -11,7 +12,7 @@ defmodule Tudo.Issue do
     field :comments_number, :integer
     field :state, :string
     field :assignees, {:array, :string}
-    belongs_to :repository, Tudo.Repository
+    field :repo_name, :string
 
     timestamps()
   end
@@ -19,12 +20,11 @@ defmodule Tudo.Issue do
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
-  @fields [:title, :url, :labels, :gh_created_at, :gh_updated_at,
-           :comments_number, :state, :assignees]
-
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @fields)
-    |> validate_required(@fields)
+    |> cast(params, [:title, :url, :labels, :gh_created_at, :gh_updated_at,
+                    :comments_number, :state, :assignees, :repo_name])
+    |> validate_required([:title, :url, :labels, :gh_created_at, :gh_updated_at,
+                          :comments_number, :state, :assignees, :repo_name])
   end
 end

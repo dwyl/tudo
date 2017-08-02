@@ -11,11 +11,10 @@ defmodule Tudo.Repo.Migrations.CreateIssue do
       add :comments_number, :integer
       add :state, :string
       add :assignees, {:array, :string}
-      add :repository_id, references(:repositories, on_delete: :nothing)
+      add :repo_name, :string
 
       timestamps()
     end
-    create index(:issues, [:repository_id])
 
   end
 end
