@@ -26,15 +26,16 @@ defmodule Tudo.Router do
   end
 
   scope "/issues", Tudo do
-
     get "/", GithubController, :index
   end
 
-  # pipeline :api do
-  #   plug :accepts, ["json"]
-  # end
-  # Other scopes may use custom stacks.
-  # scope "/api", Tudo do
-  #   pipe_through :api
-  # end
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
+  scope "/api", Tudo do
+    pipe_through :api
+
+    resources "/hooks", HookController
+  end
 end
