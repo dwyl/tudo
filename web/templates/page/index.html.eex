@@ -37,12 +37,5 @@
   </tr>
   <% end %>
 </table>
-<div>
-  <%= for page_number <- generate_pages(@count) do %>
-    <%= if is_integer(page_number) do %>
-        <a href="/<%= page_number %>" aria-label="page <%= page_number %>"><%= page_number %></a>
-    <% else %>
-        <span><%= page_number %></span>
-    <% end %>
-  <% end %>
-</div>
+
+<%= pagination_link(@conn, @rummage) %>
