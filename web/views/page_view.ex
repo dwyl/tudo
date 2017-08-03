@@ -4,7 +4,7 @@ defmodule Tudo.PageView do
 
   def generate_avatar(issue) do
     issue.assignees
-    |> Enum.map(fn assignee -> String.split(assignee, ";") |> Enum.at(0) end)
+    |> Enum.map(fn assignee -> assignee |> String.split(";") |> Enum.at(0) end)
   end
 
   def generate_pages(count) do
@@ -17,7 +17,8 @@ defmodule Tudo.PageView do
     last = Enum.take(1..pages, -3)
     first = Enum.take(1..pages, 3)
 
-    Enum.concat(first, last)
+    first
+    |> Enum.concat(last)
     |> List.insert_at(3, "...")
   end
 

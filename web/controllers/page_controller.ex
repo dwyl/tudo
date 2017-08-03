@@ -3,11 +3,7 @@ defmodule Tudo.PageController do
   alias Tudo.IssueController
   alias Tudo.{Issue, Repo}
 
-  def index(conn, _params) do
-    redirect conn, to: "/1"
-  end
-
-  def show(conn, params) do
+  def index(conn, params) do
     {query, rummage} = Issue
       |> Issue.rummage(params["rummage"])
 

@@ -14,7 +14,7 @@ defmodule Tudo.Router do
   scope "/", Tudo do
     pipe_through :browser # Use the default browser stack
 
-    resources "/", PageController, only: [:index, :show]
+    get "/", PageController, :index
 
   end
 
