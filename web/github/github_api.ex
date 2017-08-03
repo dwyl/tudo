@@ -73,20 +73,17 @@ defmodule Tudo.GithubApi do
       "comments_number" => comments,
       "repo_name" => get_repo_name(html_url),
       "labels" => Enum.map(labels, &format_label/1),
-      "assignees" => Enum.map(assignees, &format_assignee/1),
+      "assignees" => Enum.map(assignees, &format_assignees/1),
       "gh_created_at" => created_at,
       "gh_updated_at" => updated_at
     }
   end
-  def format_data(params) do
-    IO.inspect params
-  end
 
-  defp format_label(%{"color" => color, "name" => name}),
+  def format_label(%{"color" => color, "name" => name}),
     do: "##{color};#{name}"
-  defp format_assignee(%{"login" => login, "avatar_url" => avatar_url}),
+  def format_assignees(%{"login" => login, "avatar_url" => avatar_url}),
     do: "#{login};#{avatar_url}"
-  defp get_repo_name(html_url) do
+  def get_repo_name(html_url) do
     "https://github.com/dwyl/([^\/]+)/"
     |> Regex.compile!
     |> Regex.run(html_url)
