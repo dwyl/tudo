@@ -7,21 +7,6 @@ defmodule Tudo.PageView do
     |> Enum.map(fn assignee -> assignee |> String.split(";") |> Enum.at(0) end)
   end
 
-  def generate_pages(count) do
-    pages = round(count / 10)
-
-    print_page_numbers(pages, 1)
-  end
-
-  defp print_page_numbers(pages, page_number) do
-    last = Enum.take(1..pages, -3)
-    first = Enum.take(1..pages, 3)
-
-    first
-    |> Enum.concat(last)
-    |> List.insert_at(3, "...")
-  end
-
   def get_label_data(issue) do
     issue.labels
     |> Enum.map(fn label ->
