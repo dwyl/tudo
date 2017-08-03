@@ -1,16 +1,3 @@
-<%= if @current_user do %>
-  <div class="w-100 pb4">
-    <h2 class="pl5 dib w-80">Welcome <%= @current_user.name %>!</h2>
-    <div class="pl5 dib ">
-      <%= link "Logout", to: "/auth/logout", method: :delete, class: "dwyl-mint" %>
-    </div>
-  </div>
-<% else %>
-  <a class="dib link mv2 pa3 pa3-ns dwyl-bg-mint white br2 f4 shadow-4" href="/auth/github">
-    <i class="fa fa-github"></i>
-    Sign in with GitHub
-  </a>
-<% end %>
 <section class="tl center ph2 dwyl-dark-gray">
   <table class="w-80 center">
     <thead class="">
