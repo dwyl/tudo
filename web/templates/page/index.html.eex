@@ -1,7 +1,9 @@
 <%= if @current_user do %>
-  <div>
-    <h2>Welcome <%= @current_user.name %>!</h2>
-    <%= link "Logout", to: "/auth/logout", method: :delete %>
+  <div class="w-100 pb4">
+    <h2 class="pl5 dib w-80">Welcome <%= @current_user.name %>!</h2>
+    <div class="pl5 dib ">
+      <%= link "Logout", to: "/auth/logout", method: :delete, class: "dwyl-mint" %>
+    </div>
   </div>
 <% else %>
   <a class="dib link mv2 pa3 pa3-ns dwyl-bg-mint white br2 f4 shadow-4" href="/auth/github">
@@ -9,33 +11,43 @@
     Sign in with GitHub
   </a>
 <% end %>
-<table>
-  <tr>
-    <th>Repo</th>
-    <th>Title</th>
-    <th>Labels</th>
-    <th>Assignees</th>
-  </tr>
-  <%= for issue <- @issues do %>
-  <tr class="issue_wrapper">
-    <td><%= issue."repo_name"%></td>
-    <td><%= issue."title"%></td>
-    <td><%= issue."labels"%></td>
-    <td>
-      <%= for assignee <- generate_avatar(issue) do %>
-        <img src="<%= assignee %>" alt="" class="w2 br2">
+<section class="tl center ph2 dwyl-dark-gray">
+  <table class="w-80 center">
+    <thead class="">
+      <tr class="bb bw2 dwyl-b--gray">
+        <th class="pv3 pl2">Repo</th>
+        <th class="pv3 pl3">Title</th>
+        <th class="pv3">Assignees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for issue <- @issues do %>
+      <tr class="h2">
+        <td class="pl2"><%= issue."repo_name"%></td>
+        <td class="pl3 b">
+          <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
+            <%= issue."title"%>
+          </a>
+          <%= for {label_hex, label_name, label_font_color} <- get_label_data(issue) do %>
+            <p class="normal br2 tc ph1 pv1 dib mv0 f6" style="background-color:<%= label_hex %>; color:<%= label_font_color %>">
+              <%= label_name %>
+            </p>
+          <% end %>
+        </td>
+        <td class="tc">
+          <%= for assignee <- generate_avatar(issue) do %>
+            <img src="<%= assignee %>" alt="" class="w1plus br2">
+          <% end %>
+        </td>
+        <td class="w2 f6">
+          <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
+            <i class="fa fa-comment-o dwyl-dark-gray" aria-hidden="true"></i>
+            <%= issue."comments_number"%>
+          </a>
+        </td>
+      </tr>
       <% end %>
-    </td>
-    <td class="w2">
-      <i class="fa fa-comment-o black" aria-hidden="true"></i>
-      <%= issue."comments_number"%>
-    </td>
-  </tr>
-  <tr>
-    <td>Created <%= issue."gh_created_at"%></td>
-    <td>Updated <%= issue."gh_updated_at"%></td>
-  </tr>
-  <% end %>
-</table>
-
+    </tbody>
+  </table>
+</section>
 <%= pagination_link(@conn, @rummage) %>
