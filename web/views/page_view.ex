@@ -23,8 +23,8 @@ defmodule Tudo.PageView do
     |> String.to_integer(16)
 
     case rgb_value > 0xffffff / 2 do
-      true -> {label_hex, label_name, '#000'}
-      false -> {label_hex, label_name, '#fff'}
+      true -> %{label_hex: label_hex, label_name: label_name, font_hex: '#000'}
+      false -> %{label_hex: label_hex, label_name: label_name, font_hex: '#fff'}
     end
   end
 

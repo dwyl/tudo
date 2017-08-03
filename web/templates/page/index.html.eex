@@ -1,6 +1,14 @@
+<header class="">
+  <h1 class="tc">Help Wanted</h1>
+  <div class="f6 pa2 tc">
+    <p class=""> Help Wanted is a dwyl product, made with ❤️ , so that you can easily contribute to open source projects. Each of the issues below requires help from someone like you; technical or not.</p>
+    <p class=""> Take a look at our <a href="https://github.com/dwyl/labels#labels" target="_blank">labels repo</a> to familiarise yourself with what they mean and if you want to learn more about how to contribute to dwyl repos, check out our <a href="https://github.com/dwyl/contributing" target="_blank">contributing guide</a>.</p>
+    <p class="">We'll be adding features over time based on your recommendations so please leave us feedback through an issue and apply the <code>enhancement</code> label.</p>
+  </div>
+</header>
 <section class="tl center ph2 dwyl-dark-gray">
-  <table class="w-80 center">
-    <thead class="">
+  <table class="w-80 center dn db-ns">
+    <thead>
       <tr class="bb bw2 dwyl-b--gray">
         <th class="pv3 pl2">Repo</th>
         <th class="pv3 pl3">Title</th>
@@ -15,10 +23,8 @@
           <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
             <%= issue."title"%>
           </a>
-          <%= for {label_hex, label_name, label_font_color} <- get_label_data(issue) do %>
-            <p class="normal br2 tc ph1 pv1 dib mv0 f6" style="background-color:<%= label_hex %>; color:<%= label_font_color %>">
-              <%= label_name %>
-            </p>
+          <%= for label <- get_label_data(issue) do %>
+            <%= component("label", label: label)%>
           <% end %>
         </td>
         <td class="tc">
@@ -36,5 +42,10 @@
       <% end %>
     </tbody>
   </table>
+  <div class="dn-ns tc">
+    <%= for issue <- @issues do %>
+      <%= component("issue_card", issue: issue, labels: get_label_data(issue) ) %>
+    <% end %>
+  </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
