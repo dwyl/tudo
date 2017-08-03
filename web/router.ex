@@ -36,6 +36,6 @@ defmodule Tudo.Router do
   scope "/api", Tudo do
     pipe_through :api
 
-    resources "/hooks", HookController
+    post "/hooks", HookController, :create
   end
 end

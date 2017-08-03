@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :tudo,
-  ecto_repos: [Tudo.Repo]
+  ecto_repos: [Tudo.Repo],
+  github_api_root: "https://api.github.com"
 
 # Configures the endpoint
 config :tudo, Tudo.Endpoint,
