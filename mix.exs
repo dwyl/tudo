@@ -41,6 +41,7 @@ defmodule Tudo.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:credo, "~> 0.7.2", only: [:dev, :test]},
+     {:mix_test_watch, "~> 0.4.1", only: :dev, runtime: false},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:excoveralls, "~> 0.6", only: :test},

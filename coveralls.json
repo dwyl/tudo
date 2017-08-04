@@ -8,6 +8,8 @@
     "test/support/model_case.ex",
     "test/support/channel_case.ex",
     "web/web.ex",
+    "web/router.ex",
+    "web/httpoison",
     "web/views",
     "web/models"
   ]
