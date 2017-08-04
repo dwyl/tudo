@@ -5,14 +5,13 @@ defmodule Tudo.GithubApi do
   Also takes care of json parsing once the body of the request arrives.
   """
 
-  require HTTPoison
   require Poison
 
+  # Following mocking convention outlined here:
+  # http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/
+  @httpoison Application.get_env :tudo, :httpoison
   @auth_token System.get_env "GITHUB_ACCESS_TOKEN" # personal access token
-  @root_url Application.get_env :tudo, :github_api_root # "api.github/... for now"
-
-  # TODO: change root_url in testing environment to send requests to a test server
-  # started by our app which serves up github fixtures
+  @root_url "https://api.github.com"
 
   def get!(url),
     do: request! "get", url
@@ -28,8 +27,10 @@ defmodule Tudo.GithubApi do
     headers = [{"Authorization", "token #{@auth_token}"}, {"User-agent", ""}]
 
     method
-    |> HTTPoison.request!(@root_url <> url, body, headers,
-         [connect_timeout: 1000000, recv_timeout: 1000000, timeout: 1000000])
+    |> @httpoison.request!(@root_url <> url, body, headers,
+         [connect_timeout: 1_000_000,
+          recv_timeout: 1_000_000,
+          timeout: 1_000_000])
     |> Map.fetch!(:body)
     |> Poison.decode!
   end
@@ -79,12 +80,27 @@ defmodule Tudo.GithubApi do
     }
   end
 
+  @doc"""
+    iex>format_label(%{"name" => "help wanted", "color" => "159818"})
+    "#159818;help wanted"
+  """
   def format_label(%{"color" => color, "name" => name}),
     do: "##{color};#{name}"
+  @doc"""
+    iex>format_assignees(%{"login" => "shouston3", "avatar_url" => "https://github.com/shouston3"})
+    "shouston3;https://github.com/shouston3"
+  """
   def format_assignees(%{"login" => login, "avatar_url" => avatar_url}),
     do: "#{login};#{avatar_url}"
+  @doc"""
+  Gets the repo name from the html_url
+    iex>get_repo_name("https://github.com/dwyl/tudo")
+    "tudo"
+    iex>get_repo_name("https://github.com/dwyl/tudo/issues")
+    "tudo"
+  """
   def get_repo_name(html_url) do
-    "https://github.com/dwyl/([^\/]+)/"
+    "https://github.com/dwyl/([^\/\s]+)"
     |> Regex.compile!
     |> Regex.run(html_url)
     |> Enum.at(1)
