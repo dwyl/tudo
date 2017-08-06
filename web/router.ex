@@ -15,6 +15,7 @@ defmodule Tudo.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
   end
 
   scope "/auth", Tudo do

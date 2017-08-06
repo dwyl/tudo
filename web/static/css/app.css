@@ -56,3 +56,9 @@ body {
 .dwyl-bg-orange {
   background-color: #fc865b;
 }
+
+/* SIZES */
+
+.w1plus {
+  width: 1.5rem;
+}

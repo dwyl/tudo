@@ -1,11 +1,51 @@
-<%= if @current_user do %>
-  <div>
-    <h2>Welcome <%= @current_user.name %>!</h2>
-    <%= link "Logout", to: "/auth/logout", method: :delete %>
+<header class="">
+  <h1 class="tc">Help Wanted</h1>
+  <div class="f6 pa2 tc">
+    <p class=""> Help Wanted is a dwyl product, made with ❤️ , so that you can easily contribute to open source projects. Each of the issues below requires help from someone like you; technical or not.</p>
+    <p class=""> Take a look at our <a href="https://github.com/dwyl/labels#labels" target="_blank">labels repo</a> to familiarise yourself with what they mean and if you want to learn more about how to contribute to dwyl repos, check out our <a href="https://github.com/dwyl/contributing" target="_blank">contributing guide</a>.</p>
+    <p class="">We'll be adding features over time based on your recommendations so please leave us feedback through an issue and apply the <code>enhancement</code> label.</p>
   </div>
-<% else %>
-  <a class="dib link mv2 pa3 pa3-ns dwyl-bg-mint white br2 f4 shadow-4" href="/auth/github">
-    <i class="fa fa-github"></i>
-    Sign in with GitHub
-  </a>
-<% end %>
+</header>
+<section class="tl center ph2 dwyl-dark-gray">
+  <table class="w-80 center dn db-ns">
+    <thead>
+      <tr class="bb bw2 dwyl-b--gray">
+        <th class="pv3 pl2">Repo</th>
+        <th class="pv3 pl3">Title</th>
+        <th class="pv3">Assignees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for issue <- @issues do %>
+      <tr class="h2">
+        <td class="pl2"><%= issue."repo_name"%></td>
+        <td class="pl3 b">
+          <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
+            <%= issue."title"%>
+          </a>
+          <%= for label <- get_label_data(issue) do %>
+            <%= component("label", label: label)%>
+          <% end %>
+        </td>
+        <td class="tc">
+          <%= for assignee <- generate_avatar(issue) do %>
+            <img src="<%= assignee %>" alt="" class="w1plus br2">
+          <% end %>
+        </td>
+        <td class="w2 f6">
+          <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
+            <i class="fa fa-comment-o dwyl-dark-gray" aria-hidden="true"></i>
+            <%= issue."comments_number"%>
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="dn-ns tc">
+    <%= for issue <- @issues do %>
+      <%= component("issue_card", issue: issue, labels: get_label_data(issue) ) %>
+    <% end %>
+  </div>
+</section>
+<%= pagination_link(@conn, @rummage) %>
