@@ -15,6 +15,7 @@ defmodule Tudo.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
   end
 
   scope "/auth", Tudo do
@@ -23,11 +24,6 @@ defmodule Tudo.Router do
     delete "/logout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
-  end
-
-  scope "/issues", Tudo do
-
-    get "/", GithubController, :index
   end
 
   # pipeline :api do

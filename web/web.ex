@@ -52,6 +52,7 @@ defmodule Tudo.Web do
       use Phoenix.HTML
 
       import Tudo.Router.Helpers
+      import Tudo.ComponentHelpers
       import Tudo.ErrorHelpers
       import Tudo.Gettext
     end
