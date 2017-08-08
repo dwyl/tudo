@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :tudo,
-  ecto_repos: [Tudo.Repo]
+  ecto_repos: [Tudo.Repo],
+  httpoison: Tudo.HTTPoison.HTTPoison
 
 # Configures the endpoint
 config :tudo, Tudo.Endpoint,

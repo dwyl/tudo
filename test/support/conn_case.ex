@@ -26,6 +26,7 @@ defmodule Tudo.ConnCase do
       import Ecto.Query
 
       import Tudo.Router.Helpers
+      import Tudo.TestHelpers
 
       # The default endpoint for testing
       @endpoint Tudo.Endpoint

@@ -26,11 +26,17 @@ defmodule Tudo.Router do
     get "/:provider/callback", AuthController, :callback
   end
 
-  # pipeline :api do
-  #   plug :accepts, ["json"]
-  # end
-  # Other scopes may use custom stacks.
-  # scope "/api", Tudo do
-  #   pipe_through :api
-  # end
+  scope "/issues", Tudo do
+    get "/", GithubController, :index
+  end
+
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
+  scope "/api", Tudo do
+    pipe_through :api
+
+    post "/hooks", HookController, :create
+  end
 end
