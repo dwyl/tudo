@@ -1,5 +1,5 @@
 <header class="">
-  <h1 class="tc">Help Wanted</h1>
+  <div class="tc"><img class="w-20-ns w-50"src="https://user-images.githubusercontent.com/7805691/28775786-b7de0678-75eb-11e7-9dea-54dd674834ef.png"/></div>
   <div class="f6 pa2 tc">
     <p class=""> Help Wanted is a dwyl product, made with ❤️ , so that you can easily contribute to open source projects. Each of the issues below requires help from someone like you; technical or not.</p>
     <p class=""> Take a look at our <a href="https://github.com/dwyl/labels#labels" target="_blank">labels repo</a> to familiarise yourself with what they mean and if you want to learn more about how to contribute to dwyl repos, check out our <a href="https://github.com/dwyl/contributing" target="_blank">contributing guide</a>.</p>
