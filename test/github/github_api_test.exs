@@ -14,7 +14,7 @@ defmodule Tudo.GithubApiTest do
   test "post!" do
     actual = GithubApi.post! "/", %{key: "val"}
     expected = %{"method" => "post", "key" => "val"}
-  
+
     assert actual == expected
   end
 
@@ -86,6 +86,13 @@ defmodule Tudo.GithubApiTest do
                  "comments_number" => 1,
                  "gh_created_at" => "2011-04-22T13:33:48Z",
                  "gh_updated_at" => "2011-04-22T13:33:48Z"}
+
+    assert actual == expected
+  end
+
+  test "decode!" do
+    actual = GithubApi.decode! ""
+    expected = %{}
 
     assert actual == expected
   end
