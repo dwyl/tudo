@@ -10,14 +10,14 @@ hook_endpoint = System.get_env "HOOK_ENDPOINT"
 GithubApi.get_repos("dwyl")
 |> Enum.map(fn repo ->
     Task.async(fn ->
-      # hook_task = Task.async(fn ->
-      #   Hook.create "dwyl/#{repo}", hook_endpoint
-      # end)
+      hook_task = Task.async(fn ->
+        Hook.create "dwyl/#{repo}", hook_endpoint
+      end)
       issue_task = Task.async(fn ->
         GithubApi.get_help_wanted_issues("dwyl/#{repo}")
       end)
 
-      # Task.await(hook_task, timeout)
+      Task.await(hook_task, timeout)
       Task.await(issue_task, timeout)
     end)
   end)

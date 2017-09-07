@@ -11,6 +11,7 @@ export SECRET_KEY_BASE=<secret_key_base>
 export GITHUB_CLIENT_ID=<github_client_id>
 export GITHUB_CLIENT_SECRET=<github_client_secret>
 export GITHUB_ACCESS_TOKEN=<github_access_token>
+export HOOK_ENDPOINT=<hook_endpoint>
 ```
 
 To start the app:
@@ -18,6 +19,7 @@ To start the app:
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `npm install`
+  * Seed the database with `mix run priv/repo/seeds.exs`
   * Start Phoenix endpoint with `mix phoenix.server`
 
   NB. if you get errors here, please see if this helps: https://github.com/dwyl/learn-phoenix-framework/issues/53
