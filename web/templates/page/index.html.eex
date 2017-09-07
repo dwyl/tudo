@@ -6,7 +6,15 @@
     <p class="">We'll be adding features over time based on your recommendations so please leave us feedback through an issue and apply the <code>enhancement</code> label.</p>
   </div>
 </header>
+
 <section class="tl center ph2 dwyl-dark-gray">
+  <%= search_form(@conn, @rummage, [fields:
+  [
+    repo_name: %{label: "Search by Repo Name", search_type: "ilike"},
+  ], button_class: "btn",
+  ]) %>
+
+
   <table class="w-80 center dn db-ns">
     <thead>
       <tr class="bb bw2 dwyl-b--gray">
