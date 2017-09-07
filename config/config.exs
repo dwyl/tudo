@@ -35,7 +35,8 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 
 config :rummage_ecto, Rummage.Ecto,
   default_repo: Tudo.Repo,
-  max_page: 10
+  default_per_page: 20,
+  max_page: 20
 
 
 # Import environment specific config. This must remain at the bottom
