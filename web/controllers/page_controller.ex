@@ -2,11 +2,12 @@ defmodule Tudo.PageController do
   use Tudo.Web, :controller
   alias Tudo.IssueController
   alias Tudo.{Issue, Repo}
+  alias Rummage.Ecto
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
     {query, rummage} = Issue
-      |> Rummage.Ecto.rummage(params["rummage"])
+      |> Ecto.rummage(params["rummage"])
 
     issues = Repo.all(query)
 

@@ -1,6 +1,5 @@
 defmodule Tudo.Issue do
   use Tudo.Web, :model
-  import Rummage.Ecto
 
   @moduledoc false
 
