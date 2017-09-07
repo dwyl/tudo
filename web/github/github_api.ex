@@ -31,9 +31,12 @@ defmodule Tudo.GithubApi do
          [connect_timeout: 1_000_000,
           recv_timeout: 1_000_000,
           timeout: 1_000_000])
-    |> Map.fetch!(:body)
-    |> Poison.decode!
-  end
+    |> Map.get(:body, "{}")
+    |> decode!
+    end
+
+    def decode!(""), do: decode! "{}"
+    def decode!(str), do: Poison.decode! str
 
   @doc"""
   Gets all repos for an org, takes an :org string

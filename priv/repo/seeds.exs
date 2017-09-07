@@ -29,4 +29,3 @@ GithubApi.get_repos("dwyl")
     |> Issue.changeset(issue)
     |> Repo.insert!
   end)
-
