@@ -2,9 +2,10 @@ defmodule Tudo.PageControllerTest do
   use Tudo.ConnCase
 
   test "GET /", %{conn: conn} do
-    get conn, "/"
-
-    conn = get conn, "/"
+    conn = get conn, "/", %{"rummage" => %{
+                              "paginate" => %{},
+                              "search" => %{},
+                              "sort" => %{}}}
     assert html_response(conn, 200) =~ "Help Wanted"
   end
 
