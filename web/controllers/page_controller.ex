@@ -10,8 +10,8 @@ defmodule Tudo.PageController do
       case params do
         %{"rummage" => rummage_param, "search" => search_term} ->
            get_issues(rummage_param, search_term)
-        %{"rummage" => rummage_param} ->
-           get_issues(rummage_param)
+           _ ->
+             get_issues(params["rummage"])
       end
 
     render conn,
