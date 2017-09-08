@@ -8,11 +8,23 @@
 </header>
 
 <section class="tl center ph2 dwyl-dark-gray">
-  <%= search_form(@conn, @rummage, [fields:
-  [
-    repo_name: %{label: "Search by Repo Name", search_type: "ilike"},
-  ], button_class: "btn",
-  ]) %>
+
+  <%= form_for @changeset, page_path(@conn, :search), fn f -> %>
+    <div class="center db w-80">
+
+
+      <label class="pl2">
+        Repo: <%= text_input f, :repo_name, list: "repos"%>
+      </label>
+
+      <%= submit "Submit" %>
+      </div>
+  <% end %>
+  <datalist id="repos">
+    <%= for repo_name <- @repos do %>
+    <option value= <%= repo_name %> />
+      <% end %>
+    </datalist>
 
 
   <table class="w-80 center dn db-ns">
