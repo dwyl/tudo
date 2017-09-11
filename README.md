@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/dwyl/tudo.svg?branch=master)](https://travis-ci.org/dwyl/tudo)
+[![codecov](https://codecov.io/gh/dwyl/tudo/branch/master/graph/badge.svg)](https://codecov.io/gh/dwyl/tudo)
+
 
 # Tudo
 
