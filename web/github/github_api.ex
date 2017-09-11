@@ -62,8 +62,13 @@ defmodule Tudo.GithubApi do
   def get_help_wanted_issues(orgrepo),
     do: get! "/repos/#{orgrepo}/issues?labels=help%20wanted"
 
-  # def get_all_issues(orgrepo),
-  #   do: get! "/repos/#{orgrepo}/issues?labels="
+  @doc"""
+  Gets all issues for a given :org/:repo, takes a string of the form: :org/:repo
+  Retuns a list of maps where each map contains data for one repo issue
+  E.g. get_all_issues("dwyl/tudo") => [%{"state" => "open", ...}, ...]
+  """
+  def get_all_issues(orgrepo),
+    do: get! "/repos/#{orgrepo}/issues"
 
   @doc"""
   Takes in an issue and formats it for our db format
@@ -139,7 +144,6 @@ defmodule Tudo.GithubApi do
       iex>has_no_labels?(%{"labels" => []})
       true
   """
-
   def has_no_labels?(%{"labels" => labels}) do
     length(labels) === 0
   end

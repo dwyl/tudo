@@ -63,6 +63,26 @@ defmodule Tudo.GithubApiTest do
     assert actual == expected
   end
 
+  test "get_all_issues :: dwyl/tudo" do
+    actual = GithubApi.get_all_issues("dwyl/tudo")
+    expected = [
+      %{"title" => "Issue title",
+        "labels" => [%{"name" => "help wanted",
+                       "color" => "159818",
+                       "default" => true}],
+        "state" => "open",
+        "html_url" => "https://github.com/dwyl/tudo/issues/1",
+        "assignees" => [%{"login" => "shouston3",
+                          "avatar_url" => "https://github.com/shouston3"}],
+        "comments" => 1,
+        "created_at" => "2011-04-22T13:33:48Z",
+        "updated_at" => "2011-04-22T13:33:48Z"
+      }
+    ]
+
+    assert actual == expected
+  end
+
   @avatar_url "https://avatars0.githubusercontent.com/u/15983736?v=4&s=460"
   test "format_data" do
     input = %{"title" => "Issue title",
