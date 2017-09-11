@@ -62,6 +62,9 @@ defmodule Tudo.GithubApi do
   def get_help_wanted_issues(orgrepo),
     do: get! "/repos/#{orgrepo}/issues?labels=help%20wanted"
 
+  # def get_all_issues(orgrepo),
+  #   do: get! "/repos/#{orgrepo}/issues?labels="
+
   @doc"""
   Takes in an issue and formats it for our db format
   the returned format should match the Issue model
@@ -127,5 +130,17 @@ defmodule Tudo.GithubApi do
     |> Regex.compile!
     |> Regex.run(html_url)
     |> Enum.at(1)
+  end
+
+  @doc"""
+    Takes in an issue, and returns true if it has no labels
+      iex>has_no_labels?(%{"labels" => [1, 2, 3]})
+      false
+      iex>has_no_labels?(%{"labels" => []})
+      true
+  """
+
+  def has_no_labels?(%{"labels" => labels}) do
+    length(labels) === 0
   end
 end
