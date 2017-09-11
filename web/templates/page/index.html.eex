@@ -11,7 +11,8 @@
     <thead>
       <tr class="bb bw2 dwyl-b--gray">
         <th class="pv3 pl2">Repo</th>
-        <th class="pv3 pl2">Updated on</th>
+        <th class="pv3 pl2">Created</th>
+        <th class="pv3 pl2">Updated</th>
         <th class="pv3 pl3">Title</th>
         <th class="pv3">Assignees</th>
       </tr>
@@ -20,6 +21,7 @@
       <%= for issue <- @issues do %>
       <tr class="h2">
         <td class="pl2"><%= issue."repo_name"%></td>
+        <td class="pl2 w4"> <%= issue.gh_created_at %></td>
         <td class="pl2 w4"> <%= issue.gh_updated_at %></td>
         <td class="pl3 b">
           <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
