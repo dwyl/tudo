@@ -9,7 +9,7 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, page_path(@conn, :search), fn f -> %>
+  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
     <div class="center db w-80">
 
 
@@ -22,9 +22,9 @@
   <% end %>
   <datalist id="repos">
     <%= for repo_name <- @repos do %>
-    <option value= <%= repo_name %> />
-      <% end %>
-    </datalist>
+      <option value= <%= repo_name %> />
+    <% end %>
+  </datalist>
 
 
   <table class="w-80 center dn db-ns">

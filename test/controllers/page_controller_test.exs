@@ -16,7 +16,7 @@ defmodule Tudo.PageControllerTest do
   end
 
   test "POST /", %{conn: conn} do
-    conn = post(conn, "/", %{"issue" => %{"repo_name" => "hello"}} )
+    conn = get(conn, "/search", %{"issue" => %{"repo_name" => "hello"}} )
     assert html_response(conn, 302) =~ "redirected"
   end
 
