@@ -10,9 +10,9 @@
   <table class="w-80 center dn db-ns">
     <thead>
       <tr class="bb bw2 dwyl-b--gray">
-        <th class="pv3 pl2">Repo</th>
-        <th class="pv3 pl2">Created</th>
-        <th class="pv3 pl2">Updated</th>
+        <th><%= sort_link @conn, @rummage, [field: :issues, name: "Repo"] %></th>
+        <th><%= sort_link @conn, @rummage, [field: :gh_created_at, name: "Created"] %></th>
+        <th><%= sort_link @conn, @rummage, [field: :gh_updated_at, name: "Updated"] %></th>
         <th class="pv3 pl3">Title</th>
         <th class="pv3">Assignees</th>
       </tr>
