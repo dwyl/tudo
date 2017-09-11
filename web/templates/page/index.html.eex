@@ -10,9 +10,9 @@
   <table class="w-80 center dn db-ns">
     <thead>
       <tr class="bb bw2 dwyl-b--gray">
-        <th><%= sort_link @conn, @rummage, [field: :repo_name, name: "Repo"] %></th>
-        <th><%= sort_link @conn, @rummage, [field: :gh_created_at, name: "Created"] %></th>
-        <th><%= sort_link @conn, @rummage, [field: :gh_updated_at, name: "Updated"] %></th>
+        <th><%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %></th>
+        <th><%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %></th>
+        <th><%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %></th>
         <th class="pv3 pl3">Title</th>
         <th class="pv3">Assignees</th>
       </tr>
@@ -48,13 +48,13 @@
   </table>
   <div class="dn-ns tc">
     <div class="p3">
-      Sort by: <%= sort_link @conn, @rummage, [field: :repo_name, name: "Repo"] %>,
-      <%= sort_link @conn, @rummage, [field: :gh_created_at, name: "Created"] %>,
-      <%= sort_link @conn, @rummage, [field: :gh_updated_at, name: "Updated"] %>
+      Sort by: <%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %>,
+      <%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %>,
+      <%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %>
     </div>
     <%= for issue <- @issues do %>
       <%= component("issue_card", issue: issue, labels: get_label_data(issue) ) %>
     <% end %>
-  </>
+  </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
