@@ -63,6 +63,14 @@ defmodule Tudo.GithubApi do
     do: get! "/repos/#{orgrepo}/issues?labels=help%20wanted"
 
   @doc"""
+  Gets all issues for a given :org/:repo, takes a string of the form: :org/:repo
+  Retuns a list of maps where each map contains data for one repo issue
+  E.g. get_all_issues("dwyl/tudo") => [%{"state" => "open", ...}, ...]
+  """
+  def get_all_issues(orgrepo),
+    do: get! "/repos/#{orgrepo}/issues"
+
+  @doc"""
   Takes in an issue and formats it for our db format
   the returned format should match the Issue model
   See tests for how this is used
@@ -77,6 +85,26 @@ defmodule Tudo.GithubApi do
       "comments_number" => comments,
       "repo_name" => get_repo_name(html_url),
       "labels" => Enum.map(labels, &format_label/1),
+      "assignees" => Enum.map(assignees, &format_assignees/1),
+      "gh_created_at" => created_at,
+      "gh_updated_at" => updated_at
+    }
+  end
+
+  @doc"""
+  Takes in an issue and formats it for our db format
+  for issues with no labels. The returned format should
+  match our IssueNoLabels model
+  """
+  def format_data(%{"title" => title, "state" => state,
+                    "created_at" => created_at, "updated_at" => updated_at,
+                    "html_url" => html_url, "assignees" => assignees,
+                    "comments" => comments}) do
+    %{"title" => title,
+      "state" => state,
+      "url" => html_url,
+      "comments_number" => comments,
+      "repo_name" => get_repo_name(html_url),
       "assignees" => Enum.map(assignees, &format_assignees/1),
       "gh_created_at" => created_at,
       "gh_updated_at" => updated_at
@@ -107,5 +135,16 @@ defmodule Tudo.GithubApi do
     |> Regex.compile!
     |> Regex.run(html_url)
     |> Enum.at(1)
+  end
+
+  @doc"""
+    Takes in an issue, and returns true if it has no labels
+      iex>has_no_labels?(%{"labels" => [1, 2, 3]})
+      false
+      iex>has_no_labels?(%{"labels" => []})
+      true
+  """
+  def has_no_labels?(%{"labels" => labels}) do
+    length(labels) === 0
   end
 end
