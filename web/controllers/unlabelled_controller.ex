@@ -32,10 +32,11 @@ defmodule Tudo.UnlabelledController do
       rummage_param
       |> Map.put(
       "search",
-      %{"labels" => %{"assoc" => [],
-                      "search_term" => "009800help wanted",
-                      "search_type" => "ilike"}})
-    IO.inspect rummaging
+      Map.merge(rummage_param["search"], %{"labels" => %{"assoc" => [],
+                      "search_term" => [""],
+                      "search_type" => "lt"}})
+                )
+
     {query, rummage} = Issue
       |> Ecto.rummage(rummaging)
 

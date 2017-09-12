@@ -92,26 +92,6 @@ defmodule Tudo.GithubApi do
   end
 
   @doc"""
-  Takes in an issue and formats it for our db format
-  for issues with no labels. The returned format should
-  match our IssueNoLabels model
-  """
-  def format_data(%{"title" => title, "state" => state,
-                    "created_at" => created_at, "updated_at" => updated_at,
-                    "html_url" => html_url, "assignees" => assignees,
-                    "comments" => comments}) do
-    %{"title" => title,
-      "state" => state,
-      "url" => html_url,
-      "comments_number" => comments,
-      "repo_name" => get_repo_name(html_url),
-      "assignees" => Enum.map(assignees, &format_assignees/1),
-      "gh_created_at" => created_at,
-      "gh_updated_at" => updated_at
-    }
-  end
-
-  @doc"""
     iex>format_label(%{"name" => "help wanted", "color" => "159818"})
     "#159818;help wanted"
   """

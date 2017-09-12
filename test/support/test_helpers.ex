@@ -25,6 +25,7 @@ defmodule Tudo.TestHelpers do
     changes = Map.merge(
       %{title: "Issue Title",
         url: "https://github.com/dwyl/tudo/issues/1",
+        labels: [],
         gh_created_at: "2011-04-10T20:09:31Z",
         gh_updated_at: "2011-04-10T20:09:31Z",
         comments_number: 1,
@@ -35,8 +36,8 @@ defmodule Tudo.TestHelpers do
        params
     )
 
-    %IssueNoLabels{}
-    |> IssueNoLabels.changeset(changes)
+    %Issue{}
+    |> Issue.changeset(changes)
     |> Repo.insert!
   end
 end
