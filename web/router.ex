@@ -16,7 +16,13 @@ defmodule Tudo.Router do
 
     get "/", PageController, :index
     get "/search", PageController, :search
+  end
 
+  scope "/labels", Tudo do
+    pipe_through :browser
+
+    get "/", UnlabelledController, :index
+    get "/search", UnlabelledController, :search
   end
 
   scope "/auth", Tudo do

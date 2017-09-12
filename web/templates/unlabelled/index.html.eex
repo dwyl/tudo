@@ -9,25 +9,25 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
+  <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn f -> %>
     <div class="center db w-80">
-
 
       <label class="pl2">
         Repo: <%= text_input f, :repo_name, list: "repos"%>
       </label>
 
       <%= submit "Submit" %>
-      <button class="dib tr" disabled>Help wanted</button>
-      <%= button "Unlabelled", to: unlabelled_path(@conn, :index), class: "dib tr", method: "get" %>
+
+      <%= button "Help wanted", to: page_path(@conn, :index), class: "dib tr", method: "get"%>
+      <button class="dib tr" disabled>Unlabelled</button>
     </div>
   <% end %>
-
   <datalist id="repos">
     <%= for repo_name <- @repos do %>
       <option value= <%= repo_name %> />
     <% end %>
   </datalist>
+
 
   <table class="w-80 center dn db-ns">
     <thead>
@@ -49,9 +49,6 @@
           <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
             <%= issue."title"%>
           </a>
-          <%= for label <- get_label_data(issue) do %>
-            <%= component("label", label: label)%>
-          <% end %>
         </td>
         <td class="tc">
           <%= for assignee <- generate_avatar(issue) do %>
@@ -75,7 +72,7 @@
       <%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %>
     </div>
     <%= for issue <- @issues do %>
-      <%= component("issue_card", issue: issue, labels: get_label_data(issue) ) %>
+      <%= component("issue_card", issue: issue, labels: nil ) %>
     <% end %>
   </div>
 </section>
