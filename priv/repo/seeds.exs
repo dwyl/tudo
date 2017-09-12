@@ -44,7 +44,6 @@ repos
 |> Enum.map(&Task.await(&1, timeout))
 |> List.flatten
 |> Enum.filter(&GithubApi.has_no_labels?/1)
-|> IO.inspect
 |> Enum.map(&GithubApi.format_data/1)
 |> Enum.each(fn issue ->
     %IssueNoLabels{}
