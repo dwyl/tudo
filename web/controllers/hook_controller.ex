@@ -13,7 +13,6 @@ defmodule Tudo.HookController do
                                   "updated_at" => gh_updated_at,
                                   "title" => new_title}}) do
 
-
     if Enum.find(labels, &(&1["name"] == "help wanted")) || length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
