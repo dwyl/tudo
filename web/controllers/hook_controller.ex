@@ -1,7 +1,7 @@
 defmodule Tudo.HookController do
   use Tudo.Web, :controller
 
-  alias Tudo.{Repo, Issue, GithubApi, IssueNoLabels}
+  alias Tudo.{Repo, Issue, GithubApi}
 
   @doc"""
   Called when an issue title changes
@@ -13,17 +13,11 @@ defmodule Tudo.HookController do
                                   "updated_at" => gh_updated_at,
                                   "title" => new_title}}) do
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{title: new_title, gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{title: new_title,
-                                     gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
 
@@ -66,17 +60,10 @@ defmodule Tudo.HookController do
                                   "labels" => labels},
                      "comment" => %{"body" => _comment}}) do
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{comments_number: prev_comments_number + 1,
-                             gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{comments_number: prev_comments_number + 1,
                              gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
@@ -94,17 +81,10 @@ defmodule Tudo.HookController do
                                   "labels" => labels},
                      "comment" => %{"body" => _comment}}) do
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{comments_number: prev_comments_number - 1,
-                             gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{comments_number: prev_comments_number - 1,
                              gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
@@ -119,19 +99,21 @@ defmodule Tudo.HookController do
                      "issue" => %{"body" => _body,
                                   "title" => title,
                                   "assignees" => assignees,
-                                  "labels" => _labels,
+                                  "labels" => labels,
                                   "updated_at" => gh_updated_at,
                                   "html_url" => html_url,
                                   "comments" => comments}}) do
 
     issue = %{"title" => title, "state" => "open",
-              "created_at" => gh_updated_at, "updated_at" => gh_updated_at,
-              "html_url" => html_url, "assignees" => assignees,
-              "comments" => comments}
+              "created_at" => gh_updated_at, "labels" => labels,
+              "updated_at" => gh_updated_at, "html_url" => html_url,
+              "assignees" => assignees, "comments" => comments}
 
-    %IssueNoLabels{}
-    |> IssueNoLabels.changeset(GithubApi.format_data(issue))
+  if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
+    %Issue{}
+    |> Issue.changeset(GithubApi.format_data(issue))
     |> Repo.insert!
+  end
 
     render conn, "index.json"
   end
@@ -144,16 +126,10 @@ defmodule Tudo.HookController do
                                   "labels" => labels,
                                   "updated_at" => gh_updated_at}}) do
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{state: "closed", gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{state: "closed", gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
 
@@ -172,7 +148,7 @@ defmodule Tudo.HookController do
                                   "comments" => comments,
                                   "html_url" => html_url}}) do
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by(url: html_url)
         |> case do
@@ -188,26 +164,6 @@ defmodule Tudo.HookController do
           issue ->
             issue
             |> Issue.changeset(%{state: "open", gh_updated_at: gh_updated_at})
-            |> Repo.update!
-        end
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by(url: html_url)
-        |> case do
-          nil ->
-            issue = %{"title" => title, "state" => "open",
-                      "created_at" => gh_updated_at, "updated_at" => gh_updated_at,
-                      "html_url" => html_url, "assignees" => assignees,
-                      "comments" => comments}
-
-            %IssueNoLabels{}
-            |> IssueNoLabels.changeset(GithubApi.format_data(issue))
-            |> Repo.insert!
-          issue ->
-            issue
-            |> IssueNoLabels.changeset(%{state: "open",
-                                         gh_updated_at: gh_updated_at})
             |> Repo.update!
         end
     end
@@ -252,11 +208,13 @@ defmodule Tudo.HookController do
             |> Repo.update!
         end
       else
-        case Repo.get_by(IssueNoLabels, url: html_url) do
-          nil ->
-            nil
-          issue ->
-            Repo.delete issue
+        if length(labels) === 1 do
+          case Repo.get_by(Issue, url: html_url) do
+            nil ->
+              nil
+            issue ->
+              Repo.delete issue
+          end
         end
     end
     render conn, "index.json"
@@ -276,36 +234,27 @@ defmodule Tudo.HookController do
 
     labels_formatted = Enum.map labels, &GithubApi.format_label/1
 
-    cond do
-      Enum.find(labels, &(&1["name"] == "help wanted")) ->
+    if Enum.find(labels, &(&1["name"] == "help wanted")) do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{labels: labels_formatted,
                              gh_updated_at: gh_updated_at})
         |> Repo.update!
-      length(labels) == 0 ->
+    else
+      if length(labels) == 0 do
         case Repo.get_by(Issue, url: html_url) do
           nil ->
+            issue = %{"title" => title, "state" => "open",
+                      "created_at" => gh_updated_at, "labels" => labels, "updated_at" => gh_updated_at,
+                      "html_url" => html_url, "assignees" => assignees,
+                      "comments" => comments}
+            %Issue{}
+            |> Issue.changeset(GithubApi.format_data(issue))
+            |> Repo.insert!
+          _issue ->
             nil
-          issue ->
-            Repo.delete issue
         end
-
-        issue = %{"title" => title, "state" => "open",
-                  "created_at" => gh_updated_at, "updated_at" => gh_updated_at,
-                  "html_url" => html_url, "assignees" => assignees,
-                  "comments" => comments}
-
-        %IssueNoLabels{}
-        |> IssueNoLabels.changeset(GithubApi.format_data(issue))
-        |> Repo.insert!
-      true ->
-        case Repo.get_by(Issue, url: html_url) do
-          nil ->
-            nil
-          issue ->
-            Repo.delete issue
-        end
+      end
     end
     render conn, "index.json"
   end
@@ -323,18 +272,11 @@ defmodule Tudo.HookController do
 
     assignees = Enum.map assignees, &GithubApi.format_assignees/1
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{assignees: assignees,
                              gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{assignees: assignees,
-                                     gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
 
@@ -352,20 +294,14 @@ defmodule Tudo.HookController do
                                   "labels" => labels}}) do
     assignees = Enum.map assignees, &GithubApi.format_assignees/1
 
-    if Enum.find(labels, &(&1["name"] == "help wanted")) do
+    if Enum.find(labels, &(&1["name"] == "help wanted")) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{assignees: assignees,
                              gh_updated_at: gh_updated_at})
         |> Repo.update!
     end
-    if length(labels) === 0 do
-        IssueNoLabels
-        |> Repo.get_by!(url: html_url)
-        |> IssueNoLabels.changeset(%{assignees: assignees,
-                                     gh_updated_at: gh_updated_at})
-        |> Repo.update!
-    end
+
     render conn, "index.json"
   end
 end

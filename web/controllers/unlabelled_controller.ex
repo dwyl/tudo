@@ -1,6 +1,6 @@
 defmodule Tudo.UnlabelledController do
   use Tudo.Web, :controller
-  alias Tudo.{IssueNoLabels, Repo}
+  alias Tudo.{Issue, Repo}
   alias Rummage.Ecto
   use Rummage.Phoenix.Controller
 
@@ -19,7 +19,7 @@ defmodule Tudo.UnlabelledController do
       issues: issues,
       current_user: get_session(conn, :current_user),
       rummage: rummage,
-      changeset: IssueNoLabels.changeset(%IssueNoLabels{}),
+      changeset: Issue.changeset(%Issue{}),
       repos: get_repos()
   end
 
@@ -28,8 +28,16 @@ defmodule Tudo.UnlabelledController do
   end
 
   defp get_issues_no_labels(rummage_param) do
-    {query, rummage} = IssueNoLabels
-      |> Ecto.rummage(rummage_param)
+    rummaging =
+      rummage_param
+      |> Map.put(
+      "search",
+      %{"labels" => %{"assoc" => [],
+                      "search_term" => "009800help wanted",
+                      "search_type" => "ilike"}})
+    IO.inspect rummaging
+    {query, rummage} = Issue
+      |> Ecto.rummage(rummaging)
 
     issues = Repo.all(query)
     {issues, rummage}
@@ -46,7 +54,7 @@ defmodule Tudo.UnlabelledController do
   end
 
   defp get_repos do
-    repo_query = from x in IssueNoLabels,
+    repo_query = from x in Issue,
                  distinct: true,
                  select: x.repo_name
     repo_query
