@@ -5,18 +5,20 @@ defmodule Tudo.PageController do
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
-
+    IO.inspect params
     {issues, rummage} =
       case params do
         %{"rummage" => rummage_param, "search" => search_params} ->
-          IO.inspect(search_params)
-          get_issues(rummage_param, search_params)
+          case labels_to_search(params["search"]) do
+            [] ->
+              get_issues(rummage_param, search_params)
+            labels ->
+              get_issues_labels(rummage_param, search_params, labels)
+          end
         _ ->
+          #@TODO add label search here ?
           get_issues(params["rummage"])
       end
-
-      IO.inspect(rummage)
-
 
     render conn,
       "index.html",
@@ -32,17 +34,10 @@ defmodule Tudo.PageController do
   end
 
   defp get_issues(rummage_param) do
-    {_query, rummage} = Issue
+    {query, rummage} = Issue
       |> Ecto.rummage(rummage_param)
 
-    IO.inspect(query)
-
-    query = from x in Issue,
-            where: ilike repo_name, search_params["repo_name"]
-
-
     {Repo.all(query), rummage}
-    |> construct_issues_and_rummage(["enhancement"])
   end
 
   defp get_issues(rummage_param, search_params) do
@@ -56,6 +51,58 @@ defmodule Tudo.PageController do
                            )
 
     |> get_issues
+  end
+
+  def labels_to_search(search_params) do
+    search_params
+    |> Map.delete("repo_name")
+    |> Map.to_list
+    |> Enum.filter(fn {_name, bool} ->
+      bool == "true"
+    end)
+    |> Enum.map(fn {name, _bool} ->
+      name
+    end)
+  end
+
+  def get_issues_labels(rummage_params, search_params, labels) do
+    IO.puts "HAPPENING BLAAAAAAAAAAAAAAAAAH"
+    IO.puts(labels)
+      {_query, rummage} = Issue
+      |> Ecto.rummage(rummage_params)
+
+      query =
+        case search_params["repo_name"] do
+          "" ->
+            from x in Issue
+          search ->
+            from x in Issue,
+            where: ilike x.repo_name, ^search
+        end
+
+      issues_all = Repo.all(query)
+      |> filter_issues_by_labels(labels)
+
+      rummage = construct_rummage(issues_all, rummage)
+      |> Map.put(
+          "search",
+          Map.merge(rummage_params["search"], %{"repo_name" => %{"assoc" => [],
+                                               "search_term" => search_params["repo_name"],
+                                               "search_type" => "ilike"},
+                                               })
+                             )
+      |> Map.put("store", search_params)
+
+      IO.inspect rummage
+
+      issues = limit_issues_per_page(issues_all, rummage)
+
+      {issues, rummage}
+  end
+
+  def limit_issues_per_page(issues, %{"paginate" => %{"max_page" => max_page, "page" => page, "per_page" => per_page,
+    "total_count" => total_count}}) do
+    Enum.slice(issues, String.to_integer(per_page) * (String.to_integer(page) - 1), String.to_integer(per_page))
   end
 
   def construct_issues_and_rummage({issues, rummage}, labels_to_search_for) do
@@ -112,7 +159,6 @@ defmodule Tudo.PageController do
       end)
       |> List.flatten
 
-    IO.inspect(only_label_name_list)
     Enum.all?(labels_to_search_for, fn label_name ->
       Enum.member?(only_label_name_list, label_name)
     end)
