@@ -43,26 +43,6 @@ defmodule Tudo.GithubApiTest do
     assert length(actual) == expected_length
   end
 
-  test "get_help_wanted_issues :: dwyl/tudo" do
-    actual = GithubApi.get_help_wanted_issues("dwyl/tudo")
-    expected = [
-      %{"title" => "Issue title",
-        "labels" => [%{"name" => "help wanted",
-                       "color" => "159818",
-                       "default" => true}],
-        "state" => "open",
-        "html_url" => "https://github.com/dwyl/tudo/issues/1",
-        "assignees" => [%{"login" => "shouston3",
-                          "avatar_url" => "https://github.com/shouston3"}],
-        "comments" => 1,
-        "created_at" => "2011-04-22T13:33:48Z",
-        "updated_at" => "2011-04-22T13:33:48Z"
-      }
-    ]
-
-    assert actual == expected
-  end
-
   test "get_all_issues :: dwyl/tudo" do
     actual = GithubApi.get_all_issues("dwyl/tudo")
     expected = [
@@ -115,5 +95,15 @@ defmodule Tudo.GithubApiTest do
     expected = %{}
 
     assert actual == expected
+  end
+
+  test "help_wanted_or_no_labels?" do
+      empty = %{"labels" => []}
+      help_wanted = %{"labels" => [%{"name" => "help wanted"}]}
+      neither = %{"labels" => [%{"name" => "enhancement"}]}
+
+      assert GithubApi.help_wanted_or_no_labels?(empty) === true
+      assert GithubApi.help_wanted_or_no_labels?(help_wanted) === true
+      assert GithubApi.help_wanted_or_no_labels?(neither) === false
   end
 end

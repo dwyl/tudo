@@ -6,6 +6,7 @@ defmodule Tudo.GithubApi do
   """
 
   require Poison
+  alias Tudo.HookController
 
   # Following mocking convention outlined here:
   # http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/
@@ -53,14 +54,6 @@ defmodule Tudo.GithubApi do
       _ -> get_repos org, page + 1, repos ++ new_repos
     end
   end
-
-  @doc"""
-  Gets all issues for a given :org/:repo, takes a string of the form: :org/:repo
-  Retuns a list of maps where each map contains data for one repo issue
-  E.g. get_help_wanted_issues("dwyl/tudo") => [%{"state" => "open", ...}, ...]
-  """
-  def get_help_wanted_issues(orgrepo),
-    do: get! "/repos/#{orgrepo}/issues?labels=help%20wanted"
 
   @doc"""
   Gets all issues for a given :org/:repo, takes a string of the form: :org/:repo
@@ -127,4 +120,9 @@ defmodule Tudo.GithubApi do
   def has_no_labels?(%{"labels" => labels}) do
     length(labels) === 0
   end
+
+  def help_wanted_or_no_labels?(issue) do
+    has_no_labels?(issue) or HookController.has_help_wanted?(issue["labels"])
+  end
+
 end

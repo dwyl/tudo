@@ -13,7 +13,7 @@ defmodule Tudo.HookController do
                                   "updated_at" => gh_updated_at,
                                   "title" => new_title}}) do
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{title: new_title, gh_updated_at: gh_updated_at})
@@ -59,7 +59,7 @@ defmodule Tudo.HookController do
                                   "labels" => labels},
                      "comment" => %{"body" => _comment}}) do
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{comments_number: prev_comments_number + 1,
@@ -80,7 +80,7 @@ defmodule Tudo.HookController do
                                   "labels" => labels},
                      "comment" => %{"body" => _comment}}) do
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{comments_number: prev_comments_number - 1,
@@ -108,7 +108,7 @@ defmodule Tudo.HookController do
               "updated_at" => gh_updated_at, "html_url" => html_url,
               "assignees" => assignees, "comments" => comments}
 
-  if has_help_wanted(labels) or length(labels) === 0 do
+  if has_help_wanted?(labels) or length(labels) === 0 do
     %Issue{}
     |> Issue.changeset(GithubApi.format_data(issue))
     |> Repo.insert!
@@ -125,7 +125,7 @@ defmodule Tudo.HookController do
                                   "labels" => labels,
                                   "updated_at" => gh_updated_at}}) do
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{state: "closed", gh_updated_at: gh_updated_at})
@@ -147,7 +147,7 @@ defmodule Tudo.HookController do
                                   "comments" => comments,
                                   "html_url" => html_url}}) do
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by(url: html_url)
         |> case do
@@ -182,7 +182,7 @@ defmodule Tudo.HookController do
                                   "updated_at" => gh_updated_at,
                                   "html_url" => html_url}}) do
 
-    if has_help_wanted(labels) do
+    if has_help_wanted?(labels) do
         Issue
         |> Repo.get_by(url: html_url)
         |> case do
@@ -233,7 +233,7 @@ defmodule Tudo.HookController do
 
     labels_formatted = Enum.map labels, &GithubApi.format_label/1
     cond do
-      has_help_wanted(labels) ->
+      has_help_wanted?(labels) ->
           Issue
           |> Repo.get_by!(url: html_url)
           |> Issue.changeset(%{labels: labels_formatted,
@@ -280,7 +280,7 @@ defmodule Tudo.HookController do
 
     assignees = Enum.map assignees, &GithubApi.format_assignees/1
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{assignees: assignees,
@@ -302,7 +302,7 @@ defmodule Tudo.HookController do
                                   "labels" => labels}}) do
     assignees = Enum.map assignees, &GithubApi.format_assignees/1
 
-    if has_help_wanted(labels) or length(labels) === 0 do
+    if has_help_wanted?(labels) or length(labels) === 0 do
         Issue
         |> Repo.get_by!(url: html_url)
         |> Issue.changeset(%{assignees: assignees,
@@ -313,7 +313,7 @@ defmodule Tudo.HookController do
     render conn, "index.json"
   end
 
-  defp has_help_wanted(labels) do
+  def has_help_wanted?(labels) do
     Enum.find(labels, &(&1["name"] == "help wanted")) != nil
   end
 end
