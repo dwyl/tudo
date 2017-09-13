@@ -15,6 +15,19 @@ defmodule Tudo.PageView do
       |> List.to_tuple
       |> get_label_font_color
     end)
+    |> filter_rendered_labels
+  end
+
+  def allowed_labels, do: ["help wanted", "awaiting-review", "discuss",
+                          "question", "enhancement", "starter",
+                          "priority-1", "priority-2", "priority-3",
+                          "priority-4", "priority-5"]
+
+  defp filter_rendered_labels(label_list) do
+    label_list
+    |> Enum.filter(fn %{label_name: label} ->
+      Enum.member?(allowed_labels(), label)
+    end)
   end
 
   def get_label_font_color({label_hex, label_name}) do
