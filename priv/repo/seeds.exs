@@ -1,4 +1,4 @@
-alias Tudo.{Hook, GithubApi, Issue, Repo, IssueNoLabels}
+alias Tudo.{Hook, GithubApi, Issue, Repo}
 
 # Copying parrallel map idea from here:
 # http://elixir-recipes.github.io/concurrency/parallel-map/
@@ -46,7 +46,7 @@ repos
 |> Enum.filter(&GithubApi.has_no_labels?/1)
 |> Enum.map(&GithubApi.format_data/1)
 |> Enum.each(fn issue ->
-    %IssueNoLabels{}
-    |> IssueNoLabels.changeset(issue)
+    %Issue{}
+    |> Issue.changeset(issue)
     |> Repo.insert!
   end)
