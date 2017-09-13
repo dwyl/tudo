@@ -27,13 +27,6 @@ defmodule Tudo.PageController do
     redirect(conn, to: page_path(conn, :index, search: search_term))
   end
 
-  # defp get_issues(rummage_param) do
-  #   {query, rummage} = Issue
-  #     |> Ecto.rummage(rummage_param)
-  #
-  #   {Repo.all(query), rummage}
-  # end
-
   defp get_issues(rummage_param) do
     rummage_param =
       rummage_param || %{"paginate" => %{}, "search" => %{}, "sort" => %{}}

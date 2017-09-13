@@ -1,5 +1,5 @@
 defmodule Tudo.TestHelpers do
-  alias Tudo.{Issue, Repo, IssueNoLabels}
+  alias Tudo.{Issue, Repo}
 
   def insert_issue(params \\ %{}) do
     changes = Map.merge(

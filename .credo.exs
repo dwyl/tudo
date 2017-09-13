@@ -19,8 +19,8 @@
         #
         # You can give explicit globs or simply directories.
         # In the latter case `**/*.{ex,exs}` will be used.
-        included: ["src/", "web/", "apps/"],
-        excluded: [~r"/_build/", ~r"/deps/"]
+        included: ["src/", "web/", "apps/", "test/"],
+        excluded: [~r"/_build/", ~r"/deps/", ~r"/test/support/"]
       },
       #
       # If you create your own checks, you must specify the source files for
