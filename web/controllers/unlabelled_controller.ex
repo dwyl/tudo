@@ -5,7 +5,6 @@ defmodule Tudo.UnlabelledController do
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
-
     {issues, rummage} =
       case params do
         %{"rummage" => rummage_param, "search" => search_term} ->
@@ -28,6 +27,9 @@ defmodule Tudo.UnlabelledController do
   end
 
   defp get_issues_no_labels(rummage_param) do
+    rummage_param =
+      rummage_param || %{"paginate" => %{}, "search" => %{}, "sort" => %{}}
+
     rummaging =
       rummage_param
       |> Map.put(
