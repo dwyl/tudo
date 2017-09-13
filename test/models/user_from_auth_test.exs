@@ -25,4 +25,3 @@ defmodule Tudo.UserFromAuthTest do
     assert info.name == "eoin mc"
   end
 end
-
