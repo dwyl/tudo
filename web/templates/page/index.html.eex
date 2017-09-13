@@ -14,7 +14,7 @@
 
 
       <label class="pl2">
-        Repo: <%= text_input f, :repo_name, list: "repos"%>
+        Repo: <%= text_input f, :repo_name, list: "repos", value: @rummage["search"]["repo_name"]["search_term"] || ""%>
       </label>
 
       <%= submit "Submit" %>

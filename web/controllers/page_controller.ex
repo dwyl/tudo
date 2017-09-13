@@ -8,10 +8,10 @@ defmodule Tudo.PageController do
 
     {issues, rummage} =
       case params do
-        %{"rummage" => rummage_param, "search" => search_term} ->
-           get_issues(rummage_param, search_term)
-           _ ->
-             get_issues(params["rummage"])
+        %{"rummage" => rummage_param, "search" => search_params} ->
+          get_issues(rummage_param, search_params)
+        _ ->
+          get_issues(params["rummage"])
       end
 
     render conn,
@@ -23,8 +23,8 @@ defmodule Tudo.PageController do
       repos: get_repos()
   end
 
-  def search(conn, %{"issue" => %{"repo_name" => search_term}}) do
-    redirect(conn, to: page_path(conn, :index, search: search_term))
+  def search(conn, %{"issue" => search_params}) do
+    redirect(conn, to: page_path(conn, :index, search: search_params))
   end
 
   defp get_issues(rummage_param) do
@@ -34,13 +34,14 @@ defmodule Tudo.PageController do
     {Repo.all(query), rummage}
   end
 
-  defp get_issues(rummage_param, search_term) do
+  defp get_issues(rummage_param, search_params) do
     rummage_param
     |> Map.put(
         "search",
-        %{"repo_name" => %{"assoc" => [],
-                           "search_term" => search_term,
-                           "search_type" => "ilike"}})
+        Map.merge(rummage_param["search"], %{"repo_name" => %{"assoc" => [],
+                                             "search_term" => search_params["repo_name"],
+                                             "search_type" => "ilike"}})
+                           )
     |> get_issues
   end
 
