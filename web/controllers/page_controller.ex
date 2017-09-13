@@ -27,11 +27,31 @@ defmodule Tudo.PageController do
     redirect(conn, to: page_path(conn, :index, search: search_term))
   end
 
-  defp get_issues(rummage_param) do
-    {query, rummage} = Issue
-      |> Ecto.rummage(rummage_param)
+  # defp get_issues(rummage_param) do
+  #   {query, rummage} = Issue
+  #     |> Ecto.rummage(rummage_param)
+  #
+  #   {Repo.all(query), rummage}
+  # end
 
-    {Repo.all(query), rummage}
+  defp get_issues(rummage_param) do
+    rummage_param =
+      rummage_param || %{"paginate" => %{}, "search" => %{}, "sort" => %{}}
+
+    rummaging =
+      rummage_param
+      |> Map.put(
+      "search",
+      Map.merge(rummage_param["search"], %{"labels" => %{"assoc" => [],
+                      "search_term" => [""],
+                      "search_type" => "gt"}})
+                )
+
+    {query, rummage} = Issue
+      |> Ecto.rummage(rummaging)
+
+    issues = Repo.all(query)
+    {issues, rummage}
   end
 
   defp get_issues(rummage_param, search_term) do
