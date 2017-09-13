@@ -23,7 +23,7 @@ defmodule Tudo.UnlabelledController do
       repos: get_repos()
   end
 
-  def search(conn, %{"issue_no_labels" => %{"repo_name" => search_term}}) do
+  def search(conn, %{"issue" => %{"repo_name" => search_term}}) do
     redirect(conn, to: unlabelled_path(conn, :index, search: search_term))
   end
 

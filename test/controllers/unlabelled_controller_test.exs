@@ -16,7 +16,7 @@ defmodule Tudo.UnlabelledControllerTest do
   end
 
   test "GET /labels/search", %{conn: conn} do
-    conn = get(conn, "/labels/search", %{"issue_no_labels" => %{"repo_name" => "hello"}} )
+    conn = get(conn, "/labels/search", %{"issue" => %{"repo_name" => "hello"}} )
     assert html_response(conn, 302) =~ "redirected"
   end
 
