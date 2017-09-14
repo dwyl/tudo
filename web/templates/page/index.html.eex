@@ -14,13 +14,18 @@
 
 
       <label class="pl2">
-        Repo: <%= text_input f, :repo_name, list: "repos", value: @rummage["search"]["repo_name"]["search_term"] || ""%>
+        Repo: <%= text_input f,
+                  :repo_name,
+                  list: "repos",
+                  value: @rummage["search"]["repo_name"]["search_term"] || ""%>
       </label>
 
       <%= for label <- allowed_labels() do %>
         <%= unless label === "help wanted" do %>
           <label>
-            <%= label %>: <%= checkbox f, String.to_atom label %>
+            <%= label %>: <%= checkbox f,
+                             String.to_atom(label),
+                             value: checkbox_value(@conn.query_params, label) %>
           </label>
         <% end %>
       <% end %>

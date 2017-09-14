@@ -41,4 +41,7 @@ defmodule Tudo.PageView do
     end
   end
 
+  def checkbox_value(query_string, label) do
+    query_string["search"][label]
+  end
 end
