@@ -10,6 +10,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.6.1/css/tachyons.min.css"/>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/accessible-autocomplete.min.css") %>">
   </head>
 
   <body>
@@ -20,6 +21,7 @@
         <%= render @view_module, @view_template, assigns %>
       </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+
     <script src="https://use.fontawesome.com/6a9dd6f59e.js"></script>
   </body>
 </html>

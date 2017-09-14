@@ -11,7 +11,8 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+import 'phoenix_html';
+import accessibleAutocomplete from 'accessible-autocomplete';
 
 // Import local files
 //
@@ -19,3 +20,13 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+//
+// const repos = ['learn-elixir', 'time', 'tudo'];
+
+accessibleAutocomplete({
+  element: document.querySelector('#my-autocomplete-container'),
+  id: 'my-autocomplete', // To match it to the existing <label>.
+  source: repos,
+  name: 'issue[repo_name]',
+  displayMenu: 'overlay',
+});

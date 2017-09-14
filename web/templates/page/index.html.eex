@@ -9,22 +9,16 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
+  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
 
-      <label class="pl2">
-        Repo: <%= text_input f, :repo_name, list: "repos"%>
-      </label>
+      <label for="my-autocomplete" class="pl2">Repo: </label>
+      <div id="my-autocomplete-container" class="w-40 dib"></div>
 
       <%= submit "Submit" %>
       </div>
   <% end %>
-  <datalist id="repos">
-    <%= for repo_name <- @repos do %>
-      <option value= <%= repo_name %> />
-    <% end %>
-  </datalist>
 
 
   <table class="w-80 center dn db-ns">
@@ -78,3 +72,13 @@
   </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
+
+
+
+<script type="text/javascript">
+const repos = [
+  <%= for repo_name <- @repos do %>
+  "<%= repo_name %>",
+  <% end %>
+]
+</script>
