@@ -44,4 +44,13 @@ defmodule Tudo.PageView do
   def checkbox_value(query_string, label) do
     query_string["search"][label]
   end
+
+  def insert_params(query_string, label) do
+    case query_string do
+      "" ->
+        "search[repo_name]=&search[#{label.label_name}]=true"
+      qs ->
+        qs <> "&search[#{label.label_name}]=true"
+    end
+  end
 end

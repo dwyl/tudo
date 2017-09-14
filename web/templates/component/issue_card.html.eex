@@ -3,7 +3,7 @@
       <p class="b f5 mt0"><%= assigns[:issue].title %></p>
       <div class="mb3">
         <%= for label <- assigns[:labels] do %>
-          <%= component("label", label: label)%>
+          <%= component("label", label: label, params: assigns[:label_function].(assigns[:params], label))%>
         <% end %>
       </div>
       <p class="tl pl2 pb1 mt1 mb1 f6">Repo: <%= assigns[:issue].repo_name %></p>

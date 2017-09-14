@@ -61,7 +61,7 @@
             <%= issue."title"%>
           </a>
           <%= for label <- get_label_data(issue) do %>
-            <%= component("label", label: label)%>
+            <%= component("label", label: label, params: insert_params(@conn.query_string, label), label_function: nil) %>
           <% end %>
         </td>
         <td class="tc">
@@ -86,7 +86,7 @@
       <%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %>
     </div>
     <%= for issue <- @issues do %>
-      <%= component("issue_card", issue: issue, labels: get_label_data(issue) ) %>
+      <%= component("issue_card", issue: issue, labels: get_label_data(issue), params: @conn.query_string, label_function: &insert_params/2) %>
     <% end %>
   </div>
 </section>
