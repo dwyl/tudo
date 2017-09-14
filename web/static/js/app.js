@@ -24,8 +24,8 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 // const repos = ['learn-elixir', 'time', 'tudo'];
 
 accessibleAutocomplete({
-  element: document.querySelector('#my-autocomplete-container'),
-  id: 'my-autocomplete', // To match it to the existing <label>.
+  element: document.querySelector('#repo-search-autocomplete-container'),
+  id: 'repo-search', // To match it to the existing <label>.
   source: repos,
   name: 'issue[repo_name]',
   displayMenu: 'overlay',

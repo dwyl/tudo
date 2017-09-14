@@ -13,8 +13,8 @@
     <div class="center db w-80">
 
 
-      <label for="my-autocomplete" class="pl2">Repo: </label>
-      <div id="my-autocomplete-container" class="w-40 dib"></div>
+      <label for="repo-search" class="pl2">Repo: </label>
+      <div id="repo-search-autocomplete-container" class="w-40 dib"></div>
 
       <%= submit "Submit" %>
       </div>
