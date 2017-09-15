@@ -87,8 +87,12 @@ defmodule Tudo.IssueSortingTest do
   ]
 
   @empty_rummage_params %{"paginate" => %{}, "search" => %{}, "sort" => %{}}
-  @page_two_rummage_params %{"paginate" => %{"page" => "2", "per_page" => "20"}, "search" => %{}, "sort" => %{}}
-  @sort_by_repo_name_rummage_params %{"paginate" => %{}, "search" => %{}, "sort" => %{"field" => "repo_name.desc"}}
+  @page_two_rummage_params %{"paginate" => %{"page" => "2", "per_page" => "20"},
+                             "search" => %{},
+                             "sort" => %{}}
+  @sort_by_repo_name_rummage_params %{"paginate" => %{},
+                                      "search" => %{},
+                                      "sort" => %{"field" => "repo_name.desc"}}
 
   test "labels_to_search with some true labels" do
     actual = IssueSorting.labels_to_search @labels_some_true
@@ -122,7 +126,9 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues/2 with search_params gets only issues from a repo" do
     insert_issues_from_list @issues_to_insert
-    {actual, _} = IssueSorting.get_issues @empty_rummage_params, %{"repo_name" => "hello"}
+    {actual, _} = IssueSorting.get_issues(
+                    @empty_rummage_params,
+                    %{"repo_name" => "hello"})
     expected = 5
 
     assert length(actual) == expected
@@ -130,7 +136,10 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues_by_labels filters issues by labels" do
     insert_issues_from_list @issues_to_insert
-    {actual, _} = IssueSorting.get_issues_by_labels @empty_rummage_params, %{"repo_name" => ""}, ["hello"]
+    {actual, _} = IssueSorting.get_issues_by_labels(
+                    @empty_rummage_params,
+                    %{"repo_name" => ""},
+                    ["hello"])
     expected = 1
 
     assert length(actual) == expected
@@ -138,7 +147,10 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues_by_labels filters issues by labels and paginates" do
     insert_issues_from_list @issues_to_insert
-    {actual, _} = IssueSorting.get_issues_by_labels @page_two_rummage_params, %{"repo_name" => ""}, ["discuss"]
+    {actual, _} = IssueSorting.get_issues_by_labels(
+                    @page_two_rummage_params,
+                    %{"repo_name" => ""},
+                    ["discuss"])
     expected = 1
 
     assert length(actual) == expected
@@ -146,7 +158,10 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues_by_labels filters issues by labels and repo name" do
     insert_issues_from_list @sort_by_name_and_labels_issues
-    {actual, _} = IssueSorting.get_issues_by_labels @empty_rummage_params, %{"repo_name" => "bye"}, ["discuss"]
+    {actual, _} = IssueSorting.get_issues_by_labels(
+                      @empty_rummage_params,
+                      %{"repo_name" => "bye"},
+                      ["discuss"])
     expected = 2
 
     assert length(actual) == expected
@@ -154,7 +169,10 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues_by_labels works for exactly 20 results" do
     insert_issues_from_list @exactly_20_labelled_issues
-    {actual, _} = IssueSorting.get_issues_by_labels @empty_rummage_params, %{"repo_name" => ""}, ["discuss"]
+    {actual, _} = IssueSorting.get_issues_by_labels(
+                    @empty_rummage_params,
+                    %{"repo_name" => ""},
+                    ["discuss"])
     expected = 20
 
     assert length(actual) == expected
@@ -162,7 +180,10 @@ defmodule Tudo.IssueSortingTest do
 
   test "get_issues_by_labels filters labels while also sort results" do
     insert_issues_from_list @sort_by_repo_name_and_labels
-    {actual, _} = IssueSorting.get_issues_by_labels @sort_by_repo_name_rummage_params, %{"repo_name" => ""}, ["discuss"]
+    {actual, _} = IssueSorting.get_issues_by_labels(
+                    @sort_by_repo_name_rummage_params,
+                    %{"repo_name" => ""},
+                    ["discuss"])
     expected = 2
 
     # get the repo_name of the first result to check sorting worked

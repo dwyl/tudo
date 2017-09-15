@@ -9,6 +9,7 @@
     "lint": "mix credo --strict"
   },
   "dependencies": {
+    "accessible-autocomplete": "^1.6.0",
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html"
   },

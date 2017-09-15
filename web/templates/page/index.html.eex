@@ -12,13 +12,15 @@
   <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
     <div class="center db w-80">
 
-
-      <label class="pl2">
-        Repo: <%= text_input f,
-                  :repo_name,
-                  list: "repos",
-                  value: @rummage["search"]["repo_name"]["search_term"] || ""%>
-      </label>
+      <label for="repo-search" class="black f4">Repo: </label>
+      <select class="" name="issue[repo_name]" id="repo-search">
+        <option value=""></option>
+          <%= for repo_name <- @repos do %>
+            <option value="<%= repo_name %>">
+              <%= repo_name %>
+            </option>
+          <% end %>
+      </select>
 
       <%= for label <- allowed_labels() do %>
         <%= unless label === "help wanted" do %>
@@ -32,15 +34,9 @@
 
       <%= hidden_input f, :sort_by, value: @rummage["sort"]["field"] %>
 
-      <%= submit "Submit" %>
-      </div>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
+    </div>
   <% end %>
-  <datalist id="repos">
-    <%= for repo_name <- @repos do %>
-      <option value= <%= repo_name %> />
-    <% end %>
-  </datalist>
-
 
   <table class="w-80 center dn db-ns">
     <thead>
