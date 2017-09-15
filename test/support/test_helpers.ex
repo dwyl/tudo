@@ -26,4 +26,10 @@ defmodule Tudo.TestHelpers do
       insert_issue issue_params
     end
   end
+
+  def make_issue(start, finish, params) do
+    for number <- start..finish do
+      Map.merge %{:title => "Issue #{number}"}, params
+    end
+  end
 end

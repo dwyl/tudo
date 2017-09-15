@@ -4,6 +4,8 @@ defmodule Tudo.IssueSortingTest do
 
   alias Tudo.IssueSorting
 
+
+
   @labels_some_true %{"awaiting-review" => "true", "discuss" => "true",
   "enhancement" => "true", "priority-1" => "false", "priority-2" => "false",
   "repo_name" => ""}
@@ -12,35 +14,15 @@ defmodule Tudo.IssueSortingTest do
   "enhancement" => "false", "priority-1" => "false", "priority-2" => "false",
   "repo_name" => ""}
 
-  @issues_to_insert [
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 1",
-    :repo_name => "hello"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 2",
-    :repo_name => "hello"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 3",
-    :repo_name => "hello"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 4",
-    :repo_name => "hello"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 5",
-    :repo_name => "hello"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 6"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 7"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 8"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 9"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 10"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 11"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 12"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 13"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 14"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 15"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 16"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 17"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 18"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 19"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 20"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 21"},
-    %{:labels => ["#009800;help wanted", "na;hello"], :title => "Issue 22"},
-  ]
+  @issues_to_insert make_issue(1, 5, %{
+                               :labels => ["#009800;help wanted",
+                                           "na;discuss"],
+                               :repo_name => "hello"}) ++
+                    make_issue(6, 21, %{
+                               :labels => ["#009800;help wanted",
+                                           "na;discuss"]}) ++
+                    [%{:labels => ["#009800;help wanted", "na;hello"],
+                       :title => "Issue 22"}]
 
   @sort_by_name_and_labels_issues [
     %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 1",
@@ -53,29 +35,13 @@ defmodule Tudo.IssueSortingTest do
     :repo_name => "hello"},
   ]
 
-  @exactly_20_labelled_issues [
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 1"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 2"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 3"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 4"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 5"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 6"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 7"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 8"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 9"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 10"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 11"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 12"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 13"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 14"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 15"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 16"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 17"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 18"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 19"},
-    %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 20"},
-    %{:labels => ["#009800;help wanted"], :title => "Issue 21"}
-  ]
+  @exactly_20_labelled_issues make_issue(1, 20, %{
+                               :labels => ["#009800;help wanted",
+                                           "na;discuss"]}) ++
+                                           [%{:labels => [
+                                             "#009800;help wanted"],
+                                              :title => "Issue 21"}
+                                            ]
 
   @sort_by_repo_name_and_labels [
     %{:labels => ["#009800;help wanted", "na;discuss"], :title => "Issue 1",

@@ -40,8 +40,6 @@ defmodule Tudo.PageController do
     {search_params, initial_rummage}
   end
 
-
-
   defp build_initial_rummage_params(%{"sort" => %{"field" => _field}} = rummage,
                                     _search), do: rummage
 
