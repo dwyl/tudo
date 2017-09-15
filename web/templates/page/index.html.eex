@@ -16,9 +16,7 @@
       <select class="" name="issue[repo_name]" id="repo-search">
         <option value=""></option>
           <%= for repo_name <- @repos do %>
-            <option value="<%= repo_name %>">
-              <%= repo_name %>
-            </option>
+            <option value="<%= repo_name %>"><%= repo_name %></option>
           <% end %>
       </select>
 
