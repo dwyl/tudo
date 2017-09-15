@@ -9,23 +9,22 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
+  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
+      <label for="repo-search" class="black f4">Repo: </label>
+      <select class="" name="issue[repo_name]" id="repo-search">
+        <option value=""></option> 
+          <%= for repo_name <- @repos do %>
+            <option value="<%= repo_name %>">
+              <%= repo_name %>
+            </option>
+          <% end %>
+      </select>
 
-      <label class="pl2">
-        Repo: <%= text_input f, :repo_name, list: "repos"%>
-      </label>
-
-      <%= submit "Submit" %>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
       </div>
   <% end %>
-  <datalist id="repos">
-    <%= for repo_name <- @repos do %>
-      <option value= <%= repo_name %> />
-    <% end %>
-  </datalist>
-
 
   <table class="w-80 center dn db-ns">
     <thead>
