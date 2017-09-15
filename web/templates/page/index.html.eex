@@ -30,6 +30,8 @@
         <% end %>
       <% end %>
 
+      <%= hidden_input f, :sort_by, value: @rummage["sort"]["field"] %>
+
       <%= submit "Submit" %>
       </div>
   <% end %>
@@ -61,7 +63,7 @@
             <%= issue."title"%>
           </a>
           <%= for label <- get_label_data(issue) do %>
-            <%= component("label", label: label, params: insert_params(@conn.query_string, label), label_function: nil) %>
+            <%= component("label", label: label, params: insert_params(@conn.query_string, label)) %>
           <% end %>
         </td>
         <td class="tc">

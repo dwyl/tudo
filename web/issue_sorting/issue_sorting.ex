@@ -21,9 +21,9 @@ defmodule Tudo.IssueSorting do
         "search",
         Map.merge(rummage_param["search"],
           %{"repo_name" => %{"assoc" => [],
-                                   "search_term" => search_params["repo_name"],
-                                         "search_type" => "ilike"},
-                                             }))
+                             "search_term" => search_params["repo_name"],
+                             "search_type" => "ilike"},
+                            }))
     |> get_issues
   end
 
@@ -43,13 +43,25 @@ defmodule Tudo.IssueSorting do
       {_query, rummage} = Issue
       |> Ecto.rummage(rummage_params)
 
+      [sort, direction] =
+        case rummage["sort"]["field"] do
+          nil ->
+            [:gh_updated_at, :desc]
+          field ->
+            field
+            |> String.split(".")
+            |> Enum.map(&(String.to_atom(&1)))
+        end
+
       query =
         case search_params["repo_name"] do
           "" ->
-            from x in Issue
+            from x in Issue,
+            [order_by: ^[{direction, sort}]]
           search ->
             from x in Issue,
-            where: ilike x.repo_name, ^search
+            [where: ilike(x.repo_name, ^search),
+            order_by: ^[{direction, sort}]]
         end
 
       query
