@@ -14,9 +14,11 @@
 
       <label for="repo-search" class="black f4">Repo: </label>
       <select class="" name="issue[repo_name]" id="repo-search">
-        <option value=""></option>
+        <option value="<%= @rummage["search"]["repo_name"]["search_term"] %>"><%= @rummage["search"]["repo_name"]["search_term"] %></option>
           <%= for repo_name <- @repos do %>
-            <option value="<%= repo_name %>"><%= repo_name %></option>
+            <%= unless @rummage["search"]["repo_name"]["search_term"] === repo_name do %>
+              <option value="<%= repo_name %>"><%= repo_name %></option>
+            <% end %>
           <% end %>
       </select>
 
