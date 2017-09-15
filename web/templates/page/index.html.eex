@@ -12,14 +12,19 @@
   <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
+      <label for="repo-search" class="black f4">Repo: </label>
+      <select class="" name="issue[repo_name]" id="repo-search">
+        <option value=""></option> 
+          <%= for repo_name <- @repos do %>
+            <option value="<%= repo_name %>">
+              <%= repo_name %>
+            </option>
+          <% end %>
+      </select>
 
-      <label for="repo-search" class="pl2">Repo: </label>
-      <div id="repo-search-autocomplete-container" class="w-40 dib"></div>
-
-      <%= submit "Submit" %>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
       </div>
   <% end %>
-
 
   <table class="w-80 center dn db-ns">
     <thead>
@@ -72,13 +77,3 @@
   </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
-
-
-
-<script type="text/javascript">
-const repos = [
-  <%= for repo_name <- @repos do %>
-  "<%= repo_name %>",
-  <% end %>
-]
-</script>

@@ -1,5 +1,7 @@
 .autocomplete__wrapper {
   position: relative;
+  width: 40%;
+  display: inline-block;
 }
 .autocomplete__hint,
 .autocomplete__input {

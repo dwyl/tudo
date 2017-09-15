@@ -20,13 +20,11 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-//
-// const repos = ['learn-elixir', 'time', 'tudo'];
 
-accessibleAutocomplete({
-  element: document.querySelector('#repo-search-autocomplete-container'),
+accessibleAutocomplete.enhanceSelectElement({
+  selectElement: document.querySelector('#repo-search'),
   id: 'repo-search', // To match it to the existing <label>.
-  source: repos,
   name: 'issue[repo_name]',
   displayMenu: 'overlay',
+  defaultValue: '',
 });
