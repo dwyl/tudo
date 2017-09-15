@@ -4,34 +4,18 @@ defmodule Tudo.PageController do
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
-    search_params =
-    build_search_params(conn.query_params["rummage"]["store"], params["search"])
 
-    initial_rummage =
-      build_initial_rummage_params(params["rummage"], search_params)
+    {search_params, initial_rummage} =
+      get_db_query_params(
+       conn.query_params["rummage"]["store"],
+       params["search"],
+       params["rummage"]
+      )
 
     {issues, rummage} =
-      case search_params do
-        nil ->
-          IssueSorting.get_issues(initial_rummage)
-        search_params ->
-          case IssueSorting.labels_to_search(search_params) do
-            [] ->
-              IssueSorting.get_issues(initial_rummage, search_params)
-            labels ->
-              IssueSorting.get_issues_by_labels(initial_rummage,
-                                                search_params,
-                                                labels)
-          end
-      end
+      IssueSorting.collect_issues(search_params, initial_rummage)
 
-    rummage =
-      if Map.get(rummage["sort"], "field") do
-        rummage
-      else
-        rummage
-        |> Map.put("sort", %{"field" => "gh_updated_at.desc"})
-      end
+    rummage = IssueSorting.default_sort_by(rummage)
 
     render conn,
       "index.html",
@@ -45,6 +29,18 @@ defmodule Tudo.PageController do
   def search(conn, %{"issue" => search_params}) do
     redirect(conn, to: page_path(conn, :index, search: search_params))
   end
+
+  defp get_db_query_params(store, search, rummage) do
+    search_params =
+    build_search_params(store, search)
+
+    initial_rummage =
+      build_initial_rummage_params(rummage, search_params)
+
+    {search_params, initial_rummage}
+  end
+
+
 
   defp build_initial_rummage_params(%{"sort" => %{"field" => _field}} = rummage,
                                     _search), do: rummage

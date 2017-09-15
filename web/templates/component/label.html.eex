@@ -1,5 +1,5 @@
 <%= if assigns[:params] do %>
-<a href="/?<%= assigns[:params] %>">
+<a href="/?<%= assigns[:params] %>" class="link">
 <% end %>
 <p class="normal br2 tc ph1 pv1 dib mv0 f6" style="background-color:<%= assigns[:label].label_hex %>; color:<%= assigns[:label].font_hex %>">
   <%= assigns[:label].label_name %>

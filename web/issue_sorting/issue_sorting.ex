@@ -139,4 +139,29 @@ defmodule Tudo.IssueSorting do
     end)
   end
 
+  def collect_issues(search_params, initial_rummage) do
+    case search_params do
+      nil ->
+        get_issues(initial_rummage)
+      search_params ->
+        case labels_to_search(search_params) do
+          [] ->
+            get_issues(initial_rummage, search_params)
+          labels ->
+            get_issues_by_labels(initial_rummage,
+                                 search_params,
+                                 labels)
+        end
+    end
+  end
+
+  def default_sort_by(rummage) do
+      if Map.get(rummage["sort"], "field") do
+        rummage
+      else
+        rummage
+        |> Map.put("sort", %{"field" => "gh_updated_at.desc"})
+      end
+  end
+
 end
