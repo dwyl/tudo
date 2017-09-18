@@ -21,13 +21,14 @@
             <% end %>
           <% end %>
       </select>
-      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2 mt2 mt0-l" %>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2 mt2 mt0-l mb1" %>
+
+
+      <button type="button" class="br2 bg-grey white bn pa2 mb1" disabled>Help wanted</button>
+
+      <%= button "Unlabelled", to: unlabelled_path(@conn, :index), class: "br2 dwyl-bg-mint white bn pa2 mb1", method: "get" %>
 
       <button type="button" id="opts" class="br2 dwyl-bg-mint white bn pa2 link">Search options &#x25BC;</button>
-
-      <button type="button" class="br2 bg-grey white bn pa2" disabled>Help wanted</button>
-
-      <%= button "Unlabelled", to: unlabelled_path(@conn, :index), class: "br2 dwyl-bg-mint white bn pa2", method: "get" %>
 
       <div id="filters" class="pa4 pl0 w-100 mw7" style="font-size: 0;">
         <fieldset id="labels" class="bn pa1 pl0 w6 dib" style="font-size: 0;">

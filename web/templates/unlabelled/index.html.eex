@@ -12,7 +12,7 @@
   <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
-      <label for="repo-search" class="black f4">Repo: </label>
+      <label for="repo-search" class="f5 db pb2 b">Repo name </label>
       <select class="" name="issue[repo_name]" id="repo-search">
         <option value=""></option>
           <%= for repo_name <- @repos do %>
