@@ -4,7 +4,12 @@
       <div class="mb3">
         <%= if assigns.labels do %>
           <%= for label <- assigns[:labels] do %>
-            <%= component("label", label: label)%>
+            <%= if assigns[:label_function] do %>
+              <%= component("label", label: label,
+                  params: assigns[:label_function].(assigns[:params], label))%>
+            <% else %>
+              <%= component("label", label: label)%>
+            <% end %>
           <% end %>
         <% end %>
       </div>
