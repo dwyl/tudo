@@ -52,7 +52,9 @@
         </td>
         <td class="tc">
           <%= for assignee <- generate_avatar(issue) do %>
-            <img src="https://www.github.com/<%= assignee %>.png" alt="<%= assignee %>'s github avatar'" class="w1plus br2">
+            <a href="https://www.github.com/<%= assignee %>" title="<%= assignee %>">
+              <img src="https://www.github.com/<%= assignee %>.png" alt="<%= assignee %>'s github avatar'" class="w1plus br2">
+            </a>
           <% end %>
         </td>
         <td class="w3 f6">
