@@ -9,7 +9,7 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn f -> %>
+  <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
       <label for="repo-search" class="black f4">Repo: </label>
