@@ -109,6 +109,10 @@
   searchOptions.addEventListener('click', function(e) {
     e.preventDefault();
 
-    filters.classList.toggle('dn')
+    if(filters.className.indexOf(" dn") !== -1) {
+      filters.className = filters.className.replace(" dn", "");
+    } else {
+      filters.className += " dn";
+    }
   });
 </script>
