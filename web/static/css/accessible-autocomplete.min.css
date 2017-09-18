@@ -1,8 +1,24 @@
 .autocomplete__wrapper {
   position: relative;
-  width: 40%;
+  width: 100%;
   display: inline-block;
 }
+
+@media (min-width: 60em) {
+  .autocomplete__wrapper {
+    width: 50%;
+  }
+}
+
+@media (min-width: 641px) {
+  .autocomplete__hint,
+  .autocomplete__input,
+  .autocomplete__option {
+    font-size: 19px;
+    line-height: 1.31579;
+  }
+}
+
 .autocomplete__hint,
 .autocomplete__input {
   -webkit-appearance: none;
