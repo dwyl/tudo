@@ -1,16 +1,18 @@
 defmodule Tudo.UnlabelledController do
   use Tudo.Web, :controller
-  alias Tudo.{Issue, Repo}
+  alias Tudo.{Issue, Repo, IssueSorting}
   alias Rummage.Ecto
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
+    initial_rummage = IssueSorting.default_sort_by(params["rummage"])
+
     {issues, rummage} =
       case params do
-        %{"rummage" => rummage_param, "search" => search_term} ->
-          get_issues_no_labels(rummage_param, search_term)
+        %{"rummage" => _rummage, "search" => search_term} ->
+          get_issues_no_labels(initial_rummage, search_term)
         _ ->
-          get_issues_no_labels(params["rummage"])
+          get_issues_no_labels(initial_rummage)
       end
 
     render conn,
