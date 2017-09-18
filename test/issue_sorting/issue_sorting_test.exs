@@ -4,8 +4,6 @@ defmodule Tudo.IssueSortingTest do
 
   alias Tudo.IssueSorting
 
-
-
   @labels_some_true %{"awaiting-review" => "true", "discuss" => "true",
   "enhancement" => "true", "priority-1" => "false", "priority-2" => "false",
   "repo_name" => ""}
@@ -158,5 +156,4 @@ defmodule Tudo.IssueSortingTest do
     assert repo_name == "b"
     assert length(actual) == expected
   end
-
 end
