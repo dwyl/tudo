@@ -43,8 +43,8 @@ defmodule Tudo.GithubApiTest do
     assert length(actual) == expected_length
   end
 
-  test "get_help_wanted_issues :: dwyl/tudo" do
-    actual = GithubApi.get_help_wanted_issues("dwyl/tudo")
+  test "get_all_issues :: dwyl/tudo" do
+    actual = GithubApi.get_all_issues("dwyl/tudo")
     expected = [
       %{"title" => "Issue title",
         "labels" => [%{"name" => "help wanted",
@@ -95,5 +95,15 @@ defmodule Tudo.GithubApiTest do
     expected = %{}
 
     assert actual == expected
+  end
+
+  test "help_wanted_or_no_labels?" do
+      empty = %{"labels" => []}
+      help_wanted = %{"labels" => [%{"name" => "help wanted"}]}
+      neither = %{"labels" => [%{"name" => "enhancement"}]}
+
+      assert GithubApi.help_wanted_or_no_labels?(empty) === true
+      assert GithubApi.help_wanted_or_no_labels?(help_wanted) === true
+      assert GithubApi.help_wanted_or_no_labels?(neither) === false
   end
 end

@@ -9,48 +9,24 @@
 
 <section class="tl center ph2 dwyl-dark-gray">
 
-  <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
+  <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn _f -> %>
     <div class="center db w-80">
 
       <label for="repo-search" class="f5 db pb2 b">Repo name </label>
       <select class="" name="issue[repo_name]" id="repo-search">
-        <option value="<%= @rummage["search"]["repo_name"]["search_term"] %>"><%= @rummage["search"]["repo_name"]["search_term"] %></option>
+        <option value=""></option>
           <%= for repo_name <- @repos do %>
-            <%= unless @rummage["search"]["repo_name"]["search_term"] === repo_name do %>
-              <option value="<%= repo_name %>"><%= repo_name %></option>
-            <% end %>
+            <option value="<%= repo_name %>"><%= repo_name %></option>
           <% end %>
       </select>
-      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2 mt2 mt0-l mb1" %>
 
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
 
-      <button type="button" class="br2 bg-grey white bn pa2 mb1" disabled>Help wanted</button>
-
-      <%= button "Unlabelled", to: unlabelled_path(@conn, :index), class: "br2 dwyl-bg-mint white bn pa2 mb1", method: "get" %>
-
-      <button type="button" id="opts" class="br2 dwyl-bg-mint white bn pa2 link">Search options &#x25BC;</button>
-
-      <div id="filters" class="pa4 pl0 w-100 mw7" style="font-size: 0;">
-        <fieldset id="labels" class="bn pa1 pl0 w6 dib" style="font-size: 0;">
-          <legend class="fw7 mb2 dib f5">Labels</legend>
-      <%= for label <- allowed_labels() do %>
-        <%= unless label === "help wanted" do %>
-            <div class="dib mr1 mb1">
-              <label class="f6 f5-ns db pa2 dark-gray ba b--black-20">
-                  <%= checkbox f,
-                     String.to_atom(label),
-                     value: checkbox_value(@conn.query_params, label),
-                     class: "mr1" %><%= label %>
-              </label>
-            </div>
-        <% end %>
-      <% end %>
-        </fieldset>
-      </div>
-
-      <%= hidden_input f, :sort_by, value: @rummage["sort"]["field"] %>
+      <%= button "Help wanted", to: page_path(@conn, :index), class: "br2 dwyl-bg-mint white bn pa2", method: "get"%>
+      <button class="br2 bg-grey white bn pa2" disabled>Unlabelled</button>
     </div>
   <% end %>
+
 
   <table class="w-80 center dn db-ns">
     <thead>
@@ -58,23 +34,20 @@
         <th><%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %></th>
         <th><%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %></th>
         <th><%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %></th>
-        <th class="pv3">Title</th>
+        <th class="pv3 pl3">Title</th>
         <th class="pv3">Assignees</th>
       </tr>
     </thead>
     <tbody>
       <%= for issue <- @issues do %>
       <tr class="h2">
-        <td class="pr2"><%= issue."repo_name"%></td>
-        <td class="pr2 w4"> <%= issue.gh_created_at %></td>
-        <td class="pr2 w4"> <%= issue.gh_updated_at %></td>
-        <td class="pr3 b">
+        <td class="pl2"><%= issue."repo_name"%></td>
+        <td class="pl2 w4"> <%= issue.gh_created_at %></td>
+        <td class="pl2 w4"> <%= issue.gh_updated_at %></td>
+        <td class="pl3 b">
           <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
             <%= issue."title"%>
           </a>
-          <%= for label <- get_label_data(issue) do %>
-            <%= component("label", label: label, params: insert_params(@conn.query_string, label)) %>
-          <% end %>
         </td>
         <td class="tc">
           <%= for assignee <- generate_avatar(issue) do %>
@@ -94,31 +67,14 @@
     </tbody>
   </table>
   <div class="dn-ns tc">
-    <div class="p3 mt3">
+    <div class="p3">
       Sort by: <%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %>,
       <%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %>,
       <%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %>
     </div>
     <%= for issue <- @issues do %>
-      <%= component("issue_card", issue: issue, labels: get_label_data(issue), params: @conn.query_string, label_function: &insert_params/2) %>
+      <%= component("issue_card", issue: issue, labels: nil ) %>
     <% end %>
   </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
-
-<script>
-  var searchOptions = document.getElementById('opts');
-  var filters = document.getElementById('filters');
-
-  filters.className += " dn"
-
-  searchOptions.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    if(filters.className.indexOf(" dn") !== -1) {
-      filters.className = filters.className.replace(" dn", "");
-    } else {
-      filters.className += " dn";
-    }
-  });
-</script>

@@ -59,6 +59,9 @@ defmodule Tudo.HTTPoison.InMemory do
     }]
   end
 
+  defp get!("/repos/dwyl/tudo/issues"), do:
+    get!("/repos/dwyl/tudo/issues?labels=help%20wanted")
+
   defp get!("/repos/dwyl/tudo/hooks") do
     [%{"name" => "web",
        "id" => 1,

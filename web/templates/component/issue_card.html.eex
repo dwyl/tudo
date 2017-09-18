@@ -2,11 +2,14 @@
   <div class="ba w-80 pa3 center br2 b--black-30 shadow-2">
       <p class="b f5 mt0"><%= assigns[:issue].title %></p>
       <div class="mb3">
-        <%= for label <- assigns[:labels] do %>
-          <%= if assigns[:label_function] do %>
-            <%= component("label", label: label, params: assigns[:label_function].(assigns[:params], label))%>
-          <% else %>
-            <%= component("label", label: label)%>
+        <%= if assigns.labels do %>
+          <%= for label <- assigns[:labels] do %>
+            <%= if assigns[:label_function] do %>
+              <%= component("label", label: label,
+                  params: assigns[:label_function].(assigns[:params], label))%>
+            <% else %>
+              <%= component("label", label: label)%>
+            <% end %>
           <% end %>
         <% end %>
       </div>
