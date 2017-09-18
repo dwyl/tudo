@@ -12,21 +12,20 @@
   <%= form_for @changeset, unlabelled_path(@conn, :search), [method: "get"], fn f -> %>
     <div class="center db w-80">
 
-      <label class="pl2">
-        Repo: <%= text_input f, :repo_name, list: "repos"%>
-      </label>
+      <label for="repo-search" class="black f4">Repo: </label>
+      <select class="" name="issue[repo_name]" id="repo-search">
+        <option value=""></option>
+          <%= for repo_name <- @repos do %>
+            <option value="<%= repo_name %>"><%= repo_name %></option>
+          <% end %>
+      </select>
 
-      <%= submit "Submit" %>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
 
-      <%= button "Help wanted", to: page_path(@conn, :index), class: "dib tr", method: "get"%>
-      <button class="dib tr" disabled>Unlabelled</button>
+      <%= button "Help wanted", to: page_path(@conn, :index), class: "br2 dwyl-bg-mint white bn pa2", method: "get"%>
+      <button class="br2 bg-grey white bn pa2" disabled>Unlabelled</button>
     </div>
   <% end %>
-  <datalist id="repos">
-    <%= for repo_name <- @repos do %>
-      <option value= <%= repo_name %> />
-    <% end %>
-  </datalist>
 
 
   <table class="w-80 center dn db-ns">

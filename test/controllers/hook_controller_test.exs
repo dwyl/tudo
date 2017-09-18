@@ -68,7 +68,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.title == "New Title"
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue comment is created", %{conn: conn} do
@@ -103,7 +104,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.comments_number == 1
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue comment is deleted", %{conn: conn} do
@@ -138,7 +140,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.comments_number == 0
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue is opened", %{conn: conn} do
@@ -157,7 +160,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.title == "Labeled issue"
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue is closed", %{conn: conn} do
@@ -188,7 +192,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.state == "closed"
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue is reopened :: not in db", %{conn: conn} do
@@ -226,7 +231,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.title == "Reopened issue"
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue is reopened :: already in db", %{conn: conn} do
@@ -275,7 +281,8 @@ defmodule Tudo.HookControllerTest do
 
     assert issue != default_issue
     assert issue == %{default_issue | state: "open"}
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue has label added :: not in db", %{conn: conn} do
@@ -339,7 +346,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by(Issue, url: "#{@gh_prefix}/issues/1")
 
     assert issue == nil
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
 
   end
 
@@ -360,7 +368,8 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.labels == ["#009800;help wanted"]
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "help wanted issue has label removed leaving no labels", %{conn: conn} do
@@ -377,10 +386,11 @@ defmodule Tudo.HookControllerTest do
 
     conn = post conn, hook_path(conn, :create), opts
 
-    issueNoLabel = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
+    issue_no_label = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
 
-    assert issueNoLabel.labels == []
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert issue_no_label.labels == []
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "non-help wanted issue has label removed leaving no labels", %{conn: conn} do
@@ -396,16 +406,17 @@ defmodule Tudo.HookControllerTest do
 
     conn = post conn, hook_path(conn, :create), opts
 
-    issueNoLabel = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
+    issue_no_label = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
 
-    assert issueNoLabel.labels == []
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert issue_no_label.labels == []
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "help wanted issue with other labels has help wanted removed", %{conn: conn} do
     insert_issue(%{labels: ["#009800;help wanted", "#fff;testissue"]})
 
-    testLabel = [%{"name" => "testissue", "color" => "fff"}]
+    test_label = [%{"name" => "testissue", "color" => "fff"}]
 
     issue_params = %{"body" => "Labeled issue body",
                      "title" => "Labeled issue",
@@ -413,7 +424,7 @@ defmodule Tudo.HookControllerTest do
                      "comments" => 2,
                      "html_url" => "#{@gh_prefix}/issues/1",
                      "updated_at" => "2011-04-22T13:33:48Z",
-                     "labels" => testLabel}
+                     "labels" => test_label}
     opts = [action: "unlabeled",
             issue: issue_params]
 
@@ -440,8 +451,10 @@ defmodule Tudo.HookControllerTest do
 
     issue = Repo.get_by! Issue, url: "#{@gh_prefix}/issues/1"
 
-    assert issue.assignees == ["shouston3;https://avatars3.githubusercontent.com/u/15983736?v=4&u=8b6cfb76f2bf2c65dc0b215e179abe1d4cf9c42a&s=400"]
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert issue.assignees ==
+      ["shouston3;https://avatars3.githubusercontent.com/u/15983736?v=4&u=8b6cfb76f2bf2c65dc0b215e179abe1d4cf9c42a&s=400"]
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 
   test "issue has an assignee added when no labels", %{conn: conn} do
@@ -494,6 +507,7 @@ defmodule Tudo.HookControllerTest do
     issue = Repo.get_by Issue, url: "#{@gh_prefix}/issues/1"
 
     assert issue.assignees == []
-    assert json_response(conn, 200) == ~s({"errors": 0, "message": "thankyou"}\n)
+    assert json_response(conn, 200) ==
+      ~s({"errors": 0, "message": "thankyou"}\n)
   end
 end
