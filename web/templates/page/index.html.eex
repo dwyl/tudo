@@ -12,7 +12,7 @@
   <%= form_for @changeset, page_path(@conn, :search), [method: "get"], fn f -> %>
     <div class="center db w-80">
 
-      <label for="repo-search" class="black f4">Repo: </label>
+      <label for="repo-search" class="f5 db pb2 b">Repo name </label>
       <select class="" name="issue[repo_name]" id="repo-search">
         <option value="<%= @rummage["search"]["repo_name"]["search_term"] %>"><%= @rummage["search"]["repo_name"]["search_term"] %></option>
           <%= for repo_name <- @repos do %>
@@ -21,20 +21,30 @@
             <% end %>
           <% end %>
       </select>
+      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2 mt2 mt0-l" %>
 
+      <button type="button" id="opts" class="br2 dwyl-bg-mint white bn pa2 link">Search options &#x25BC;</button>
+
+      <div id="filters" class="pa4 pl0 w-100 mw7" style="font-size: 0;">
+        <fieldset id="labels" class="bn pa1 pl0 w6 dib" style="font-size: 0;">
+          <legend class="fw7 mb2 dib f5">Labels</legend>
       <%= for label <- allowed_labels() do %>
         <%= unless label === "help wanted" do %>
-          <label>
-            <%= label %>: <%= checkbox f,
-                             String.to_atom(label),
-                             value: checkbox_value(@conn.query_params, label) %>
-          </label>
+            <div class="dib mr1 mb1">
+              <label class="f6 f5-ns db pa2 dark-gray ba b--black-20">
+                  <%= checkbox f,
+                     String.to_atom(label),
+                     value: checkbox_value(@conn.query_params, label),
+                     class: "mr1" %><%= label %>
+              </label>
+            </div>
         <% end %>
       <% end %>
+        </fieldset>
+      </div>
 
       <%= hidden_input f, :sort_by, value: @rummage["sort"]["field"] %>
 
-      <%= submit "Submit", class: "br2 dwyl-bg-mint white bn pa2" %>
     </div>
   <% end %>
 
@@ -44,17 +54,17 @@
         <th><%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %></th>
         <th><%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %></th>
         <th><%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %></th>
-        <th class="pv3 pl3">Title</th>
+        <th class="pv3">Title</th>
         <th class="pv3">Assignees</th>
       </tr>
     </thead>
     <tbody>
       <%= for issue <- @issues do %>
       <tr class="h2">
-        <td class="pl2"><%= issue."repo_name"%></td>
-        <td class="pl2 w4"> <%= issue.gh_created_at %></td>
-        <td class="pl2 w4"> <%= issue.gh_updated_at %></td>
-        <td class="pl3 b">
+        <td class="pr2"><%= issue."repo_name"%></td>
+        <td class="pr2 w4"> <%= issue.gh_created_at %></td>
+        <td class="pr2 w4"> <%= issue.gh_updated_at %></td>
+        <td class="pr3 b">
           <a href="<%= issue."url"%>" class="link dwyl-dark-gray">
             <%= issue."title"%>
           </a>
@@ -78,7 +88,7 @@
     </tbody>
   </table>
   <div class="dn-ns tc">
-    <div class="p3">
+    <div class="p3 mt3">
       Sort by: <%= sort_link @conn, @rummage, field: :repo_name, name: "Repo" %>,
       <%= sort_link @conn, @rummage, field: :gh_created_at, name: "Created" %>,
       <%= sort_link @conn, @rummage, field: :gh_updated_at, name: "Updated" %>
@@ -89,3 +99,16 @@
   </div>
 </section>
 <%= pagination_link(@conn, @rummage) %>
+
+<script>
+  var searchOptions = document.getElementById('opts');
+  var filters = document.getElementById('filters');
+
+  filters.className += " dn"
+
+  searchOptions.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    filters.classList.toggle('dn')
+  });
+</script>
