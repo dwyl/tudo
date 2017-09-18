@@ -24,8 +24,12 @@ GithubApi.get_repos("dwyl")
 |> Enum.map(&Task.await(&1, timeout))
 |> List.flatten
 |> Enum.map(&GithubApi.format_data/1)
-|> Enum.each(fn issue ->
-    %Issue{}
-    |> Issue.changeset(issue)
-    |> Repo.insert!
+|> Enum.each(fn (%{"url" => html_url} = issue) ->
+    unless Repo.get_by(Issue, url: html_url) do
+      %Issue{}
+      |> Issue.changeset(issue)
+      |> Repo.insert!
+    else
+      IO.puts "issue already exists in DB: #{issue["title"] }"
+    end
   end)
