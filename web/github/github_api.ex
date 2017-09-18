@@ -6,6 +6,7 @@ defmodule Tudo.GithubApi do
   """
 
   require Poison
+  alias Tudo.HookController
 
   # Following mocking convention outlined here:
   # http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/
@@ -57,10 +58,10 @@ defmodule Tudo.GithubApi do
   @doc"""
   Gets all issues for a given :org/:repo, takes a string of the form: :org/:repo
   Retuns a list of maps where each map contains data for one repo issue
-  E.g. get_help_wanted_issues("dwyl/tudo") => [%{"state" => "open", ...}, ...]
+  E.g. get_all_issues("dwyl/tudo") => [%{"state" => "open", ...}, ...]
   """
-  def get_help_wanted_issues(orgrepo),
-    do: get! "/repos/#{orgrepo}/issues?labels=help%20wanted"
+  def get_all_issues(orgrepo),
+    do: get! "/repos/#{orgrepo}/issues"
 
   @doc"""
   Takes in an issue and formats it for our db format
@@ -108,4 +109,20 @@ defmodule Tudo.GithubApi do
     |> Regex.run(html_url)
     |> Enum.at(1)
   end
+
+  @doc"""
+    Takes in an issue, and returns true if it has no labels
+      iex>has_no_labels?(%{"labels" => [1, 2, 3]})
+      false
+      iex>has_no_labels?(%{"labels" => []})
+      true
+  """
+  def has_no_labels?(%{"labels" => labels}) do
+    length(labels) === 0
+  end
+
+  def help_wanted_or_no_labels?(issue) do
+    has_no_labels?(issue) or HookController.has_help_wanted?(issue["labels"])
+  end
+
 end

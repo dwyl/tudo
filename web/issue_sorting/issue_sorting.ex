@@ -9,10 +9,23 @@ defmodule Tudo.IssueSorting do
   use Rummage.Phoenix.Controller
 
   def get_issues(rummage_param) do
-    {query, rummage} = Issue
-      |> Ecto.rummage(rummage_param)
+    rummage_param =
+      rummage_param || %{"paginate" => %{}, "search" => %{}, "sort" => %{}}
 
-    {Repo.all(query), rummage}
+    rummaging =
+      rummage_param
+      |> Map.put(
+      "search",
+      Map.merge(rummage_param["search"], %{"labels" => %{"assoc" => [],
+                      "search_term" => [""],
+                      "search_type" => "gt"}})
+                )
+
+    {query, rummage} = Issue
+      |> Ecto.rummage(rummaging)
+
+    issues = Repo.all(query)
+    {issues, rummage}
   end
 
   def get_issues(rummage_param, search_params) do
