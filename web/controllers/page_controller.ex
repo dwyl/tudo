@@ -1,6 +1,7 @@
 defmodule Tudo.PageController do
   use Tudo.Web, :controller
   alias Tudo.{Issue, Repo, IssueSorting}
+  alias Ecto.Date
   use Rummage.Phoenix.Controller
 
   def index(conn, params) do
@@ -17,6 +18,10 @@ defmodule Tudo.PageController do
 
     rummage = IssueSorting.default_sort_by(rummage)
 
+    # Sorted list when the page initially loads
+    # Fix for: https://github.com/dwyl/tudo/issues/260
+    issues = sort_issues_by_gh_updated_at issues
+
     render conn,
       "index.html",
       issues: issues,
@@ -24,6 +29,12 @@ defmodule Tudo.PageController do
       rummage: rummage,
       changeset: Issue.changeset(%Issue{}),
       repos: get_repos()
+  end
+
+  def sort_issues_by_gh_updated_at(issues) do
+    Enum.sort issues, fn %{gh_updated_at: d1}, %{gh_updated_at: d2} ->
+      Date.compare(d1, d2) == :gt
+    end
   end
 
   def search(conn, %{"issue" => search_params}) do
