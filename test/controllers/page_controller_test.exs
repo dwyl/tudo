@@ -1,5 +1,9 @@
 defmodule Tudo.PageControllerTest do
   use Tudo.ConnCase
+  doctest Tudo.PageController, import: true
+
+  alias Tudo.PageController
+  alias Ecto.Date
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/", %{"rummage" => %{"paginate" => %{}, "search" => %{}, "sort" => %{}}})
@@ -81,4 +85,16 @@ defmodule Tudo.PageControllerTest do
     assert html_response(conn, 200) =~ "Help Wanted"
   end
 
+  test "sort_issues_by_gh_updated_at" do
+    erl_dates = [{2016, 12, 1}, {2015, 11, 4}, {2017, 5, 3}]
+
+    unordered_issues = Enum.map erl_dates, &(%{gh_updated_at: Date.from_erl &1})
+
+    sorted_issues = PageController.sort_issues_by_gh_updated_at unordered_issues
+
+    actual = Enum.map sorted_issues, &(Date.to_erl &1.gh_updated_at)
+    expected = Enum.sort erl_dates, &(&1 > &2)
+
+    assert actual == expected
+  end
 end
