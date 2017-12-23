@@ -12,10 +12,10 @@ defmodule Tudo.PageController do
        params["rummage"]
       )
 
+    initial_rummage = IssueSorting.default_sort_by(initial_rummage)
+
     {issues, rummage} =
       IssueSorting.collect_issues(search_params, initial_rummage)
-
-    rummage = IssueSorting.default_sort_by(rummage)
 
     render conn,
       "index.html",
